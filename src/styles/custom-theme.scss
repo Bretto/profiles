@@ -1,0 +1,41 @@
+@import '~@angular/material/theming';
+@include mat-core();
+
+
+@mixin vars-mixin($mat-color) {
+  $primary: mat-color($mat-color, 700);
+  $secondary: mat-color($mat-color, 500);
+
+  $primary-palette: mat-palette($mat-color, 700);
+  $accent-palette: mat-palette($mat-color, 500);
+  $theme: mat-light-theme($primary-palette, $accent-palette);
+
+
+
+  mat-expansion-panel {
+
+    mat-expansion-panel-header {
+      background: $primary !important;
+    }
+
+    .mat-expansion-panel-body {
+      padding: .5rem 1rem;
+    }
+  }
+
+  @include angular-material-theme($theme);
+}
+
+
+@include vars-mixin($mat-blue);
+
+.Véhicule {
+  @include vars-mixin($mat-red);
+}
+
+.Immobilier {
+  @include vars-mixin($mat-deep-orange);
+}
+
+
+

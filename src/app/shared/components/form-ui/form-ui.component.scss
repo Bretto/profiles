@@ -1,0 +1,36 @@
+button {
+  margin: .5rem;
+}
+
+.alert-btn {
+  margin: 0;
+  //background: #ff0000 !important;
+  //color: white !important;
+
+  fa-icon {
+    //color: #fff;
+    margin-right: .5rem;
+  }
+}
+
+mat-progress-spinner {
+  margin: .5rem;
+}
+
+.spinner-wrap {
+  width: 88px;
+}
+
+.error-msg {
+  background: #ff000030;
+  padding: .5rem 1rem;
+  color: red;
+  border-radius: .2rem;
+}
+
+.success-msg {
+  background: #00ff0030;
+  padding: .5rem 1rem;
+  color: green;
+  border-radius: .2rem;
+}

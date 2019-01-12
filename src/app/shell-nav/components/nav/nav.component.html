@@ -1,0 +1,14 @@
+<nav fxLayout="column" fxFlex="">
+  <div class="nav-item" fxLayout="row" *ngIf="hasBack" (click)="onBack()">
+    <fa-icon class="back-btn" icon="chevron-left"></fa-icon>
+    <span>Back</span>
+  </div>
+  <div class="nav-item" fxLayout="row" *ngIf="!hasBack">
+    <fa-icon class="back-btn" icon="home"></fa-icon>
+    <span>Nav</span>
+  </div>
+  <div class="nav-item" *ngFor="let nav of navs" fxLayout="row">
+    <span [routerLink]="['/nav/main', {outlets: {'page': [nav.pageId]}}]" routerLinkActive="active">{{nav.name}}</span>
+    <fa-icon *ngIf="nav.next" icon="chevron-right" (click)="onNav(nav)"></fa-icon>
+  </div>
+</nav>

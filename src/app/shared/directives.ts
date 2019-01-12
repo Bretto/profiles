@@ -1,0 +1,39 @@
+import {AfterViewInit, Directive, ElementRef, EventEmitter, Input, Output} from '@angular/core';
+import {FormGroup} from '@angular/forms';
+import {Observable, of} from 'rxjs';
+
+@Directive({
+  selector: '[appPatchForm]'
+})
+export class PatchFormDirective {
+
+  @Input() appPatchForm: any;
+  @Input() formGroup: FormGroup;
+
+  constructor() {
+    console.log('PatchFormDirective');
+  }
+
+  ngOnInit() {
+    this.formGroup.patchValue(this.appPatchForm);
+  }
+
+}
+
+@Directive({selector: '[OnLoad]'})
+export class OnLoadDirective implements AfterViewInit {
+  @Output() imageLoaded: EventEmitter<boolean> = new EventEmitter<boolean>(true);
+
+  constructor(private el: ElementRef) {
+  }
+
+  ngAfterViewInit() {
+    of(window.getComputedStyle(this.el.nativeElement).backgroundImage)
+      .subscribe(style => {
+        if (style) {
+          this.imageLoaded.emit(true);
+        }
+      });
+  }
+
+}

@@ -1,0 +1,7 @@
+<p>
+  home works!
+</p>
+
+<button mat-raised-button routerLink="auth">Login</button>
+<button mat-raised-button [routerLink]="['nav/main', {outlets: {'page': ['1'], 'nav': ['1']}}]">Nav</button>
+<button mat-raised-button (click)="onResetDB()">Reset DB</button>

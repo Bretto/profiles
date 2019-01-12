@@ -1,0 +1,20 @@
+<app-sticky-header [(isVisible)]="isVisible">
+  <mat-toolbar color="primary" class="mat-elevation-z4 top-toolbar">
+    <ng-container #headerContainer></ng-container>
+  </mat-toolbar>
+</app-sticky-header>
+
+
+<section fxLayout="row" fxFlex="">
+  <div class="nav-wrap" fxFlex="25" fxLayout="column" [@routeAnimation]="prepareRouteTransition(navRouterOutlet)">
+    <router-outlet #navRouterOutlet="outlet" name="nav"></router-outlet>
+  </div>
+
+  <div class="page-wrap" fxFlex="" fxLayout="column" [@routeAnimation]="prepareRouteTransition(pageRouterOutlet)">
+    <router-outlet #pageRouterOutlet="outlet" name="page"></router-outlet>
+  </div>
+</section>
+
+
+
+

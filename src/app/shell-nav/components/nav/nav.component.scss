@@ -1,0 +1,42 @@
+:host {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  background: #f5f5f5;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
+
+
+.nav-item {
+
+  border-bottom: solid 1px #ddd;
+  border-top: solid 1px #fff;
+  background: #eee;
+
+  span {
+    outline: none;
+    padding: 1rem;
+    display: flex;
+    flex: 1;
+  }
+
+  fa-icon {
+    padding: 1rem 1.3rem;
+    background: #f5f5f5;
+  }
+}
+
+
+
+.active {
+  border-left: solid .25rem #1976d2;
+}
+
+.back-btn {
+  padding-right: 0 !important;
+  background: none !important;
+}

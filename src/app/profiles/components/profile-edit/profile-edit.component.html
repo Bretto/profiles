@@ -1,0 +1,38 @@
+<div class="profile-edit-wrap" cdkScrollable>
+  <div class="card-wrap">
+    <ng-container *ngIf="profile$ | async as profile">
+      <mat-card [formGroup]="form">
+        <mat-card-header>
+          <div  *ngIf="profile.pic"  mat-card-avatar class="thumb" [style.background-image]="'url(' + profile.pic + ')'"></div>
+          <mat-card-title>{{fullName}}</mat-card-title>
+          <mat-card-subtitle>Dog Breed</mat-card-subtitle>
+        </mat-card-header>
+        <img  *ngIf="profile.pic"  mat-card-image [src]="profile.pic">
+        <mat-card-content>
+
+          <mat-form-field>
+            <input matInput placeholder="First name" formControlName="firstName">
+          </mat-form-field>
+
+          <mat-form-field>
+            <input matInput placeholder="Last name" formControlName="lastName">
+          </mat-form-field>
+
+          <mat-form-field>
+            <textarea matInput placeholder="Bio" formControlName="bio"></textarea>
+          </mat-form-field>
+
+        </mat-card-content>
+
+        <mat-card-actions>
+          <app-form-ui [formRes]="formRes"
+                       (submit)="onSubmit()" (cancel)="onCancel()" (delete)="onDelete()"></app-form-ui>
+        </mat-card-actions>
+      </mat-card>
+    </ng-container>
+  </div>
+</div>
+
+
+
+

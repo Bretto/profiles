@@ -1,0 +1,32 @@
+@import 'custom-vars';
+
+:host {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  overflow: hidden;
+}
+
+.page-wrap {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  margin-top: 4rem;
+  position: relative;
+  overflow: hidden;
+}
+
+
+.nav-wrap {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  margin-top: 4rem;
+  position: relative;
+  overflow: hidden;
+}
+
+
+
+
+

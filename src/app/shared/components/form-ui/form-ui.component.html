@@ -1,0 +1,42 @@
+<div fxLayout="column">
+  <div fxLayout="row">
+
+    <mat-progress-spinner
+      *ngIf="isPending"
+      color="accent"
+      diameter="40"
+      mode="indeterminate">
+    </mat-progress-spinner>
+
+    <button type="button" (click)="onSubmit(form.value)"
+            *ngIf="!isPending"
+            mat-raised-button
+            class="save-btn"
+            [disabled]="form.invalid">Save
+    </button>
+
+    <button type="button" (click)="onCancel()"
+            *ngIf="!isPending"
+            mat-raised-button
+            [disabled]="form.pristine">Cancel
+    </button>
+
+    <button type="button"
+            *ngIf="isEditing && !isPending"
+            [matMenuTriggerFor]="menu"
+            mat-raised-button>Delete
+    </button>
+
+    <mat-menu #menu="matMenu">
+      <button class="alert-btn" mat-menu-item (click)="onDelete()">
+        <fa-icon icon="exclamation-triangle"></fa-icon>
+        <span>Confirmer la suppression</span>
+      </button>
+    </mat-menu>
+
+  </div>
+  <p class="error-msg" *ngIf="errorMsg">{{errorMsg}}</p>
+  <p class="success-msg" *ngIf="successMsg">{{successMsg}}</p>
+</div>
+
+

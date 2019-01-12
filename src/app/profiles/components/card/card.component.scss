@@ -1,0 +1,35 @@
+:host {
+  margin: .5rem;
+  display: flex;
+  flex-direction: column;
+  flex-shrink: 0;
+}
+
+mat-card {
+  position: relative;
+
+  &.deleted :after {
+    content: '';
+    position: absolute;
+    border-radius: 4px;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: rgba(0, 0, 0, 0.15);
+  }
+}
+
+.thumb {
+  background-size: cover;
+}
+
+mat-spinner {
+
+}
+
+.img-wrap {
+  background: #eee;
+}
+
+

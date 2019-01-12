@@ -1,0 +1,10 @@
+<div class="cards-wrap" #cards cdkScrollable>
+  <ng-container *ngIf="profiles$ | async as profiles; else loader">
+    <app-card *ngFor="let profile of profiles; let i = index"
+              [profile]="profile" (select_)="onSelect($event)" (scrollIntoView_)="onScrollIntoView($event)"></app-card>
+  </ng-container>
+</div>
+
+<ng-template #loader>
+  <p>Loading...</p>
+</ng-template>
