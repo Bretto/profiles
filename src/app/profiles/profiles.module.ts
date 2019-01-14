@@ -5,7 +5,7 @@ import {ProfilesRoutingModule} from './profiles-routing.module';
 import {CardComponent} from './components/card/card.component';
 import {ProfileEditComponent} from './components/profile-edit/profile-edit.component';
 import {StoreModule} from '@ngrx/store';
-import {getReducers} from './profiles.reducers';
+import {getReducers} from './profiles.reducer';
 import {ProfilesEffects} from './profiles.effects';
 import {EffectsModule} from '@ngrx/effects';
 

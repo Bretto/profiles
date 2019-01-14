@@ -8,14 +8,21 @@ export const callService = (serviceFn: ServiceFn) => {
   return switchMap((cmd: Command<any, any>) => serviceFn(cmd.payload)
     .pipe(
       map((res) => {
-        // debugger
-        // return cmd.success(res);
-        return res;
+        return cmd.success(res);
       }),
       catchError(err => {
         const errEvent = {...cmd, type: cmd.type + '_COMPLETE', error: err};
         return cmd.failure(errEvent);
       })
     ));
+};
+
+export  const setStateWithService = (propName: string, serviceFn: ServiceFn) => {
+  return switchMap((cmd: Command<any, any>) => serviceFn(cmd.payload)
+    .pipe( map(res => ({type: cmd.type + '_COMPLETE', payload: {propName, value: res}}))));
+};
+
+export  const setState = (propName: string) => {
+  return map((cmd: Command<any, any>) => ({type: cmd.type + '_COMPLETE', payload: {propName, value: cmd.payload}}));
 };
 

@@ -10,6 +10,7 @@ import {ScrollingModule} from '@angular/cdk/scrolling';
 import {TemplatesComponent} from './components/templates/templates.component';
 import {StickyHeaderComponent} from './components/sticky-header/sticky-header.component';
 import {RouterModule} from '@angular/router';
+import {UiModule} from '../ui/ui.module';
 
 const modules = [
   ...materials,
@@ -17,7 +18,8 @@ const modules = [
   ReactiveFormsModule,
   FontAwesome,
   ScrollingModule,
-  RouterModule
+  RouterModule,
+  UiModule
 ];
 
 const exports = [

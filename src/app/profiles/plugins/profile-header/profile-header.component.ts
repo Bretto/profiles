@@ -20,4 +20,8 @@ export class ProfileHeaderComponent implements OnInit {
     this.router.navigate(['/auth'], {relativeTo: this.activatedRoute});
   }
 
+  onMenu() {
+
+  }
+
 }

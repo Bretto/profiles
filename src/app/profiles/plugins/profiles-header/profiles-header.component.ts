@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {UiCommands} from '../../../ui/ui.commands';
 
 @Component({
   selector: 'app-profiles-header',
@@ -7,7 +8,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ProfilesHeaderComponent implements OnInit {
 
-  constructor() { }
+  constructor(private uiCommands: UiCommands) { }
 
   ngOnInit() {
   }
@@ -16,4 +17,7 @@ export class ProfilesHeaderComponent implements OnInit {
     console.log('on ADD');
   }
 
+  onMenu() {
+    this.uiCommands.openMenu(true);
+  }
 }

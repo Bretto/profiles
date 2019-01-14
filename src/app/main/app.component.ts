@@ -1,4 +1,5 @@
 import {Component} from '@angular/core';
+import {UiCommands} from '../ui/ui.commands';
 
 @Component({
   selector: 'app-root',
@@ -6,6 +7,12 @@ import {Component} from '@angular/core';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
+
+  constructor() {
+
+  }
+
+
 
 }
 
