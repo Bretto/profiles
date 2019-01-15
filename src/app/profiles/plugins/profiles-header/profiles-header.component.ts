@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {UiCommands} from '../../../ui/ui.commands';
+import {Observable} from 'rxjs';
+import {UiProjection} from '../../../ui/ui.projections';
 
 @Component({
   selector: 'app-profiles-header',
@@ -7,8 +9,9 @@ import {UiCommands} from '../../../ui/ui.commands';
   styleUrls: ['./profiles-header.component.scss']
 })
 export class ProfilesHeaderComponent implements OnInit {
+  isHandset$: Observable<any> = this.uiProj.getBreakpoint$();
 
-  constructor(private uiCommands: UiCommands) { }
+  constructor(private uiCommands: UiCommands, private uiProj: UiProjection) { }
 
   ngOnInit() {
   }

@@ -36,3 +36,18 @@ mat-card-content {
 .header-visible{
   padding-top: 4rem;
 }
+
+mat-card {
+  //height: 1000px;
+}
+
+
+.spinner-wrap {
+  background: #eee;
+  border: solid #ddd 1px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 300px;
+}
+

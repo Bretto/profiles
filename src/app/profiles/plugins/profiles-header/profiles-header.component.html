@@ -1,5 +1,6 @@
 <div fxLayout="row" fxLayoutAlign="space-between center">
-  <fa-icon icon="bars" (click)="onMenu()" ></fa-icon>
+  <fa-icon icon="bars" (click)="onMenu()" *ngIf="isHandset$ | async" ></fa-icon>
+  <span></span>
   <fa-icon icon="user-plus" routerLink="profile/new" ></fa-icon>
 </div>
 

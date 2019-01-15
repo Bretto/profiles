@@ -1,4 +1,4 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
+import {ChangeDetectorRef, Component, OnDestroy, OnInit} from '@angular/core';
 import {ProfilesProjections} from '../../profiles.projections';
 import {ActivatedRoute, Router} from '@angular/router';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
@@ -17,6 +17,7 @@ export class ProfileEditComponent implements OnInit, OnDestroy {
 
   profile$;
   profileId: string;
+  imgLoaded: boolean;
   form: FormGroup;
   formDataOrigin: any = {};
   formRes: Subject<FormResponse> = new Subject<FormResponse>();
@@ -25,6 +26,7 @@ export class ProfileEditComponent implements OnInit, OnDestroy {
 
   constructor(private profilesProj: ProfilesProjections, private profilesActions: ProfilesCommands,
               private appService: AppService,
+              private ref: ChangeDetectorRef,
               private router: Router, private route: ActivatedRoute, private fb: FormBuilder) {
 
     console.log('ProfileEditComponent');
@@ -59,6 +61,16 @@ export class ProfileEditComponent implements OnInit, OnDestroy {
       lastName: ['', [Validators.required]],
       bio: ['', [Validators.required]],
     });
+  }
+
+  onImgLoaded() {
+    this.imgLoaded = true;
+  }
+
+  urlChange(url) {
+    console.log('url', url);
+    this.profilesActions.update({id: this.profileId, pic: url})
+      .subscribe(this.onSuccess, this.onError);
   }
 
   onCancel() {

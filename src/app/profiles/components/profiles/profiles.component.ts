@@ -24,6 +24,8 @@ export class ProfilesComponent implements OnInit, OnDestroy {
               private activatedRoute: ActivatedRoute,
               private profilesProj: ProfilesProjections) {
 
+    console.log('ProfilesComponent');
+
     this.profiles$ = profilesProj.queryAll$();
   }
 
@@ -51,7 +53,7 @@ export class ProfilesComponent implements OnInit, OnDestroy {
   }
 
   onScrollIntoView(elm) {
-    elm.scrollIntoView();
+   // elm.scrollIntoView();
   }
 
 }

@@ -18,6 +18,7 @@ import {CustomRouterStateSerializer} from '../shared/utils';
 import {ServiceWorkerModule} from '@angular/service-worker';
 import {AngularFireModule} from 'angularfire2';
 import {AngularFirestore} from 'angularfire2/firestore';
+import {AngularFireStorageModule} from 'angularfire2/storage';
 import {environment} from '../../environments/environment';
 import {CustomReuseStrategy} from '../shared/custom-strategy';
 import {RouteReuseStrategy} from '@angular/router';
@@ -43,14 +44,15 @@ import {AppInterceptor} from './app.interceptor';
     StoreRouterConnectingModule.forRoot({stateKey: 'router'}),
     // ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
     AngularFireModule.initializeApp(firebaseConfig),
+    AngularFireStorageModule
   ],
   providers: [
+    AngularFirestore,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: AppInterceptor,
       multi: true
     },
-    AngularFirestore,
     {provide: RouteReuseStrategy, useClass: CustomReuseStrategy},
     {provide: RouterStateSerializer, useClass: CustomRouterStateSerializer},
   ],

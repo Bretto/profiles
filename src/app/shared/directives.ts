@@ -1,4 +1,4 @@
-import {AfterViewInit, Directive, ElementRef, EventEmitter, Input, Output} from '@angular/core';
+import {AfterViewInit, Directive, ElementRef, EventEmitter, HostListener, Input, Output} from '@angular/core';
 import {FormGroup} from '@angular/forms';
 import {Observable, of} from 'rxjs';
 
@@ -34,6 +34,37 @@ export class OnLoadDirective implements AfterViewInit {
           this.imageLoaded.emit(true);
         }
       });
+  }
+
+}
+
+@Directive({
+  selector: '[dropZone]'
+})
+export class DropZoneDirective {
+
+  @Output() dropped =  new EventEmitter<FileList>();
+  @Output() hovered =  new EventEmitter<boolean>();
+
+  constructor() { }
+
+  @HostListener('drop', ['$event'])
+  onDrop($event) {
+    $event.preventDefault();
+    this.dropped.emit($event.dataTransfer.files);
+    this.hovered.emit(false);
+  }
+
+  @HostListener('dragover', ['$event'])
+  onDragOver($event) {
+    $event.preventDefault();
+    this.hovered.emit(true);
+  }
+
+  @HostListener('dragleave', ['$event'])
+  onDragLeave($event) {
+    $event.preventDefault();
+    this.hovered.emit(false);
   }
 
 }

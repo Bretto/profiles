@@ -21,9 +21,10 @@ const Direction = {
       `
       :host {
         z-index: 100;
-        position: fixed;
+        position: absolute;
         top: 0;
-        width: 100%;
+        left: 0;
+        right: 0;
       }
     `
   ],
@@ -77,7 +78,10 @@ export class StickyHeaderComponent implements AfterViewInit {
         map(([y1, y2]) => {
           y1 = y1 < 0 ? 0 : y1;
           y2 = y2 < 0 ? 0 : y2;
-          return (y2 <= y1 ? Direction.Up : Direction.Down);
+
+          if (Math.abs(y1 - y2) > 40) {
+            return (y2 <= y1 ? Direction.Up : Direction.Down);
+          }
         }),
         distinctUntilChanged(),
         startWith(Direction.Up),

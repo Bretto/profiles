@@ -4,8 +4,9 @@
     #drawer
     class="sidenav"
     fixedInViewport="true"
-    [mode]="(isHandset$ | async) ? 'over' : 'side'"
-    [opened]="isOpen">
+    [mode]="isHandset ? 'over' : 'side'"
+    (openedChange)="openedChange($event)"
+    [opened]="opened()">
     <app-side-nav></app-side-nav>
   </mat-sidenav>
 

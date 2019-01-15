@@ -19,6 +19,7 @@ import {Observable} from 'rxjs';
 import {BreakpointObserver, Breakpoints} from '@angular/cdk/layout';
 import {map} from 'rxjs/operators';
 import {UiProjection} from '../../../ui/ui.projections';
+import {UiCommands} from '../../../ui/ui.commands';
 
 @Component({
   selector: 'app-shell',
@@ -52,10 +53,7 @@ export class ShellComponent implements OnInit, AfterViewInit {
   @ViewChild('headerContainer', {read: ViewContainerRef})
   vcr: ViewContainerRef;
 
-  isHandset$: Observable<any> = this.breakpointObserver
-    .observe(Breakpoints.Handset)
-    .pipe(map(result => result.matches));
-
+  isHandset: boolean;
   isOpen: boolean;
 
   get isVisible(): boolean {
@@ -68,6 +66,7 @@ export class ShellComponent implements OnInit, AfterViewInit {
 
 
   constructor(private appService: AppService,
+              private uiCommands: UiCommands,
               private breakpointObserver: BreakpointObserver,
               private _injector: Injector,
               private uiProj: UiProjection,
@@ -90,11 +89,8 @@ export class ShellComponent implements OnInit, AfterViewInit {
         this.appService.headerIsVisible = true;
       });
 
-    this.uiProj.getMenuOpen$().subscribe(x => {
-      debugger
-      console.log('okokok', x);
-      this.isOpen = x;
-    });
+    this.uiProj.getMenuOpen$().subscribe(x => this.isOpen = x);
+    this.uiProj.getBreakpoint$().subscribe(x => this.isHandset = x);
 
   }
 
@@ -120,6 +116,14 @@ export class ShellComponent implements OnInit, AfterViewInit {
 
   onDeactivate(e) {
 
+  }
+
+  opened() {
+    return !this.isHandset || this.isOpen;
+  }
+
+  openedChange(e) {
+    this.uiCommands.openMenu(e);
   }
 
 }

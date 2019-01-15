@@ -8,7 +8,10 @@
   </mat-card-header>
 
     <img  *ngIf="profile.pic"  mat-card-image [src]="profile.pic" (load)="onImgLoaded()">
-    <mat-spinner diameter="40" *ngIf="!imgLoaded"></mat-spinner>
+    <div class="spinner-wrap" *ngIf="!imgLoaded">
+      <mat-spinner diameter="40" ></mat-spinner>
+    </div>
+
 
 
   <mat-card-content>

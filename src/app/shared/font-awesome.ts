@@ -1,6 +1,8 @@
 import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
 import {library} from '@fortawesome/fontawesome-svg-core';
 import {
+  faUpload,
+  faTimes,
   faBars,
   faUserPlus,
   faAngleRight,
@@ -13,6 +15,8 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 
 library.add(
+  faUpload,
+  faTimes,
   faBars,
   faUserPlus,
   faAngleRight,
