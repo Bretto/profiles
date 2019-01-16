@@ -1,21 +1,24 @@
 <div class="profile-edit-wrap" cdkScrollable>
   <div class="card-wrap">
-    <ng-container *ngIf="profile$ | async as profile">
+    <ng-container *ngIf="profile">
       <mat-card [formGroup]="form">
         <mat-card-header>
-          <div  *ngIf="profile.pic"  mat-card-avatar class="thumb" [style.background-image]="'url(' + profile.pic + ')'"></div>
+          <div *ngIf="profile.pic" mat-card-avatar class="thumb"
+               [style.background-image]="'url(' + profile.pic + ')'"></div>
           <mat-card-title>{{fullName}}</mat-card-title>
           <mat-card-subtitle>Dog Breed</mat-card-subtitle>
         </mat-card-header>
 
-        <img  *ngIf="profile.pic"  mat-card-image [src]="profile.pic" (load)="onImgLoaded()">
+        <img *ngIf="profile.pic" mat-card-image [src]="profile.pic" (load)="onImgLoaded()">
         <div class="spinner-wrap" *ngIf="!imgLoaded">
-          <mat-spinner diameter="40" ></mat-spinner>
+          <mat-spinner diameter="40"></mat-spinner>
         </div>
 
         <mat-card-content>
 
           <app-file-upload (url)="urlChange($event)"></app-file-upload>
+
+
 
           <mat-form-field>
             <input matInput placeholder="First name" formControlName="firstName">

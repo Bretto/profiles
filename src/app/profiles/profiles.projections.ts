@@ -17,6 +17,7 @@ export class ProfilesProjections {
   }
 
   queryById$(id): Observable<any> {
-    return this.store.select('profiles', 'entities', id);
+    return this.store.select('profiles', 'entities', id)
+      .pipe(filter(Boolean));
   }
 }

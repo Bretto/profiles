@@ -18,7 +18,6 @@ export class Command<Payload, Result = undefined> implements IFluxStandardAction
 
   constructor(action: Action, _meta?: any) {
 
-    console.log('ActionResult');
     if (_meta) {
       this.meta = {...this.meta, ..._meta};
     }
@@ -27,7 +26,7 @@ export class Command<Payload, Result = undefined> implements IFluxStandardAction
     this.type = action.type;
   }
 
-  get result(): Observable<Result> {
+  get result$(): Observable<Result> {
     return this.meta.replaySubject.asObservable();
   }
 

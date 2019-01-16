@@ -1,10 +1,10 @@
-import {ChangeDetectorRef, Component, OnDestroy, OnInit} from '@angular/core';
+import {ChangeDetectorRef, Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {ProfilesProjections} from '../../profiles.projections';
 import {ActivatedRoute, Router} from '@angular/router';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {ProfilesCommands} from '../../profiles.commands';
 import {filter, tap} from 'rxjs/operators';
-import {Subject} from 'rxjs';
+import {Subject, Subscription} from 'rxjs';
 import {FormResponse} from '../../../shared/components/form-ui/form-ui.component';
 import {AppService} from '../../../main/app.service';
 
@@ -15,14 +15,14 @@ import {AppService} from '../../../main/app.service';
 })
 export class ProfileEditComponent implements OnInit, OnDestroy {
 
-  profile$;
+  subs: Subscription = new Subscription();
+  profile: any;
   profileId: string;
   imgLoaded: boolean;
   form: FormGroup;
   formDataOrigin: any = {};
   formRes: Subject<FormResponse> = new Subject<FormResponse>();
   newProfileMode: boolean;
-
 
   constructor(private profilesProj: ProfilesProjections, private profilesActions: ProfilesCommands,
               private appService: AppService,
@@ -42,14 +42,13 @@ export class ProfileEditComponent implements OnInit, OnDestroy {
     this.initForm();
 
     if (!this.newProfileMode) {
-      this.profile$ = this.profilesProj.queryById$(this.profileId)
-        .pipe(
-          filter(Boolean),
-          tap(profile => {
-            this.formDataOrigin = profile;
-            this.form.patchValue(profile);
-          })
-        );
+      this.subs.add(
+      this.profilesProj.queryById$(this.profileId)
+        .subscribe(profile => {
+        this.formDataOrigin = profile;
+        this.form.patchValue(profile);
+        this.profile = profile;
+      }));
 
       this.profilesActions.queryById(this.profileId);
     }
@@ -68,7 +67,7 @@ export class ProfileEditComponent implements OnInit, OnDestroy {
   }
 
   urlChange(url) {
-    console.log('url', url);
+    this.profile.pic = url;
     this.profilesActions.update({id: this.profileId, pic: url})
       .subscribe(this.onSuccess, this.onError);
   }
@@ -111,18 +110,21 @@ export class ProfileEditComponent implements OnInit, OnDestroy {
     });
   };
 
+
   get fullName() {
     return this.formDataOrigin ? `${this.formDataOrigin.firstName}  ${this.formDataOrigin.lastName}` : '';
   }
 
-  ngOnDestroy() {
 
-  }
 
   get headerIsVisible() {
     if (this.appService) {
       return this.appService.headerIsVisible;
     }
+  }
+
+  ngOnDestroy() {
+    this.subs.unsubscribe();
   }
 
 }

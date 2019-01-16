@@ -32,6 +32,6 @@ export class CommandsFactory {
   dispatch<Payload, Result>(ac: Action, meta?: any): Observable<Result> {
     const action = new Command<Payload, Result>(ac, meta);
     this.store.dispatch(action);
-    return action.result;
+    return action.result$;
   }
 }
