@@ -1,5 +1,7 @@
 import {ProfilesCommands} from './profiles.commands';
-import {FSA, handleEvent, reduceReducers} from '../shared/utils';
+import {FSA, reduceReducers, toEvent} from '../shared/utils';
+import {UiCommands} from '../ui/ui.commands';
+import {UiState} from '../ui/ui.reducer';
 
 
 export interface ProfileState {
@@ -11,97 +13,108 @@ const initState: ProfileState = {
 };
 
 
-const queryAllComplete = handleEvent<ProfileState, FSA>(
-  ProfilesCommands.QUERY_ALL,
-  (state, event) => {
-    const newEntities = event.error ? null : event.payload;
-    const oldEntities = state.entities;
-    const entities = {...oldEntities, ...newEntities};
-    return {
-      ...state,
-      entities
-    };
+const queryAllComplete = (state, event) => {
+  const newEntities = event.error ? null : event.payload;
+  const oldEntities = state.entities;
+  const entities = {...oldEntities, ...newEntities};
+  return {
+    ...state,
+    entities
+  };
 
-  });
+};
 
 
-const queryByIdComplete = handleEvent<ProfileState, FSA>(
-  ProfilesCommands.QUERY_BY_ID,
-  (state, event) => {
+const queryByIdComplete = (state, event) => {
 
-    const newEntity: any = event.error ? null : event.payload;
-    let entities = state.entities;
+  const newEntity: any = event.error ? null : event.payload;
+  let entities = state.entities;
 
-    if (newEntity) {
-      entities = {...entities, [newEntity.id]: newEntity};
+  if (newEntity) {
+    entities = {...entities, [newEntity.id]: newEntity};
+  }
+
+  return {
+    ...state,
+    entities
+  };
+};
+
+const updateComplete = (state, event) => {
+
+  const newEntity: any = event.error ? null : event.payload;
+  let entities = state.entities;
+
+  if (newEntity) {
+    entities = {...entities, [newEntity.id]: newEntity};
+  }
+
+  return {
+    ...state,
+    entities
+  };
+};
+
+const createComplete = (state, event) => {
+
+  const newEntity: any = event.error ? null : event.payload;
+  let entities = state.entities;
+
+  if (newEntity) {
+    entities = {...entities, [newEntity.id]: newEntity};
+  }
+
+  return {
+    ...state,
+    entities
+  };
+};
+
+const deleteComplete = (state, event) => {
+
+  const profileId = event.payload;
+  const entities = {...state.entities};
+  const deletedEntity = {...entities[profileId], deleted: true};
+  entities[profileId] = deletedEntity;
+
+  return {
+    ...state,
+    entities
+  };
+};
+
+
+export function getReducers(
+  state = initState,
+  event: any
+): ProfileState {
+  switch (event.type) {
+
+    case toEvent(ProfilesCommands.CREATE): {
+      return createComplete(state, event);
     }
 
-    return {
-      ...state,
-      entities
-    };
-  });
-
-const updateComplete = handleEvent<ProfileState, FSA>(
-  ProfilesCommands.UPDATE,
-  (state, event) => {
-
-    const newEntity: any = event.error ? null : event.payload;
-    let entities = state.entities;
-
-    if (newEntity) {
-      entities = {...entities, [newEntity.id]: newEntity};
+    case toEvent(ProfilesCommands.QUERY_ALL): {
+      return queryAllComplete(state, event);
     }
 
-    return {
-      ...state,
-      entities
-    };
-  });
-
-const createComplete = handleEvent<ProfileState, FSA>(
-  ProfilesCommands.CREATE,
-  (state, event) => {
-
-    const newEntity: any = event.error ? null : event.payload;
-    let entities = state.entities;
-
-    if (newEntity) {
-      entities = {...entities, [newEntity.id]: newEntity};
+    case toEvent(ProfilesCommands.QUERY_BY_ID): {
+      return queryByIdComplete(state, event);
     }
 
-    return {
-      ...state,
-      entities
-    };
-  });
+    case toEvent(ProfilesCommands.UPDATE): {
+      return updateComplete(state, event);
+    }
 
-const deleteComplete = handleEvent<ProfileState, FSA>(
-  ProfilesCommands.DELETE,
-  (state, event) => {
+    case toEvent(ProfilesCommands.DELETE): {
+      return deleteComplete(state, event);
+    }
 
-    const profileId = event.payload;
-    debugger
-    const entities = {...state.entities};
-    const deletedEntity = {...entities[profileId], deleted: true};
-    entities[profileId] = deletedEntity;
+    default: {
+      return state;
+    }
+  }
+}
 
-    return {
-      ...state,
-      entities
-    };
-  });
-
-
-export const getReducers = reduceReducers<ProfileState>(
-  initState,
-  [
-    queryAllComplete,
-    queryByIdComplete,
-    createComplete,
-    updateComplete,
-    deleteComplete
-  ]
-);
 
 

@@ -1,6 +1,7 @@
 import {Action} from '@ngrx/store';
 import {of} from 'rxjs/internal/observable/of';
 import {Observable, ReplaySubject} from 'rxjs';
+import {first} from 'rxjs/operators';
 
 export interface IFluxStandardAction<Payload, Meta = undefined> extends Action {
   type: string;
@@ -13,7 +14,7 @@ export class Command<Payload, Result = undefined> implements IFluxStandardAction
 
   type: string;
   payload?: Payload;
-  meta?: any = {replaySubject: new ReplaySubject()};
+  meta?: any = {replaySubject: new ReplaySubject().pipe(first())};
   error?: boolean;
 
   constructor(action: Action, _meta?: any) {

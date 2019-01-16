@@ -40,25 +40,27 @@ export class CustomRouterStateSerializer
     return {url, params, queryParams, path, data};
   }
 }
+//
+//
+// export function handleEvent<State, Event extends Action>(
+//   cmdType: string | string[],
+//   reducerFn: Reducer<State, Event>
+// ): Reducer<State, Event> {
+//
+//   return (state: State, event: Event) => {
+//
+//     cmdType = Array.isArray(cmdType) ? cmdType : [cmdType];
+//     const hasMatch: boolean = cmdType.some((cmd) => event.type === cmd + '_COMPLETE');
+//
+//     if (hasMatch) {
+//       return reducerFn(state, event);
+//     }
+//
+//     return state;
+//   };
+// }
 
 
-export function handleEvent<State, Event extends Action>(
-  cmdType: string | string[],
-  reducerFn: Reducer<State, Event>
-): Reducer<State, Event> {
-
-  return (state: State, event: Event) => {
-
-    cmdType = Array.isArray(cmdType) ? cmdType : [cmdType];
-    const hasMatch: boolean = cmdType.some((cmd) => event.type === cmd + '_COMPLETE');
-
-    if (hasMatch) {
-      return reducerFn(state, event);
-    }
-
-    return state;
-  };
-}
 
 
 export function reduceReducers<State>(
@@ -78,4 +80,8 @@ export interface FSA<T = any> extends Action {
   type: string;
   meta?: any;
   error?: any;
+}
+
+export function toEvent(str) {
+  return str + '_COMPLETE';
 }
