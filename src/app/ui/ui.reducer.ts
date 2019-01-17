@@ -1,4 +1,4 @@
-import {FSA, reduceReducers, toEvent} from '../shared/utils';
+import {FSA, toEvent} from '../shared/utils';
 import {UiCommands} from './ui.commands';
 
 

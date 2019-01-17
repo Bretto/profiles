@@ -1,5 +1,5 @@
 import {RouterStateSerializer} from '@ngrx/router-store';
-import {RouterStateSnapshot, Params} from '@angular/router';
+import {Params} from '@angular/router';
 import {Action} from '@ngrx/store';
 
 /**
@@ -40,40 +40,7 @@ export class CustomRouterStateSerializer
     return {url, params, queryParams, path, data};
   }
 }
-//
-//
-// export function handleEvent<State, Event extends Action>(
-//   cmdType: string | string[],
-//   reducerFn: Reducer<State, Event>
-// ): Reducer<State, Event> {
-//
-//   return (state: State, event: Event) => {
-//
-//     cmdType = Array.isArray(cmdType) ? cmdType : [cmdType];
-//     const hasMatch: boolean = cmdType.some((cmd) => event.type === cmd + '_COMPLETE');
-//
-//     if (hasMatch) {
-//       return reducerFn(state, event);
-//     }
-//
-//     return state;
-//   };
-// }
 
-
-
-
-export function reduceReducers<State>(
-  init: State,
-  reducers: Reducer<State, Action>[]
-): Reducer<State, Action> {
-  return (state: State = init, event: Action) =>
-    reducers.reduce(
-      (acc: State, curr: Reducer<State, Action>) => curr(acc, event)
-      , state);
-}
-
-export type Reducer<State, Event> = (state: State, event: Event) => State;
 
 export interface FSA<T = any> extends Action {
   payload: T;

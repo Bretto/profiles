@@ -1,5 +1,5 @@
 import {ProfilesCommands} from './profiles.commands';
-import {FSA, reduceReducers, toEvent} from '../shared/utils';
+import {FSA, toEvent} from '../shared/utils';
 import {UiCommands} from '../ui/ui.commands';
 import {UiState} from '../ui/ui.reducer';
 
