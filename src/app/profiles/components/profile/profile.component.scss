@@ -1,0 +1,54 @@
+:host {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
+
+.profile-edit-wrap {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  overflow-y: auto;
+  overflow-x: hidden;
+  //-webkit-overflow-scrolling: touch;
+}
+
+.card-wrap {
+  display: flex;
+  flex-direction: column;
+  margin: .5rem;
+  padding-top: 4rem;
+}
+
+mat-card-content {
+  display: flex;
+  flex-direction: column;
+}
+
+.thumb {
+  background-size: cover;
+}
+
+.header-visible {
+  padding-top: 4rem;
+}
+
+mat-card {
+  //height: 1000px;
+}
+
+
+.spinner-wrap {
+  background: #eee;
+  border: solid #ddd 1px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 300px;
+}
+
+

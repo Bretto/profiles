@@ -4,13 +4,16 @@ import * as _ from 'lodash';
 import {filter, map, startWith} from 'rxjs/operators';
 import {BreakpointObserver, Breakpoints} from '@angular/cdk/layout';
 import {NavigationEnd, NavigationStart, RouteConfigLoadStart, Router} from '@angular/router';
+import {AuthService} from '../shared/services/auth.service';
 
 @Injectable({providedIn: 'root'})
 export class Watcher {
 
-  constructor(private breakpointObserver: BreakpointObserver, private router: Router) {
+  constructor(private breakpointObserver: BreakpointObserver, private router: Router, private auth: AuthService) {
 
   }
+
+  authWatcher = () => this.auth.user$;
 
   onlineWatcher = (status) => {
     if (status) {

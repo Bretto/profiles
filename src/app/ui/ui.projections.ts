@@ -26,6 +26,11 @@ export class UiProjection {
     return this.store.select('router', 'state', 'url').pipe(filter(Boolean));
   }
 
+  getUser() {
+    return this.store.select('ui', 'user');
+  }
+
+
 
 
 }

@@ -7,6 +7,7 @@ export class UiCommands {
   static ONLINE_WATCHER = '[UiCommands] ONLINE_WATCHER';
   static BREAKPOINT_WATCHER = '[UiCommands] BREAKPOINT_WATCHER';
   static NAVIGATION_WATCHER = '[UiCommands] NAVIGATION_WATCHER';
+  static AUTH_WATCHER = '[UiCommands] AUTH_WATCHER';
   static OPEN_MENU = '[UiCommands] OPEN_MENU';
 
 
@@ -18,5 +19,6 @@ export class UiCommands {
   onlineWatcher = this.factory.createCommand(UiCommands.ONLINE_WATCHER);
   breakpointWatcher = this.factory.createCommand(UiCommands.BREAKPOINT_WATCHER);
   navigationWatcher = this.factory.createCommand(UiCommands.NAVIGATION_WATCHER);
+  authWatcher = this.factory.createCommand(UiCommands.AUTH_WATCHER);
 
 }

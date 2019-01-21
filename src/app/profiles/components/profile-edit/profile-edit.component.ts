@@ -29,7 +29,7 @@ export class ProfileEditComponent implements OnInit, OnDestroy {
               private ref: ChangeDetectorRef,
               private router: Router, private route: ActivatedRoute, private fb: FormBuilder) {
 
-    console.log('ProfileEditComponent');
+    console.log('ProfileComponent');
 
     this.profileId = route.snapshot.paramMap.get('id');
     if (this.profileId === 'new') {

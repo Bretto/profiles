@@ -17,7 +17,7 @@ export class ProfileHeaderComponent implements OnInit {
   }
 
   onBack() {
-    this.router.navigate(['/auth'], {relativeTo: this.activatedRoute});
+    this.router.navigate(['/profile'], {relativeTo: this.activatedRoute});
   }
 
   onMenu() {

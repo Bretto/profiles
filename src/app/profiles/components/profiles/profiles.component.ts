@@ -19,8 +19,8 @@ export class ProfilesComponent implements OnInit, OnDestroy {
   @ViewChild('cards') cards: ElementRef;
 
   constructor(private profilesCommands: ProfilesCommands,
-              private router: Router,
               private appService: AppService,
+              private router: Router,
               private activatedRoute: ActivatedRoute,
               private profilesProj: ProfilesProjections) {
 
@@ -49,11 +49,11 @@ export class ProfilesComponent implements OnInit, OnDestroy {
 
   onSelect(id) {
     this.appService.selectedProfileId = id;
-    this.router.navigate(['profile', id], {relativeTo: this.activatedRoute});
+    this.router.navigate([id], {relativeTo: this.activatedRoute});
   }
 
   onScrollIntoView(elm) {
-   // elm.scrollIntoView();
+    // elm.scrollIntoView();
   }
 
 }

@@ -1,6 +1,7 @@
 import {AfterViewInit, Directive, ElementRef, EventEmitter, HostListener, Input, Output} from '@angular/core';
 import {FormGroup} from '@angular/forms';
 import {Observable, of} from 'rxjs';
+import {UiProjection} from '../ui/ui.projections';
 
 @Directive({
   selector: '[appPatchForm]'
@@ -43,10 +44,11 @@ export class OnLoadDirective implements AfterViewInit {
 })
 export class DropZoneDirective {
 
-  @Output() dropped =  new EventEmitter<FileList>();
-  @Output() hovered =  new EventEmitter<boolean>();
+  @Output() dropped = new EventEmitter<FileList>();
+  @Output() hovered = new EventEmitter<boolean>();
 
-  constructor() { }
+  constructor() {
+  }
 
   @HostListener('drop', ['$event'])
   onDrop($event) {
@@ -67,4 +69,22 @@ export class DropZoneDirective {
     this.hovered.emit(false);
   }
 
+}
+
+
+@Directive({
+  selector: '[auth-role]'
+})
+export class AuthRoleDirective {
+
+  constructor(private el: ElementRef, private uiProj: UiProjection) {
+
+    uiProj.getUser().subscribe(user => {
+      if (user) {
+        el.nativeElement.style.visibility = 'initial';
+      } else {
+        el.nativeElement.style.visibility = 'hidden';
+      }
+    });
+  }
 }

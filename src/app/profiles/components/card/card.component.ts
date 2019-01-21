@@ -2,6 +2,7 @@ import {AfterViewInit, Component, ElementRef, EventEmitter, Input, OnInit, Outpu
 import {AppService} from '../../../main/app.service';
 import {delay} from 'rxjs/operators';
 import {Observable} from 'rxjs';
+import {ActivatedRoute, Router} from '@angular/router';
 
 @Component({
   selector: 'app-card',
@@ -16,7 +17,10 @@ export class CardComponent implements OnInit, AfterViewInit {
   elm: any;
   imgLoaded: boolean;
 
-  constructor(private elementRef: ElementRef, private appService: AppService) {
+  constructor(private elementRef: ElementRef,
+              private router: Router,
+              private activatedRoute: ActivatedRoute,
+              private appService: AppService) {
   }
 
   ngOnInit() {
@@ -39,6 +43,10 @@ export class CardComponent implements OnInit, AfterViewInit {
 
   onImgLoaded() {
     this.imgLoaded = true;
+  }
+
+  onEdit() {
+    this.router.navigate([this.profile.id, 'edit'], {relativeTo: this.activatedRoute});
   }
 
 }

@@ -6,12 +6,14 @@ export interface UiState {
   online: boolean;
   handset: boolean;
   openMenu: boolean;
+  user: User;
 }
 
 const initState: UiState = {
   online: null,
   handset: null,
   openMenu: null,
+  user: null
 };
 
 
@@ -45,7 +47,6 @@ const setState = (state, event) => {
 // );
 
 
-
 export function getReducers(
   state = initState,
   event: any
@@ -54,6 +55,7 @@ export function getReducers(
 
     case toEvent(UiCommands.ONLINE_WATCHER):
     case toEvent(UiCommands.OPEN_MENU):
+    case toEvent(UiCommands.AUTH_WATCHER):
     case toEvent(UiCommands.BREAKPOINT_WATCHER): {
       return setState(state, event);
     }
@@ -62,7 +64,7 @@ export function getReducers(
       return state;
     }
   }
-};
+}
 
 
 

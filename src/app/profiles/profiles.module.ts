@@ -8,6 +8,7 @@ import {StoreModule} from '@ngrx/store';
 import {getReducers} from './profiles.reducer';
 import {ProfilesEffects} from './profiles.effects';
 import {EffectsModule} from '@ngrx/effects';
+import {ProfileComponent} from './components/profile/profile.component';
 
 @NgModule({
   imports: [
@@ -18,6 +19,7 @@ import {EffectsModule} from '@ngrx/effects';
   ],
   declarations: [
     ProfilesComponent,
+    ProfileComponent,
     CardComponent,
     ProfileEditComponent
   ],

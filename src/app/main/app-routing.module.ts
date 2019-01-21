@@ -6,7 +6,7 @@ import {HomeComponent} from '../home/home.component';
 const routes: Routes = [
   // {path: '', redirectTo: '/group', pathMatch: 'full'},
   {path: '', component: HomeComponent},
-  {path: 'auth', loadChildren: '../shell/shell.module#ShellModule'},
+  {path: 'profile', loadChildren: '../shell/shell.module#ShellModule'},
   {path: 'nav', loadChildren: '../shell-nav/shell-nav.module#ShellNavModule'},
   {path: '404', component: NotFoundPageComponent}
 ];

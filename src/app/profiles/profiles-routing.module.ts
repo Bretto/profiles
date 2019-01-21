@@ -2,6 +2,8 @@ import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
 import {ProfilesComponent} from './components/profiles/profiles.component';
 import {ProfileEditComponent} from './components/profile-edit/profile-edit.component';
+import {CardComponent} from './components/card/card.component';
+import {ProfileComponent} from './components/profile/profile.component';
 
 const routes: Routes = [
   {
@@ -13,16 +15,23 @@ const routes: Routes = [
     }
   },
   {
-    path: 'profile/new',
+    path: 'new',
     component: ProfileEditComponent,
     data: {
       direction: 2,
       header: 'ProfileHeaderComponent'
     }
   },
-  // TODO why does 'profile/:id' doesn't work for /new ?
   {
-    path: 'profile/:id',
+    path: ':id',
+    component: ProfileComponent,
+    data: {
+      direction: 2,
+      header: 'ProfileHeaderComponent'
+    }
+  },
+  {
+    path: ':id/edit',
     component: ProfileEditComponent,
     data: {
       direction: 2,

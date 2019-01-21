@@ -3,6 +3,9 @@ import {AngularFirestore} from 'angularfire2/firestore';
 import * as firebase from 'firebase';
 import QuerySnapshot = firebase.firestore.QuerySnapshot;
 import {image, lorem, name, random} from 'faker';
+import {AuthService} from '../shared/services/auth.service';
+import {ActivatedRoute, Router} from '@angular/router';
+import {AppService} from '../main/app.service';
 
 
 Array.prototype['asyncReduce'] = async function (callback, initialVal) {
@@ -25,7 +28,10 @@ Array.prototype['asyncReduce'] = async function (callback, initialVal) {
 })
 export class HomeComponent implements OnInit {
 
-  constructor(public db: AngularFirestore) {
+  constructor(public db: AngularFirestore,
+              private router: Router,
+              private activatedRoute: ActivatedRoute,
+              private auth: AuthService) {
   }
 
   ngOnInit() {
@@ -71,6 +77,14 @@ export class HomeComponent implements OnInit {
     }
   }
 
+  onGoogleLogin() {
+    this.auth.googleSignin().then(res => {
+      this.router.navigate(['profile'], {relativeTo: this.activatedRoute});
+    });
+  }
+
 }
+
+
 
 

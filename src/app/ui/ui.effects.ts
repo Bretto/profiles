@@ -17,6 +17,7 @@ export class UiEffects {
 
     this.uiCommands.onlineWatcher({});
     this.uiCommands.breakpointWatcher({});
+    this.uiCommands.authWatcher({});
     // this.uiCommands.navigationWatcher({});
 
   }
@@ -35,6 +36,11 @@ export class UiEffects {
   handset$ = this.actions$.pipe(
     ofType(UiCommands.BREAKPOINT_WATCHER),
     setStateWithService('handset', this.watcher.breakpointWatcher));
+
+  @Effect()
+  auth$ = this.actions$.pipe(
+    ofType(UiCommands.AUTH_WATCHER),
+    setStateWithService('user', this.watcher.authWatcher));
 
   // map((action: any) => action.payload),
   // switchMap((status) => this.watcher.onlineWatcher(status).pipe(

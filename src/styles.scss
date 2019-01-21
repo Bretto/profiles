@@ -26,3 +26,11 @@ body, html {
     color: white;
   }
 }
+
+
+.mat-card-header-text {
+  display: flex;
+  flex-direction: column;
+  flex-shrink: 0;
+}
+

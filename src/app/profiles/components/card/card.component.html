@@ -1,10 +1,10 @@
 <mat-card [ngClass]="{deleted: profile.deleted}" (click)="onSelect()">
   <mat-card-header>
-
     <div *ngIf="profile.pic" mat-card-avatar class="thumb" [style.background-image]="'url(' + profile.pic + ')'"></div>
     <mat-card-title>{{fullName}}</mat-card-title>
     <mat-card-subtitle>Dog Breed</mat-card-subtitle>
-
+    <span fxFlex="100"></span>
+    <fa-icon class="edit-btn" [icon]="['fa', 'user-edit']" (click)="onEdit()"></fa-icon>
   </mat-card-header>
 
     <img  *ngIf="profile.pic"  mat-card-image [src]="profile.pic" (load)="onImgLoaded()">
