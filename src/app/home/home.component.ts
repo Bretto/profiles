@@ -31,7 +31,7 @@ export class HomeComponent implements OnInit {
   constructor(public db: AngularFirestore,
               private router: Router,
               private activatedRoute: ActivatedRoute,
-              private auth: AuthService) {
+              public auth: AuthService) {
   }
 
   ngOnInit() {

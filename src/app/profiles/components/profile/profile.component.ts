@@ -21,8 +21,11 @@ export class ProfileComponent implements OnInit, OnDestroy {
   constructor(private profilesProj: ProfilesProjections,
               private profilesCommands: ProfilesCommands,
               private appService: AppService,
+              private activatedRoute: ActivatedRoute,
               private ref: ChangeDetectorRef,
-              private router: Router, private route: ActivatedRoute, private fb: FormBuilder) {
+              private router: Router,
+              private route: ActivatedRoute,
+              private fb: FormBuilder) {
 
     console.log('ProfileComponent');
 
@@ -42,6 +45,10 @@ export class ProfileComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.subs.unsubscribe();
+  }
+
+  onEdit() {
+    this.router.navigate(['edit'], {relativeTo: this.activatedRoute});
   }
 
 }

@@ -1,7 +1,7 @@
 <div class="profile-edit-wrap" cdkScrollable>
   <div class="card-wrap">
     <ng-container *ngIf="profile">
-      <app-card [profile]="profile"></app-card>
+      <app-card [profile]="profile" (edit_)="onEdit($event)"></app-card>
     </ng-container>
   </div>
 </div>

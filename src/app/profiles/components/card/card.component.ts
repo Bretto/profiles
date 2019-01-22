@@ -13,13 +13,12 @@ export class CardComponent implements OnInit, AfterViewInit {
 
   @Input() profile;
   @Output() select_: EventEmitter<any> = new EventEmitter();
+  @Output() edit_: EventEmitter<any> = new EventEmitter();
   @Output() scrollIntoView_: any = new EventEmitter();
   elm: any;
   imgLoaded: boolean;
 
   constructor(private elementRef: ElementRef,
-              private router: Router,
-              private activatedRoute: ActivatedRoute,
               private appService: AppService) {
   }
 
@@ -34,7 +33,9 @@ export class CardComponent implements OnInit, AfterViewInit {
   }
 
   onSelect() {
-    if (!this.profile.deleted) this.select_.next(this.profile.id);
+    if (!this.profile.deleted) {
+      this.select_.next(this.profile.id);
+    }
   }
 
   get fullName() {
@@ -45,8 +46,10 @@ export class CardComponent implements OnInit, AfterViewInit {
     this.imgLoaded = true;
   }
 
-  onEdit() {
-    this.router.navigate([this.profile.id, 'edit'], {relativeTo: this.activatedRoute});
+  onEdit(e) {
+    e.stopImmediatePropagation();
+    this.edit_.emit(this.profile);
   }
 
 }
+

@@ -12,7 +12,7 @@ import {AuthService} from '../../../shared/services/auth.service';
 export class SideNavComponent implements OnInit {
 
   isHandset$: Observable<any> = this.uiProj.getBreakpoint$();
-  constructor(private uiCommands: UiCommands, private uiProj: UiProjection, private auth: AuthService) { }
+  constructor(private uiCommands: UiCommands, private uiProj: UiProjection, public auth: AuthService) { }
 
   ngOnInit() {
   }

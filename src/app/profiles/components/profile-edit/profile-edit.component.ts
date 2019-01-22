@@ -67,7 +67,7 @@ export class ProfileEditComponent implements OnInit, OnDestroy {
   }
 
   urlChange(url) {
-    this.profile.pic = url;
+    this.profile = {...this.profile, pic: url};
     this.profilesCommands.update({id: this.profileId, pic: url})
       .subscribe(this.onSuccess, this.onError);
   }

@@ -4,7 +4,7 @@
     <mat-card-title>{{fullName}}</mat-card-title>
     <mat-card-subtitle>Dog Breed</mat-card-subtitle>
     <span fxFlex="100"></span>
-    <fa-icon class="edit-btn" [icon]="['fa', 'user-edit']" (click)="onEdit()"></fa-icon>
+    <fa-icon class="edit-btn" [icon]="['fa', 'user-edit']" (click)="onEdit($event)"></fa-icon>
   </mat-card-header>
 
     <img  *ngIf="profile.pic"  mat-card-image [src]="profile.pic" (load)="onImgLoaded()">

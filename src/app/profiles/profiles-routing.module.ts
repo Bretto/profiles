@@ -34,7 +34,7 @@ const routes: Routes = [
     path: ':id/edit',
     component: ProfileEditComponent,
     data: {
-      direction: 2,
+      direction: 3,
       header: 'ProfileHeaderComponent'
     }
   },

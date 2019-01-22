@@ -38,7 +38,9 @@
                 "src/styles"
               ]
             },
-            "scripts": []
+            "scripts": [
+              "src/pwacompat.js"
+            ]
           },
           "configurations": {
             "production": {
