@@ -9,6 +9,7 @@ import {getReducers} from './profiles.reducer';
 import {ProfilesEffects} from './profiles.effects';
 import {EffectsModule} from '@ngrx/effects';
 import {ProfileComponent} from './components/profile/profile.component';
+import { ImgEditComponent } from './components/img-edit/img-edit.component';
 
 @NgModule({
   imports: [
@@ -21,7 +22,8 @@ import {ProfileComponent} from './components/profile/profile.component';
     ProfilesComponent,
     ProfileComponent,
     CardComponent,
-    ProfileEditComponent
+    ProfileEditComponent,
+    ImgEditComponent
   ],
 })
 export class ProfilesModule {

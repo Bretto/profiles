@@ -2,8 +2,8 @@ import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
 import {ProfilesComponent} from './components/profiles/profiles.component';
 import {ProfileEditComponent} from './components/profile-edit/profile-edit.component';
-import {CardComponent} from './components/card/card.component';
 import {ProfileComponent} from './components/profile/profile.component';
+import {ImgEditComponent} from './components/img-edit/img-edit.component';
 
 const routes: Routes = [
   {
@@ -38,7 +38,14 @@ const routes: Routes = [
       header: 'ProfileHeaderComponent'
     }
   },
-
+  {
+    path: ':id/edit/img',
+    component: ImgEditComponent,
+    data: {
+      direction: 4,
+      header: 'ProfileHeaderComponent'
+    }
+  },
 ];
 
 

@@ -1,0 +1,26 @@
+<div class="profile-edit-wrap" cdkScrollable>
+  <div class="card-wrap">
+    <ng-container *ngIf="profile">
+      <mat-card>
+
+
+        <img *ngIf="profile.pic" mat-card-image [src]="profile.pic" (load)="onImgLoaded()" [routerLink]="['img']">
+        <div class="spinner-wrap" *ngIf="!imgLoaded">
+          <mat-spinner diameter="40"></mat-spinner>
+        </div>
+
+        <mat-card-content>
+
+          <app-file-upload (url)="urlChange($event)"></app-file-upload>
+
+
+        </mat-card-content>
+
+      </mat-card>
+    </ng-container>
+  </div>
+</div>
+
+
+
+

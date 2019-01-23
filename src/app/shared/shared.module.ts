@@ -13,6 +13,7 @@ import {RouterModule} from '@angular/router';
 import {UiModule} from '../ui/ui.module';
 import {FileUploadComponent} from './components/file-upload/file-upload.component';
 import {FileSizePipe} from './file-size.pipe';
+import {FileUploader2Component} from './file-uploader2.component';
 
 const modules = [
   ...materials,
@@ -32,6 +33,7 @@ const exports = [
   TemplatesComponent,
   StickyHeaderComponent,
   FileUploadComponent,
+  FileUploader2Component,
   FileSizePipe,
   AuthRoleDirective
 ];
