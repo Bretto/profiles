@@ -112,7 +112,9 @@ export class ProfileEditComponent implements OnInit, OnDestroy {
 
 
   get fullName() {
-    return this.formDataOrigin ? `${this.formDataOrigin.firstName}  ${this.formDataOrigin.lastName}` : '';
+    const firstName = this.formDataOrigin.firstName ? this.formDataOrigin.firstName : this.form.get('firstName').value;
+    const lastName = this.formDataOrigin.lastName ? this.formDataOrigin.lastName : this.form.get('lastName').value;
+    return `${firstName}  ${lastName}`;
   }
 
   get headerIsVisible() {
