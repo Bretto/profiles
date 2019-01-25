@@ -14,6 +14,7 @@ import {UiModule} from '../ui/ui.module';
 import {FileUploadComponent} from './components/file-upload/file-upload.component';
 import {FileSizePipe} from './file-size.pipe';
 import {FileUploader2Component} from './file-uploader2.component';
+import {PageWrapComponent} from './components/page-wrap/page-wrap.component';
 
 const modules = [
   ...materials,
@@ -35,7 +36,8 @@ const exports = [
   FileUploadComponent,
   FileUploader2Component,
   FileSizePipe,
-  AuthRoleDirective
+  AuthRoleDirective,
+  PageWrapComponent,
 ];
 
 @NgModule({

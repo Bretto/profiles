@@ -6,17 +6,6 @@
   flex: 1;
 }
 
-.cards-wrap {
-  padding-top: 4rem;
-  display: flex;
-  flex-direction: column;
-  position: relative;
-  width: 100%;
-  overflow-y: auto;
-  overflow-x: hidden;
-  height: 100%;
-  //-webkit-overflow-scrolling: touch;
-}
 
 .selected {
   border: solid red 1rem;

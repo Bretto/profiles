@@ -16,7 +16,6 @@ export class CardComponent implements OnInit, AfterViewInit {
   @Output() edit_: EventEmitter<any> = new EventEmitter();
   @Output() scrollIntoView_: any = new EventEmitter();
   elm: any;
-  imgLoaded: boolean;
 
   constructor(private elementRef: ElementRef,
               private appService: AppService) {
@@ -40,10 +39,6 @@ export class CardComponent implements OnInit, AfterViewInit {
 
   get fullName() {
     return `${this.profile.firstName}  ${this.profile.lastName}`;
-  }
-
-  onImgLoaded() {
-    this.imgLoaded = true;
   }
 
   onEdit(e) {

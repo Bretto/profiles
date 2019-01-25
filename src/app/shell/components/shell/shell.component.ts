@@ -105,7 +105,6 @@ export class ShellComponent implements OnInit, AfterViewInit {
     } catch (error) {
       return null;
     }
-    // console.log('xxx', outlet.activatedRoute.snapshot.data['direction']);
 
     return outlet.activatedRoute.snapshot.data['direction'];
   }

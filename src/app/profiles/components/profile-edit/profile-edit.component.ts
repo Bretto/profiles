@@ -62,18 +62,11 @@ export class ProfileEditComponent implements OnInit, OnDestroy {
       firstName: ['', [Validators.required]],
       lastName: ['', [Validators.required]],
       bio: ['', [Validators.required]],
-      imgs: [[], [createExtensionsValidator, createMaxSizeValidator]]
     });
   }
 
   onImgLoaded() {
     this.imgLoaded = true;
-  }
-
-  urlChange(url) {
-    this.profile = {...this.profile, pic: url};
-    this.profilesCommands.update({id: this.profileId, pic: url})
-      .subscribe(this.onSuccess, this.onError);
   }
 
   onCancel() {

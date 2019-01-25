@@ -4,6 +4,7 @@ import {  } from '@fortawesome/free-regular-svg-icons';
 import {faGoogle} from '@fortawesome/free-brands-svg-icons';
 
 import {
+  faPenSquare,
   faUserEdit,
   faUpload,
   faTimes,
@@ -19,6 +20,7 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 
 library.add(
+  faPenSquare,
   faUserEdit,
   faGoogle,
   faUpload,

@@ -1,5 +1,5 @@
 :host {
-  margin: .5rem;
+  margin-bottom: .5rem;
   display: flex;
   flex-direction: column;
   flex-shrink: 0;
@@ -32,18 +32,9 @@ mat-spinner {
   background: #eee;
 }
 
-.spinner-wrap {
-  background: #eee;
-  border: solid #ddd 1px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 300px;
-}
-
-.edit-btn {
-  font-size: 20px;
-}
+  .edit-btn {
+    font-size: 20px;
+  }
 
 
 

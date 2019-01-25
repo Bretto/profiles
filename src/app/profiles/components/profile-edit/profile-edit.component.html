@@ -1,5 +1,4 @@
-<div class="profile-edit-wrap" cdkScrollable>
-  <div class="card-wrap">
+<app-page-wrap>
     <ng-container *ngIf="profile">
       <mat-card [formGroup]="form">
         <mat-card-header>
@@ -9,40 +8,9 @@
           <mat-card-subtitle>Dog Breed</mat-card-subtitle>
         </mat-card-header>
 
-        <img *ngIf="profile.pic" mat-card-image [src]="profile.pic" (load)="onImgLoaded()" [routerLink]="['img']">
-        <div class="spinner-wrap" *ngIf="!imgLoaded">
-          <mat-spinner diameter="40"></mat-spinner>
-        </div>
+        <app-card-img [profile]="profile" [routerLink]="['img']"></app-card-img>
 
         <mat-card-content>
-
-          <app-file-upload (url)="urlChange($event)"></app-file-upload>
-
-          <!--<p *ngFor="let data of imgs">-->
-            <!--<span (click)="onRemoveFile(data)">X</span>-->
-            <!--{{data.file.name}} {{data.size}}-->
-            <!--<span [class.upload-error]="uploader.fileHasUploadError(data)">-->
-                <!--<span *ngIf="data.extErr"> Extension Error </span>-->
-                <!--<span *ngIf="data.sizeErr"> Size Error </span>-->
-            <!--</span>-->
-          <!--</p>-->
-
-          <!--<file-uploader2-->
-            <!--formControlName="imgs"-->
-            <!--#uploader-->
-            <!--[maxSize]="1000"-->
-            <!--[extentions]="'png, jpg'"-->
-            <!--[multiple]="true">-->
-          <!--</file-uploader2>-->
-
-          <!--<div fxLayout="row">-->
-              <!--<span fxLayout="row" fxLayoutAlign=" center" class="uploader-wrap" (click)="onBrowse()"-->
-                    <!--[class.disabled]="isActive">-->
-                <!--<fa-icon icon="upload"></fa-icon>-->
-                <!--<p>Upload image</p>-->
-             <!--</span>-->
-          <!--</div>-->
-
 
           <mat-form-field>
             <input matInput placeholder="First name" formControlName="firstName">
@@ -56,9 +24,6 @@
             <textarea matInput placeholder="Bio" formControlName="bio"></textarea>
           </mat-form-field>
 
-
-          <pre>{{form.value | json}}</pre>
-
         </mat-card-content>
 
         <mat-card-actions>
@@ -67,8 +32,7 @@
         </mat-card-actions>
       </mat-card>
     </ng-container>
-  </div>
-</div>
+</app-page-wrap>
 
 
 

@@ -7,12 +7,7 @@
     <fa-icon class="edit-btn" [icon]="['fa', 'user-edit']" (click)="onEdit($event)"></fa-icon>
   </mat-card-header>
 
-    <img  *ngIf="profile.pic"  mat-card-image [src]="profile.pic" (load)="onImgLoaded()">
-    <div class="spinner-wrap" *ngIf="!imgLoaded">
-      <mat-spinner diameter="40" ></mat-spinner>
-    </div>
-
-
+  <app-card-img [profile]="profile"></app-card-img>
 
   <mat-card-content>
     <p>{{profile.bio}}</p>

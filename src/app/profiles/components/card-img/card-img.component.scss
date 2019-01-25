@@ -1,0 +1,32 @@
+:host {
+  display: block;
+  position: relative;
+}
+
+fa-icon {
+  position: absolute;
+  top: 1rem;
+  right: 0;
+}
+
+.spinner-wrap {
+  margin: 0 -16px 16px -16px;
+  background: #eee;
+  border: solid #ddd 1px;
+  border-left: none;
+  border-right: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 300px;
+}
+
+
+.edit-btn {
+  font-size: 20px;
+}
+
+img {
+  margin-top: 0 !important;
+}
+
