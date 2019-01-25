@@ -8,7 +8,7 @@
           <mat-card-subtitle>Dog Breed</mat-card-subtitle>
         </mat-card-header>
 
-        <app-card-img [profile]="profile" [routerLink]="['img']"></app-card-img>
+        <app-card-img [profile]="profile" (edit_)="onEditImg()"></app-card-img>
 
         <mat-card-content>
 

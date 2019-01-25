@@ -30,6 +30,7 @@ export class ProfileEditComponent implements OnInit, OnDestroy {
               private profilesCommands: ProfilesCommands,
               private appService: AppService,
               private ref: ChangeDetectorRef,
+              private activatedRoute: ActivatedRoute,
               private router: Router, private route: ActivatedRoute, private fb: FormBuilder) {
 
     console.log('ProfileComponent');
@@ -83,8 +84,6 @@ export class ProfileEditComponent implements OnInit, OnDestroy {
     // this.setFormFields(formData);
 
     this.formRes.next({isPending: true});
-
-    debugger
 
     if (this.profileId) {
       this.profilesCommands.update({id: this.profileId, ...this.form.getRawValue()})
@@ -154,6 +153,10 @@ export class ProfileEditComponent implements OnInit, OnDestroy {
 
   get imgs(): FileUpload[] {
     return this.getFC('imgs').value;
+  }
+
+  onEditImg(profile) {
+    this.router.navigate(['img'], {relativeTo: this.activatedRoute});
   }
 
 }

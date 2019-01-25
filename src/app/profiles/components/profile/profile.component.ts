@@ -51,5 +51,9 @@ export class ProfileComponent implements OnInit, OnDestroy {
     this.router.navigate(['edit'], {relativeTo: this.activatedRoute});
   }
 
+  onEditImg(profile) {
+    this.router.navigate(['edit', 'img'], {relativeTo: this.activatedRoute});
+  }
+
 }
 

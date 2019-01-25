@@ -1,6 +1,6 @@
 <app-page-wrap>
   <ng-container *ngIf="profile">
-    <app-card [profile]="profile" (edit_)="onEdit($event)"></app-card>
+    <app-card [profile]="profile" (edit_)="onEdit($event)" (editImg_)="onEditImg($event)"></app-card>
   </ng-container>
 </app-page-wrap>
 

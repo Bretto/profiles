@@ -14,6 +14,7 @@ export class CardComponent implements OnInit, AfterViewInit {
   @Input() profile;
   @Output() select_: EventEmitter<any> = new EventEmitter();
   @Output() edit_: EventEmitter<any> = new EventEmitter();
+  @Output() editImg_: EventEmitter<any> = new EventEmitter();
   @Output() scrollIntoView_: any = new EventEmitter();
   elm: any;
 
@@ -44,6 +45,11 @@ export class CardComponent implements OnInit, AfterViewInit {
   onEdit(e) {
     e.stopImmediatePropagation();
     this.edit_.emit(this.profile);
+  }
+
+  onEditImg(e) {
+    e.stopImmediatePropagation();
+    this.editImg_.emit(this.profile);
   }
 
 }

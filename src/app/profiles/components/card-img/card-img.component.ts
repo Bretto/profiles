@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 
 @Component({
   selector: 'app-card-img',
@@ -7,16 +7,23 @@ import {Component, Input, OnInit} from '@angular/core';
 })
 export class CardImgComponent implements OnInit {
 
-  @Input() profile:any;
+  @Input() profile: any;
   imgLoaded: boolean;
 
-  constructor() { }
+  @Output() edit_: EventEmitter<any> = new EventEmitter();
+
+  constructor() {
+  }
 
   ngOnInit() {
   }
 
   onImgLoaded() {
     this.imgLoaded = true;
+  }
+
+  onEdit(e) {
+    this.edit_.emit(e);
   }
 
 

@@ -3,6 +3,7 @@
     <app-card *ngFor="let profile of profiles; let i = index"
               [profile]="profile" (select_)="onSelect($event)"
               (edit_)="onEdit($event)"
+              (editImg_)="onEditImg($event)"
               (scrollIntoView_)="onScrollIntoView($event)"></app-card>
   </ng-container>
 </app-page-wrap>

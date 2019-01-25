@@ -56,6 +56,10 @@ export class ProfilesComponent implements OnInit, OnDestroy {
     this.router.navigate([profile.id, 'edit'], {relativeTo: this.activatedRoute});
   }
 
+  onEditImg(profile) {
+    this.router.navigate([profile.id, 'edit', 'img'], {relativeTo: this.activatedRoute});
+  }
+
   onScrollIntoView(elm) {
     // elm.scrollIntoView();
   }
