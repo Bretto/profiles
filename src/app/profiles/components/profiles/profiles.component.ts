@@ -3,7 +3,7 @@ import {ProfilesCommands} from '../../profiles.commands';
 import {ProfilesProjections} from '../../profiles.projections';
 import {ActivatedRoute, Router} from '@angular/router';
 import {AppService} from '../../../main/app.service';
-import {Subscription} from 'rxjs';
+import {Observable, Subscription} from 'rxjs';
 
 
 @Component({
@@ -13,7 +13,7 @@ import {Subscription} from 'rxjs';
 })
 export class ProfilesComponent implements OnInit, OnDestroy {
 
-  profiles$;
+  profiles$: Observable<Profile[]>;
   subs: Subscription = new Subscription();
 
   @ViewChild('cards') cards: ElementRef;
@@ -47,12 +47,12 @@ export class ProfilesComponent implements OnInit, OnDestroy {
     // this.cards.nativeElement.style.transform = `translate(0, -${window.pageYOffset}px)`;
   }
 
-  onSelect(id) {
-    this.appService.selectedProfileId = id;
-    this.router.navigate([id], {relativeTo: this.activatedRoute});
+  onSelect(profile: Profile) {
+    this.appService.selectedProfileId = profile.id;
+    this.router.navigate([profile.id], {relativeTo: this.activatedRoute});
   }
 
-  onEdit(profile) {
+  onEdit(profile: Profile) {
     this.router.navigate([profile.id, 'edit'], {relativeTo: this.activatedRoute});
   }
 

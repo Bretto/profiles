@@ -15,7 +15,7 @@ import {AppService} from '../../../main/app.service';
 export class ProfileComponent implements OnInit, OnDestroy {
 
   subs: Subscription = new Subscription();
-  profile: any;
+  profile: Profile;
   profileId: string;
 
   constructor(private profilesProj: ProfilesProjections,

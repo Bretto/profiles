@@ -11,12 +11,12 @@ export class ProfilesProjections {
   }
 
   @Obj$ToArray$()
-  queryAll$(): Observable<any> {
+  queryAll$(): Observable<Profile[]> {
     return this.store.select('profiles', 'entities')
       .pipe(filter(res => res && Object.keys(res).length > 0));
   }
 
-  queryById$(id): Observable<any> {
+  queryById$(id): Observable<Profile> {
     return this.store.select('profiles', 'entities', id)
       .pipe(filter(Boolean));
   }

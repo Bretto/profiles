@@ -17,7 +17,7 @@ import * as _ from 'lodash';
 export class ProfileEditComponent implements OnInit, OnDestroy {
 
   subs: Subscription = new Subscription();
-  profile: any;
+  profile: Profile;
   profileId: string;
   imgLoaded: boolean;
   form: FormGroup;
@@ -131,20 +131,6 @@ export class ProfileEditComponent implements OnInit, OnDestroy {
 
   onRemoveFile(data: FileUpload) {
     this.uploader.removeFile(data);
-  }
-
-  setFormFields(formData) {
-    if (this.form.getRawValue()) {
-      _.forEach(this.form.getRawValue(), (v, k) => {
-        if (k !== 'imgs') formData.append(k, v);
-      });
-
-      formData.append('id', this.profileId);
-    }
-  }
-
-  onBrowse() {
-    this.uploader.browseFiles();
   }
 
   getFC(name) {

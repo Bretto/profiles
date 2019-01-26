@@ -1,19 +1,17 @@
 import {ProfilesCommands} from './profiles.commands';
-import {FSA, toEvent} from '../shared/utils';
-import {UiCommands} from '../ui/ui.commands';
-import {UiState} from '../ui/ui.reducer';
+import {toEvent} from '../shared/utils';
 
 
-export interface ProfileState {
+export interface Profiles {
   entities: { [key: string]: any };
 }
 
-const initState: ProfileState = {
+const initState: Profiles = {
   entities: {}
 };
 
 
-const queryAllComplete = (state, event) => {
+const queryAllComplete = (state: Profiles, event): Profiles => {
   const newEntities = event.error ? null : event.payload;
   const oldEntities = state.entities;
   const entities = {...oldEntities, ...newEntities};
@@ -25,7 +23,7 @@ const queryAllComplete = (state, event) => {
 };
 
 
-const queryByIdComplete = (state, event) => {
+const queryByIdComplete = (state: Profiles, event): Profiles => {
 
   const newEntity: any = event.error ? null : event.payload;
   let entities = state.entities;
@@ -40,7 +38,7 @@ const queryByIdComplete = (state, event) => {
   };
 };
 
-const updateComplete = (state, event) => {
+const updateComplete = (state: Profiles, event): Profiles => {
 
   const newEntity: any = event.error ? null : event.payload;
   let entities = state.entities;
@@ -55,7 +53,7 @@ const updateComplete = (state, event) => {
   };
 };
 
-const createComplete = (state, event) => {
+const createComplete = (state: Profiles, event): Profiles => {
 
   const newEntity: any = event.error ? null : event.payload;
   let entities = state.entities;
@@ -70,12 +68,11 @@ const createComplete = (state, event) => {
   };
 };
 
-const deleteComplete = (state, event) => {
+const deleteComplete = (state: Profiles, event): Profiles => {
 
   const profileId = event.payload;
   const entities = {...state.entities};
-  const deletedEntity = {...entities[profileId], deleted: true};
-  entities[profileId] = deletedEntity;
+  entities[profileId] = {...entities[profileId], deleted: true};
 
   return {
     ...state,
@@ -87,7 +84,7 @@ const deleteComplete = (state, event) => {
 export function getReducers(
   state = initState,
   event: any
-): ProfileState {
+): Profiles {
   switch (event.type) {
 
     case toEvent(ProfilesCommands.CREATE): {

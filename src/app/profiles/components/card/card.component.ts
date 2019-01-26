@@ -11,11 +11,11 @@ import {ActivatedRoute, Router} from '@angular/router';
 })
 export class CardComponent implements OnInit, AfterViewInit {
 
-  @Input() profile;
-  @Output() select_: EventEmitter<any> = new EventEmitter();
-  @Output() edit_: EventEmitter<any> = new EventEmitter();
-  @Output() editImg_: EventEmitter<any> = new EventEmitter();
-  @Output() scrollIntoView_: any = new EventEmitter();
+  @Input() profile: Profile;
+  @Output() select_: EventEmitter<Profile> = new EventEmitter();
+  @Output() edit_: EventEmitter<Profile> = new EventEmitter();
+  @Output() editImg_: EventEmitter<Profile> = new EventEmitter();
+  @Output() scrollIntoView_: EventEmitter<any> = new EventEmitter();
   elm: any;
 
   constructor(private elementRef: ElementRef,
@@ -34,7 +34,7 @@ export class CardComponent implements OnInit, AfterViewInit {
 
   onSelect() {
     if (!this.profile.deleted) {
-      this.select_.next(this.profile.id);
+      this.select_.next(this.profile);
     }
   }
 

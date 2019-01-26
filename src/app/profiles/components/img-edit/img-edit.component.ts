@@ -17,7 +17,7 @@ export class ImgEditComponent implements OnInit, OnDestroy {
 
 
   subs: Subscription = new Subscription();
-  profile: any;
+  profile: Profile;
   profileId: string;
   imgLoaded: boolean;
   form: FormGroup;

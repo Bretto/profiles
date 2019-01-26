@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {from} from 'rxjs';
+import {from, Observable} from 'rxjs';
 import {Array$ToObj$, SnackBar, ToEvent} from '../shared/decorators';
 import {first, map} from 'rxjs/operators';
 import {ProfilesCommands} from './profiles.commands';
@@ -17,19 +17,19 @@ export class ProfilesService {
   // @SnackBar()
   @ToEvent(ProfilesCommands.QUERY_ALL)
   @Array$ToObj$('id')
-  queryAll(data) {
-    return this.db.collection('profile').valueChanges();
+  queryAll(data): Observable<Profile[]> {
+    return this.db.collection('profile').valueChanges() as Observable<Profile[]>;
   }
 
   @ToEvent(ProfilesCommands.QUERY_BY_ID)
-  queryById(id) {
-    return this.db.doc(`profile/${id}`).valueChanges().pipe(first());
+  queryById(id):  Observable<Profile> {
+    return this.db.doc(`profile/${id}`).valueChanges().pipe(first()) as  Observable<Profile>;
   }
 
   @SnackBar()
   @ToEvent(ProfilesCommands.UPDATE)
-  update(profile) {
-    profile = _.omitBy(profile, _.isNil);
+  update(profile: Profile): Observable<void> {
+    profile = _.omitBy(profile, _.isNil) as Profile;
     return from(this.db.doc(`profile/${profile.id}`).update(profile));
     // return of(profile).pipe(
     //   delay(3000),
@@ -41,8 +41,8 @@ export class ProfilesService {
 
   @SnackBar()
   @ToEvent(ProfilesCommands.CREATE)
-  create(profile) {
-    profile = _.omitBy(profile, _.isNil);
+  create(profile: Profile) {
+    profile = _.omitBy(profile, _.isNil) as Profile;
     const id = this.db.collection('collections').ref.doc().id;
     profile = {id, ...profile};
     return from(this.db.collection(`profile`)

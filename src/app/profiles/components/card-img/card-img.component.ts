@@ -7,7 +7,7 @@ import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 })
 export class CardImgComponent implements OnInit {
 
-  @Input() profile: any;
+  @Input() profile: Profile;
   imgLoaded: boolean;
 
   @Output() edit_: EventEmitter<any> = new EventEmitter();

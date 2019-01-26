@@ -1,16 +1,18 @@
 :host {
   display: block;
   position: relative;
+  margin-left: -16px;
+  margin-right: -16px;
+  margin-bottom: 1rem;
 }
 
 fa-icon {
   position: absolute;
   top: 1rem;
-  right: 0;
+  right: 1rem;
 }
 
 .spinner-wrap {
-  margin: 0 -16px 16px -16px;
   background: #eee;
   border: solid #ddd 1px;
   border-left: none;
@@ -28,5 +30,7 @@ fa-icon {
 
 img {
   margin-top: 0 !important;
+  margin: 0 !important;
+  width: 100% !important;
 }
 

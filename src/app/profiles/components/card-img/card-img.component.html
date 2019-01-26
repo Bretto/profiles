@@ -1,6 +1,6 @@
-
-<img  *ngIf="profile.pic"  mat-card-image [src]="profile.pic" (load)="onImgLoaded()">
-<fa-icon class="edit-btn" [icon]="['fas', 'pen-square']" (click)="onEdit($event)" auth-role></fa-icon>
+<fa-icon *ngIf="imgLoaded" class="edit-btn" [icon]="['fas', 'pen-square']" (click)="onEdit($event)" auth-role></fa-icon>
+<img *ngIf="profile.pic" mat-card-image [src]="profile.pic" (load)="onImgLoaded()">
 <div class="spinner-wrap" *ngIf="!imgLoaded">
   <mat-spinner diameter="40" ></mat-spinner>
 </div>
+

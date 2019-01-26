@@ -43,7 +43,7 @@ export class HomeComponent implements OnInit {
   }
 
   private async createProfiles() {
-    const profiles: any = Array(5)
+    const profiles: Profile[] = Array(5)
       .fill(1)
       .map(_ => {
         return {
@@ -51,21 +51,21 @@ export class HomeComponent implements OnInit {
           firstName: name.firstName(),
           lastName: name.lastName(),
           bio: lorem.sentence(),
-          pic: image.avatar()
+          pic: image.avatar(),
+          deleted: false,
         };
       });
 
-    return profiles.asyncReduce(async (acc, curr) => {
+    return (profiles as any).asyncReduce(async (acc, curr) => {
       acc.push(await this.createProfile(curr));
       return acc;
     }, []);
   }
 
-  private createProfile = async (profile) => {
+  private createProfile = async (profile: Profile) => {
     const doc = await this.db.collection('profile').doc(profile.id).set(profile);
-    console.log('doc create', profile);
     return profile;
-  }
+  };
 
   private async deleteAll(col) {
     const res: QuerySnapshot = await this.db.collection(col).get().toPromise();
