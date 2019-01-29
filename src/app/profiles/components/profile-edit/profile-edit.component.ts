@@ -8,6 +8,7 @@ import {FormResponse} from '../../../shared/components/form-ui/form-ui.component
 import {AppService} from '../../../main/app.service';
 import {getUID} from '../../../shared/utils';
 import {newProfile, Profile} from '../../profile.model';
+import * as _ from 'lodash';
 
 
 @Component({
@@ -17,30 +18,31 @@ import {newProfile, Profile} from '../../profile.model';
 })
 export class ProfileEditComponent implements OnInit, OnDestroy {
 
-  hasChanges: boolean;
   subs: Subscription = new Subscription();
   profile: Profile;
   profileId: string;
-  imgLoaded: boolean;
   createMode: boolean;
   form: FormGroup;
   formDataOrigin: any = {};
   formRes: Subject<FormResponse> = new Subject<FormResponse>();
-  @ViewChild('uploader') uploader;
 
   constructor(private profilesProj: ProfilesProjections,
               private profilesCommands: ProfilesCommands,
               private appService: AppService,
-              private ref: ChangeDetectorRef,
               private activatedRoute: ActivatedRoute,
-              private router: Router, private route: ActivatedRoute, private fb: FormBuilder) {
+              private router: Router, private fb: FormBuilder) {
 
     console.log('ProfileEditComponent');
 
+
+  }
+
+  ngOnInit() {
     this.initForm();
 
-    if (route.snapshot.paramMap.get('id')) {
-      this.profileId = route.snapshot.paramMap.get('id');
+    if (this.activatedRoute.snapshot.paramMap.get('id')) {
+
+      this.profileId = this.activatedRoute.snapshot.paramMap.get('id');
       this.subs.add(
         this.profilesProj.queryById$(this.profileId)
           .subscribe(profile => {
@@ -50,6 +52,7 @@ export class ProfileEditComponent implements OnInit, OnDestroy {
           }));
 
       this.profilesCommands.queryById(this.profileId);
+
     } else {
       this.createMode = true;
       this.profileId = getUID('profile');
@@ -57,10 +60,6 @@ export class ProfileEditComponent implements OnInit, OnDestroy {
       this.formDataOrigin = this.profile;
       this.form.patchValue(this.profile);
     }
-  }
-
-  ngOnInit() {
-
   }
 
   initForm() {
@@ -71,9 +70,6 @@ export class ProfileEditComponent implements OnInit, OnDestroy {
     });
   }
 
-  onImgLoaded() {
-    this.imgLoaded = true;
-  }
 
   onCancel() {
     this.form.patchValue(this.formDataOrigin);
@@ -102,6 +98,7 @@ export class ProfileEditComponent implements OnInit, OnDestroy {
   }
 
   onSuccess = (res) => {
+    this.formDataOrigin = {id: this.profileId, ...this.form.getRawValue()};
     this.formRes.next({
       isPending: false,
       successMsg: 'Success'
@@ -132,10 +129,6 @@ export class ProfileEditComponent implements OnInit, OnDestroy {
     this.subs.unsubscribe();
   }
 
-  onRemoveFile(data) {
-    this.uploader.removeFile(data);
-  }
-
   getFC(name) {
     return this.form.get(name);
   }
@@ -154,9 +147,26 @@ export class ProfileEditComponent implements OnInit, OnDestroy {
     return {firstName, lastName, bio};
   }
 
-  checkForChanges() {
-    console.log('checkForChanges', this.formData() === this.originData());
-    return this.formData() === this.originData();
+  get hasChanges() {
+    return !_.isEqual(this.formData(), this.originData());
+  }
+
+  getFirstNameErrorMessage() {
+    return this.getFC('firstName').hasError('required')
+      ? 'You must enter a value'
+      : '';
+  }
+
+  getLastNameErrorMessage() {
+    return this.getFC('lastName').hasError('required')
+      ? 'You must enter a value'
+      : '';
+  }
+
+  getBioErrorMessage() {
+    return this.getFC('bio').hasError('required')
+      ? 'You must enter a value'
+      : '';
   }
 
 }

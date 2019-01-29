@@ -3,8 +3,6 @@
       <mat-card [formGroup]="form">
         <mat-card-header>
 
-          <p>checkForChanges: {{checkForChanges()}}</p>
-
           <div *ngIf="profile.pic" mat-card-avatar class="thumb"
                [style.background-image]="'url(' + profile.pic + ')'"></div>
           <mat-card-title>{{fullName}}</mat-card-title>
@@ -17,14 +15,17 @@
 
           <mat-form-field>
             <input matInput placeholder="First name" formControlName="firstName">
+            <mat-error *ngIf="getFC('firstName').invalid">{{getFirstNameErrorMessage()}}</mat-error>
           </mat-form-field>
 
           <mat-form-field>
             <input matInput placeholder="Last name" formControlName="lastName">
+            <mat-error *ngIf="getFC('lastName').invalid">{{getLastNameErrorMessage()}}</mat-error>
           </mat-form-field>
 
           <mat-form-field>
             <textarea matInput placeholder="Bio" formControlName="bio"></textarea>
+            <mat-error *ngIf="getFC('bio').invalid">{{getBioErrorMessage()}}</mat-error>
           </mat-form-field>
 
         </mat-card-content>

@@ -4,3 +4,4 @@ TODO
 - pending state on img upload  
 - img rotation on desktop  
 - error handling on profile form and img upload
+- delete needs to remove the pics form storage

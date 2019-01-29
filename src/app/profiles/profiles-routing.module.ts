@@ -5,6 +5,7 @@ import {ProfileEditComponent} from './components/profile-edit/profile-edit.compo
 import {ProfileComponent} from './components/profile/profile.component';
 import {ImgEditComponent} from './components/img-edit/img-edit.component';
 import {AuthGuard} from '../shared/guards/auth.guard';
+import {ConfirmLeaveGuard} from '../shared/guards/confirm-leave.guard';
 
 const routes: Routes = [
   {
@@ -52,7 +53,8 @@ const routes: Routes = [
       header: 'ProfileHeaderComponent',
       backUrl: ':id'
     },
-    canActivate: [AuthGuard]
+    canActivate: [AuthGuard],
+    canDeactivate: [ConfirmLeaveGuard]
   },
   {
     path: ':id/edit/img',
