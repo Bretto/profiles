@@ -4,6 +4,7 @@ import {ProfilesComponent} from './components/profiles/profiles.component';
 import {ProfileEditComponent} from './components/profile-edit/profile-edit.component';
 import {ProfileComponent} from './components/profile/profile.component';
 import {ImgEditComponent} from './components/img-edit/img-edit.component';
+import {AuthGuard} from '../shared/guards/auth.guard';
 
 const routes: Routes = [
   {
@@ -19,15 +20,28 @@ const routes: Routes = [
     component: ProfileEditComponent,
     data: {
       direction: 2,
-      header: 'ProfileHeaderComponent'
-    }
+      header: 'ProfileHeaderComponent',
+      backUrl: '.'
+    },
+    canActivate: [AuthGuard]
+  },
+  {
+    path: 'new/img',
+    component: ImgEditComponent,
+    data: {
+      direction: 4,
+      header: 'ProfileHeaderComponent',
+      backUrl: 'new'
+    },
+    canActivate: [AuthGuard]
   },
   {
     path: ':id',
     component: ProfileComponent,
     data: {
       direction: 2,
-      header: 'ProfileHeaderComponent'
+      header: 'ProfileHeaderComponent',
+      backUrl: '.'
     }
   },
   {
@@ -35,16 +49,20 @@ const routes: Routes = [
     component: ProfileEditComponent,
     data: {
       direction: 3,
-      header: 'ProfileHeaderComponent'
-    }
+      header: 'ProfileHeaderComponent',
+      backUrl: ':id'
+    },
+    canActivate: [AuthGuard]
   },
   {
     path: ':id/edit/img',
     component: ImgEditComponent,
     data: {
       direction: 4,
-      header: 'ProfileHeaderComponent'
-    }
+      header: 'ProfileHeaderComponent',
+      backUrl: ':id/edit/'
+    },
+    canActivate: [AuthGuard]
   },
 ];
 

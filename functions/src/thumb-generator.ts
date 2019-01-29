@@ -34,7 +34,7 @@ export const generateThumbs = functions.storage
     });
 
     // 3. Resize the images and define an array of upload promises
-    const sizes = [64, 128, 256];
+    const sizes = [375];
 
     const uploadPromises = sizes.map(async size => {
       const thumbName = `thumb@${size}_${fileName}`;
@@ -42,7 +42,7 @@ export const generateThumbs = functions.storage
 
       // Resize source image
       await sharp(tmpFilePath)
-        .resize(size, size)
+        .resize(size, null)
         .toFile(thumbPath);
 
       // Upload to GCS

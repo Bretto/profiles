@@ -6,6 +6,7 @@ import {image, lorem, name, random} from 'faker';
 import {AuthService} from '../shared/services/auth.service';
 import {ActivatedRoute, Router} from '@angular/router';
 import {AppService} from '../main/app.service';
+import {Profile} from '../profiles/profile.model';
 
 
 Array.prototype['asyncReduce'] = async function (callback, initialVal) {

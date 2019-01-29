@@ -6,6 +6,7 @@ import {ProfilesCommands} from '../../profiles.commands';
 import {Subscription} from 'rxjs';
 import {FormResponse} from '../../../shared/components/form-ui/form-ui.component';
 import {AppService} from '../../../main/app.service';
+import {Profile} from '../../profile.model';
 
 @Component({
   selector: 'app-profile',

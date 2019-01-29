@@ -1,6 +1,6 @@
 import {
   AfterViewInit,
-  Component,
+  Component, ComponentRef,
   Injector,
   NgModuleFactoryLoader,
   OnInit, SystemJsNgModuleLoader,
@@ -84,7 +84,10 @@ export class ShellComponent implements OnInit, AfterViewInit {
           const headerFactory = this.profilesPluginService.resolver
             .resolveComponentFactory(this.profilesPluginService.entriesComponent[header]);
           this.vcr.clear();
-          this.vcr.createComponent(headerFactory);
+          const headerRef: ComponentRef<any> = this.vcr.createComponent(headerFactory);
+          if (_.get(routerState, 'data.backUrl')) {
+            headerRef.instance.backUrl = routerState.data.backUrl;
+          }
         }
         this.appService.headerIsVisible = true;
       });

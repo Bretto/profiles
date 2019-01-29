@@ -3,6 +3,7 @@ import {Store} from '@ngrx/store';
 import {Observable} from 'rxjs';
 import {Obj$ToArray$} from '../shared/decorators';
 import {filter} from 'rxjs/operators';
+import {Profile} from './profile.model';
 
 @Injectable({providedIn: 'root'})
 export class ProfilesProjections {

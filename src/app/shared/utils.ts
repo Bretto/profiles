@@ -1,6 +1,7 @@
 import {RouterStateSerializer} from '@ngrx/router-store';
 import {Params} from '@angular/router';
 import {Action} from '@ngrx/store';
+import * as firebase from 'firebase/app';
 
 /**
  * The RouterStateSerializer takes the current RouterStateSnapshot
@@ -52,3 +53,9 @@ export interface FSA<T = any> extends Action {
 export function toEvent(str) {
   return str + '_COMPLETE';
 }
+
+export function getUID(col): string {
+  return firebase.firestore().collection(col).doc().id;
+}
+
+

@@ -4,6 +4,7 @@ import {ProfilesProjections} from '../../profiles.projections';
 import {ActivatedRoute, Router} from '@angular/router';
 import {AppService} from '../../../main/app.service';
 import {Observable, Subscription} from 'rxjs';
+import {Profile} from '../../profile.model';
 
 
 @Component({
@@ -57,7 +58,7 @@ export class ProfilesComponent implements OnInit, OnDestroy {
   }
 
   onEditImg(profile) {
-    this.router.navigate([profile.id, 'edit', 'img'], {relativeTo: this.activatedRoute});
+    this.router.navigate([profile.id, 'edit', 'img'], {relativeTo: this.activatedRoute,  state: {profileId: profile.id}});
   }
 
   onScrollIntoView(elm) {

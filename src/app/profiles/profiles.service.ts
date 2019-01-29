@@ -5,6 +5,7 @@ import {first, map} from 'rxjs/operators';
 import {ProfilesCommands} from './profiles.commands';
 import {AngularFirestore} from 'angularfire2/firestore';
 import * as _ from 'lodash';
+import {Profile} from './profile.model';
 
 @Injectable({
   providedIn: 'root'
@@ -43,10 +44,8 @@ export class ProfilesService {
   @ToEvent(ProfilesCommands.CREATE)
   create(profile: Profile) {
     profile = _.omitBy(profile, _.isNil) as Profile;
-    const id = this.db.collection('collections').ref.doc().id;
-    profile = {id, ...profile};
     return from(this.db.collection(`profile`)
-      .doc(id).set(profile));
+      .doc(profile.id).set(profile));
   }
 
   @SnackBar()

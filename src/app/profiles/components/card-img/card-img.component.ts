@@ -1,4 +1,5 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {Profile} from '../../profile.model';
 
 @Component({
   selector: 'app-card-img',
@@ -24,6 +25,10 @@ export class CardImgComponent implements OnInit {
 
   onEdit(e) {
     this.edit_.emit(e);
+  }
+
+  get picUrl() {
+    return this.profile.pic;//this.profile.pic ? this.profile.pic : 'assets/images/default.jpg';
   }
 
 

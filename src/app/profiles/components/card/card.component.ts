@@ -3,6 +3,7 @@ import {AppService} from '../../../main/app.service';
 import {delay} from 'rxjs/operators';
 import {Observable} from 'rxjs';
 import {ActivatedRoute, Router} from '@angular/router';
+import {Profile} from '../../profile.model';
 
 @Component({
   selector: 'app-card',
@@ -53,4 +54,5 @@ export class CardComponent implements OnInit, AfterViewInit {
   }
 
 }
+
 

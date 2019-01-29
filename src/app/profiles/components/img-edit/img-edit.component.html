@@ -5,8 +5,11 @@
       <app-card-img [profile]="profile"></app-card-img>
 
       <mat-card-content>
-        <app-file-upload (url)="urlChange($event)"></app-file-upload>
       </mat-card-content>
+
+      <mat-card-actions>
+        <app-file-upload (url)="urlChange($event)"></app-file-upload>
+      </mat-card-actions>
 
     </mat-card>
   </ng-container>

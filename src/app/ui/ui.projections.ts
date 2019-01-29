@@ -30,6 +30,10 @@ export class UiProjection {
     return this.store.select('ui', 'user');
   }
 
+  getRouterState() {
+   return this.store.select('router', 'state');
+  }
+
 
 
 

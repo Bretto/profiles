@@ -6,8 +6,9 @@ import {ProfilesCommands} from '../../profiles.commands';
 import {Subject, Subscription} from 'rxjs';
 import {FormResponse} from '../../../shared/components/form-ui/form-ui.component';
 import {AppService} from '../../../main/app.service';
-import {createExtensionsValidator, createMaxSizeValidator, FileUpload} from '../../../shared/file-uploader2.component';
-import * as _ from 'lodash';
+import {getUID} from '../../../shared/utils';
+import {newProfile, Profile} from '../../profile.model';
+
 
 @Component({
   selector: 'app-profile-edit',
@@ -16,14 +17,15 @@ import * as _ from 'lodash';
 })
 export class ProfileEditComponent implements OnInit, OnDestroy {
 
+  hasChanges: boolean;
   subs: Subscription = new Subscription();
   profile: Profile;
   profileId: string;
   imgLoaded: boolean;
+  createMode: boolean;
   form: FormGroup;
   formDataOrigin: any = {};
   formRes: Subject<FormResponse> = new Subject<FormResponse>();
-  newProfileMode: boolean;
   @ViewChild('uploader') uploader;
 
   constructor(private profilesProj: ProfilesProjections,
@@ -33,19 +35,12 @@ export class ProfileEditComponent implements OnInit, OnDestroy {
               private activatedRoute: ActivatedRoute,
               private router: Router, private route: ActivatedRoute, private fb: FormBuilder) {
 
-    console.log('ProfileComponent');
-
-    this.profileId = route.snapshot.paramMap.get('id');
-    if (this.profileId === 'new') {
-      this.newProfileMode = true;
-    }
-  }
-
-  ngOnInit() {
+    console.log('ProfileEditComponent');
 
     this.initForm();
 
-    if (!this.newProfileMode) {
+    if (route.snapshot.paramMap.get('id')) {
+      this.profileId = route.snapshot.paramMap.get('id');
       this.subs.add(
         this.profilesProj.queryById$(this.profileId)
           .subscribe(profile => {
@@ -55,7 +50,17 @@ export class ProfileEditComponent implements OnInit, OnDestroy {
           }));
 
       this.profilesCommands.queryById(this.profileId);
+    } else {
+      this.createMode = true;
+      this.profileId = getUID('profile');
+      this.profile = newProfile({id: this.profileId});
+      this.formDataOrigin = this.profile;
+      this.form.patchValue(this.profile);
     }
+  }
+
+  ngOnInit() {
+
   }
 
   initForm() {
@@ -80,16 +85,14 @@ export class ProfileEditComponent implements OnInit, OnDestroy {
   }
 
   onSubmit() {
-    // const formData = this.uploader.getFormData();
-    // this.setFormFields(formData);
-
     this.formRes.next({isPending: true});
+    const profile = {id: this.profileId, ...this.form.getRawValue()};
 
-    if (this.profileId) {
-      this.profilesCommands.update({id: this.profileId, ...this.form.getRawValue()})
+    if (this.createMode) {
+      this.profilesCommands.create(profile)
         .subscribe(this.onSuccess, this.onError);
     } else {
-      this.profilesCommands.create(this.form.getRawValue())
+      this.profilesCommands.update(profile)
         .subscribe(this.onSuccess, this.onError);
     }
   }
@@ -129,7 +132,7 @@ export class ProfileEditComponent implements OnInit, OnDestroy {
     this.subs.unsubscribe();
   }
 
-  onRemoveFile(data: FileUpload) {
+  onRemoveFile(data) {
     this.uploader.removeFile(data);
   }
 
@@ -137,12 +140,23 @@ export class ProfileEditComponent implements OnInit, OnDestroy {
     return this.form.get(name);
   }
 
-  get imgs(): FileUpload[] {
-    return this.getFC('imgs').value;
+  onEditImg(profile) {
+    this.router.navigate(['img'], {relativeTo: this.activatedRoute, state: {profileId: this.profileId}});
   }
 
-  onEditImg(profile) {
-    this.router.navigate(['img'], {relativeTo: this.activatedRoute});
+  formData() {
+    const {firstName, lastName, bio} = this.form.getRawValue();
+    return {firstName, lastName, bio};
+  }
+
+  originData() {
+    const {firstName, lastName, bio} = this.formDataOrigin;
+    return {firstName, lastName, bio};
+  }
+
+  checkForChanges() {
+    console.log('checkForChanges', this.formData() === this.originData());
+    return this.formData() === this.originData();
   }
 
 }

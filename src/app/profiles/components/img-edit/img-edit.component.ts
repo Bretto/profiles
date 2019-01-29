@@ -1,12 +1,12 @@
 import {ChangeDetectorRef, Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {ProfilesProjections} from '../../profiles.projections';
 import {ActivatedRoute, Router} from '@angular/router';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {FormBuilder, FormGroup} from '@angular/forms';
 import {ProfilesCommands} from '../../profiles.commands';
 import {Subject, Subscription} from 'rxjs';
 import {FormResponse} from '../../../shared/components/form-ui/form-ui.component';
 import {AppService} from '../../../main/app.service';
-import * as _ from 'lodash';
+import {newProfile, Profile} from '../../profile.model';
 
 @Component({
   selector: 'app-img-edit',
@@ -19,11 +19,9 @@ export class ImgEditComponent implements OnInit, OnDestroy {
   subs: Subscription = new Subscription();
   profile: Profile;
   profileId: string;
-  imgLoaded: boolean;
   form: FormGroup;
   formDataOrigin: any = {};
   formRes: Subject<FormResponse> = new Subject<FormResponse>();
-  newProfileMode: boolean;
   @ViewChild('uploader') uploader;
 
   constructor(private profilesProj: ProfilesProjections,
@@ -32,39 +30,41 @@ export class ImgEditComponent implements OnInit, OnDestroy {
               private ref: ChangeDetectorRef,
               private router: Router, private route: ActivatedRoute, private fb: FormBuilder) {
 
-    console.log('ProfileComponent');
+    console.log('ImgEditComponent');
 
-    this.profileId = route.snapshot.paramMap.get('id');
-    if (this.profileId === 'new') {
-      this.newProfileMode = true;
+    if (this.router.getCurrentNavigation()) {
+      const navigation = this.router.getCurrentNavigation();
+      const state = navigation.extras.state as { profileId: string };
+      this.profileId = state.profileId;
     }
+
   }
 
   ngOnInit() {
 
-    if (!this.newProfileMode) {
+    if (this.route.snapshot.paramMap.get('id')) {
       this.subs.add(
         this.profilesProj.queryById$(this.profileId)
           .subscribe(profile => {
             this.formDataOrigin = profile;
             this.profile = profile;
           }));
-
       this.profilesCommands.queryById(this.profileId);
+    } else {
+      if (this.profileId) {
+        this.profile = newProfile({id: this.profileId});
+      }
     }
 
   }
 
-  onImgLoaded() {
-    this.imgLoaded = true;
-  }
-
   urlChange(url) {
-    this.profile = {...this.profile, pic: url};
-    this.profilesCommands.update({id: this.profileId, pic: url})
-      .subscribe(this.onSuccess, this.onError);
+    if (this.profileId) {
+      this.profile = {...this.profile, pic: url};
+      this.profilesCommands.update({id: this.profileId, pic: url})
+        .subscribe(this.onSuccess, this.onError);
+    }
   }
-
 
   onDelete() {
     // this.profilesCommands.delete(this.profileId)
@@ -84,13 +84,6 @@ export class ImgEditComponent implements OnInit, OnDestroy {
       errorMsg: 'Error'
     });
   };
-
-
-  get headerIsVisible() {
-    if (this.appService) {
-      return this.appService.headerIsVisible;
-    }
-  }
 
   ngOnDestroy() {
     this.subs.unsubscribe();

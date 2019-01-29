@@ -2,6 +2,9 @@
     <ng-container *ngIf="profile">
       <mat-card [formGroup]="form">
         <mat-card-header>
+
+          <p>checkForChanges: {{checkForChanges()}}</p>
+
           <div *ngIf="profile.pic" mat-card-avatar class="thumb"
                [style.background-image]="'url(' + profile.pic + ')'"></div>
           <mat-card-title>{{fullName}}</mat-card-title>

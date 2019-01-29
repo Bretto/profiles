@@ -1,8 +1,9 @@
 import {Component, EventEmitter, OnDestroy, Output, ViewChild} from '@angular/core';
 import {AngularFireStorage, AngularFireUploadTask} from 'angularfire2/storage';
 import {AngularFirestore} from 'angularfire2/firestore';
-import {finalize} from 'rxjs/operators';
+import {finalize, first} from 'rxjs/operators';
 import {Subscription} from 'rxjs';
+import {UiProjection} from '../../../ui/ui.projections';
 
 @Component({
   selector: 'app-file-upload',
@@ -23,10 +24,18 @@ export class FileUploadComponent implements OnDestroy {
   downloadURL: string;
 
   isActive: boolean;
+  user: User;
+  profileId: string;
 
   @Output() url: EventEmitter<string> = new EventEmitter();
 
-  constructor(private storage: AngularFireStorage, private db: AngularFirestore) {
+  constructor(private storage: AngularFireStorage, private db: AngularFirestore, private uiProj: UiProjection) {
+
+    uiProj.getUser()
+      .pipe(first())
+      .subscribe(user => {
+        this.user = user;
+      });
   }
 
   startUpload(event: FileList) {
