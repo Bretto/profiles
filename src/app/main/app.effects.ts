@@ -19,7 +19,7 @@ export class AppEffects {
     map((action: any) => this.snackBar.open('ERROR', 'OK', {panelClass: 'error-snack'})));
 
   @Effect({dispatch: false})
-  snackBar$ = this.actions$.pipe(
+  success$ = this.actions$.pipe(
     filter((action: any) => action.meta && action.meta.snackBar),
     tap((action: any) => this.snackBar.open('SUCCESS', '', {duration: 2000, panelClass: 'success-snack'})));
 

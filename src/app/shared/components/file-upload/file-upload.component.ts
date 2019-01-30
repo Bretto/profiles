@@ -1,4 +1,4 @@
-import {Component, EventEmitter, OnDestroy, Output, ViewChild} from '@angular/core';
+import {Component, EventEmitter, Input, OnDestroy, Output, ViewChild} from '@angular/core';
 import {AngularFireStorage, AngularFireUploadTask} from 'angularfire2/storage';
 import {AngularFirestore} from 'angularfire2/firestore';
 import {finalize, first} from 'rxjs/operators';
@@ -23,7 +23,19 @@ export class FileUploadComponent implements OnDestroy {
   // Download URL
   downloadURL: string;
 
-  isActive: boolean;
+  uploadingValue = false;
+  @Output() uploadingChange = new EventEmitter();
+
+  @Input()
+  get uploading() {
+    return this.uploadingValue;
+  }
+
+  set uploading(val) {
+    this.uploadingValue = val;
+    this.uploadingChange.emit(this.uploadingValue);
+  }
+
   user: User;
   profileId: string;
 
@@ -39,6 +51,8 @@ export class FileUploadComponent implements OnDestroy {
   }
 
   startUpload(event: FileList) {
+
+    this.uploading = true;
     // The File object
     const file = event.item(0);
 
@@ -49,7 +63,7 @@ export class FileUploadComponent implements OnDestroy {
     }
 
     // The storage path
-    const path = `test/${new Date().getTime()}_${file.name}`;
+    const path = `${this.user.uid}/${this.profileId}/${new Date().getTime()}_${file.name}`;
 
     const fileRef = this.storage.ref(path);
     // The main task
@@ -65,7 +79,7 @@ export class FileUploadComponent implements OnDestroy {
 
     this.subs.add(this.task.snapshotChanges().subscribe(snap => {
       this.snap = snap;
-      this.isActive = snap.state === 'running' && snap.bytesTransferred < snap.totalBytes;
+      // this.uploading = snap.state === 'running' && snap.bytesTransferred < snap.totalBytes;
     }));
 
     // TODO fix this ugliness

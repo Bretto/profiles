@@ -1,4 +1,4 @@
-<mat-card [ngClass]="{deleted: profile.deleted}" (click)="onSelect()">
+<mat-card [ngClass]="{deleted: profile.deleted}" (click)="onSelect($event)">
   <mat-card-header>
     <div *ngIf="profile.pic" mat-card-avatar class="thumb" [style.background-image]="'url(' + profile.pic + ')'"></div>
     <mat-card-title>{{fullName}}</mat-card-title>

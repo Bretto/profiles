@@ -8,7 +8,7 @@
       </mat-card-content>
 
       <mat-card-actions>
-        <app-file-upload (url)="urlChange($event)"></app-file-upload>
+        <app-file-upload (url)="urlChange($event)" [(uploading)]="uploading"></app-file-upload>
       </mat-card-actions>
 
     </mat-card>

@@ -1,6 +1,5 @@
 import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
-import {PreviousRouteService} from '../../../shared/services/previous-route.service';
 import {UiProjection} from '../../../ui/ui.projections';
 import {first} from 'rxjs/operators';
 
@@ -23,9 +22,6 @@ export class ProfileHeaderComponent implements OnInit {
   }
 
   onBack() {
-
-    console.log('backUrl', this.backUrl);
-    console.log('activatedRoute', this.activatedRoute);
 
     this.uiProj.getRouterState()
       .pipe(first())

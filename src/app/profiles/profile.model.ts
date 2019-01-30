@@ -8,6 +8,6 @@ export interface Profile {
 }
 
 export function newProfile(profile) {
-  const {id, firstName = 'first name', lastName = 'last name', bio = 'bio', pic = 'assets/images/default.jpg', deleted = false} = profile;
+  const {id = 'missing id', firstName = 'first name', lastName = 'last name', bio = 'bio', pic = 'assets/images/default.jpg', deleted = false} = profile;
   return {id, firstName, lastName, bio, pic, deleted};
 }

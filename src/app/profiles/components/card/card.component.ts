@@ -1,8 +1,5 @@
 import {AfterViewInit, Component, ElementRef, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {AppService} from '../../../main/app.service';
-import {delay} from 'rxjs/operators';
-import {Observable} from 'rxjs';
-import {ActivatedRoute, Router} from '@angular/router';
 import {Profile} from '../../profile.model';
 
 @Component({
@@ -33,7 +30,8 @@ export class CardComponent implements OnInit, AfterViewInit {
     }
   }
 
-  onSelect() {
+  onSelect(e) {
+    e.stopImmediatePropagation();
     if (!this.profile.deleted) {
       this.select_.next(this.profile);
     }

@@ -1,10 +1,9 @@
 import {ChangeDetectorRef, Component, OnDestroy, OnInit} from '@angular/core';
 import {ProfilesProjections} from '../../profiles.projections';
 import {ActivatedRoute, Router} from '@angular/router';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {FormBuilder} from '@angular/forms';
 import {ProfilesCommands} from '../../profiles.commands';
 import {Subscription} from 'rxjs';
-import {FormResponse} from '../../../shared/components/form-ui/form-ui.component';
 import {AppService} from '../../../main/app.service';
 import {Profile} from '../../profile.model';
 
@@ -21,16 +20,12 @@ export class ProfileComponent implements OnInit, OnDestroy {
 
   constructor(private profilesProj: ProfilesProjections,
               private profilesCommands: ProfilesCommands,
-              private appService: AppService,
-              private activatedRoute: ActivatedRoute,
-              private ref: ChangeDetectorRef,
               private router: Router,
-              private route: ActivatedRoute,
-              private fb: FormBuilder) {
+              private activatedRoute: ActivatedRoute) {
 
     console.log('ProfileComponent');
 
-    this.profileId = route.snapshot.paramMap.get('id');
+    this.profileId = activatedRoute.snapshot.paramMap.get('id');
   }
 
   ngOnInit() {

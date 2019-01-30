@@ -4,7 +4,7 @@ import {Command} from './command';
 
 type ServiceFn = (any) => Observable<any>;
 
-export const callService = (serviceFn: ServiceFn) => {
+export const setStateFromServiceWithFeedback = (serviceFn: ServiceFn) => {
   return switchMap((cmd: Command<any, any>) => serviceFn(cmd.payload)
     .pipe(
       map((res) => {
@@ -17,7 +17,7 @@ export const callService = (serviceFn: ServiceFn) => {
     ));
 };
 
-export  const setStateWithService = (propName: string, serviceFn: ServiceFn) => {
+export  const setStateFromService = (propName: string, serviceFn: ServiceFn) => {
   return switchMap((cmd: Command<any, any>) => serviceFn(cmd.payload)
     .pipe( map(res => ({type: cmd.type + '_COMPLETE', payload: {propName, value: res}}))));
 };

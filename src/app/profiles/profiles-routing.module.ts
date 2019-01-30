@@ -24,7 +24,8 @@ const routes: Routes = [
       header: 'ProfileHeaderComponent',
       backUrl: '.'
     },
-    canActivate: [AuthGuard]
+    canActivate: [AuthGuard],
+    canDeactivate: [ConfirmLeaveGuard]
   },
   {
     path: 'new/img',

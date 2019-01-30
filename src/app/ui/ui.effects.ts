@@ -2,8 +2,7 @@ import {Injectable} from '@angular/core';
 import {Actions, Effect, ofType} from '@ngrx/effects';
 import {UiCommands} from './ui.commands';
 import {Watcher} from '../main/watcher';
-import {Crud} from '../shared/crud';
-import {setState, setStateWithService} from '../shared/operators';
+import {setState, setStateFromService} from '../shared/operators';
 
 @Injectable({providedIn: 'root'})
 export class UiEffects {
@@ -11,7 +10,6 @@ export class UiEffects {
   constructor(
     private actions$: Actions,
     private uiCommands: UiCommands,
-    private crud: Crud,
     private watcher: Watcher) {
     console.log('UiEffects');
 
@@ -30,17 +28,17 @@ export class UiEffects {
   @Effect()
   online$ = this.actions$.pipe(
     ofType(UiCommands.ONLINE_WATCHER),
-    setStateWithService('online', this.watcher.onlineWatcher));
+    setStateFromService('online', this.watcher.onlineWatcher));
 
   @Effect()
   handset$ = this.actions$.pipe(
     ofType(UiCommands.BREAKPOINT_WATCHER),
-    setStateWithService('handset', this.watcher.breakpointWatcher));
+    setStateFromService('handset', this.watcher.breakpointWatcher));
 
   @Effect()
   auth$ = this.actions$.pipe(
     ofType(UiCommands.AUTH_WATCHER),
-    setStateWithService('user', this.watcher.authWatcher));
+    setStateFromService('user', this.watcher.authWatcher));
 
   // map((action: any) => action.payload),
   // switchMap((status) => this.watcher.onlineWatcher(status).pipe(

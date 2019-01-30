@@ -5,3 +5,4 @@ TODO
 - img rotation on desktop  
 - error handling on profile form and img upload
 - delete needs to remove the pics form storage
+- load img only when scroll into view

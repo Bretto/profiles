@@ -5,15 +5,13 @@ import {materials} from './ng-material';
 import {FontAwesome} from './font-awesome';
 import {ReactiveFormsModule} from '@angular/forms';
 import {FormUiComponent} from './components/form-ui/form-ui.component';
-import {AuthRoleDirective, DropZoneDirective, OnLoadDirective, PatchFormDirective} from './directives';
+import {AuthRoleDirective, DropZoneDirective, OnLoadDirective} from './directives';
 import {ScrollingModule} from '@angular/cdk/scrolling';
-import {TemplatesComponent} from './components/templates/templates.component';
 import {StickyHeaderComponent} from './components/sticky-header/sticky-header.component';
 import {RouterModule} from '@angular/router';
 import {UiModule} from '../ui/ui.module';
 import {FileUploadComponent} from './components/file-upload/file-upload.component';
 import {FileSizePipe} from './file-size.pipe';
-import {FileUploader2Component} from './file-uploader2.component';
 import {PageWrapComponent} from './components/page-wrap/page-wrap.component';
 
 const modules = [
@@ -28,13 +26,10 @@ const modules = [
 
 const exports = [
   FormUiComponent,
-  PatchFormDirective,
   OnLoadDirective,
   DropZoneDirective,
-  TemplatesComponent,
   StickyHeaderComponent,
   FileUploadComponent,
-  FileUploader2Component,
   FileSizePipe,
   AuthRoleDirective,
   PageWrapComponent,

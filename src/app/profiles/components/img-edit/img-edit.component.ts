@@ -1,12 +1,12 @@
-import {ChangeDetectorRef, Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
+import {Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {ProfilesProjections} from '../../profiles.projections';
 import {ActivatedRoute, Router} from '@angular/router';
-import {FormBuilder, FormGroup} from '@angular/forms';
+import {FormGroup} from '@angular/forms';
 import {ProfilesCommands} from '../../profiles.commands';
 import {Subject, Subscription} from 'rxjs';
 import {FormResponse} from '../../../shared/components/form-ui/form-ui.component';
-import {AppService} from '../../../main/app.service';
 import {newProfile, Profile} from '../../profile.model';
+import * as _ from 'lodash';
 
 @Component({
   selector: 'app-img-edit',
@@ -21,21 +21,22 @@ export class ImgEditComponent implements OnInit, OnDestroy {
   profileId: string;
   form: FormGroup;
   formDataOrigin: any = {};
+  uploading: boolean;
   formRes: Subject<FormResponse> = new Subject<FormResponse>();
   @ViewChild('uploader') uploader;
 
   constructor(private profilesProj: ProfilesProjections,
               private profilesCommands: ProfilesCommands,
-              private appService: AppService,
-              private ref: ChangeDetectorRef,
-              private router: Router, private route: ActivatedRoute, private fb: FormBuilder) {
+              private router: Router,
+              private route: ActivatedRoute) {
 
     console.log('ImgEditComponent');
+    const navigation = this.router.getCurrentNavigation();
 
-    if (this.router.getCurrentNavigation()) {
-      const navigation = this.router.getCurrentNavigation();
-      const state = navigation.extras.state as { profileId: string };
-      this.profileId = state.profileId;
+    if (_.get(navigation, 'extras.state.profileId')) {
+      this.profileId = _.get(navigation, 'extras.state.profileId');
+    } else {
+      this.profileId = route.snapshot.paramMap.get('id');
     }
 
   }
@@ -51,19 +52,17 @@ export class ImgEditComponent implements OnInit, OnDestroy {
           }));
       this.profilesCommands.queryById(this.profileId);
     } else {
-      if (this.profileId) {
-        this.profile = newProfile({id: this.profileId});
-      }
+      this.profile = newProfile({id: this.profileId});
     }
 
   }
 
   urlChange(url) {
-    if (this.profileId) {
-      this.profile = {...this.profile, pic: url};
-      this.profilesCommands.update({id: this.profileId, pic: url})
-        .subscribe(this.onSuccess, this.onError);
-    }
+
+    this.profile = {...this.profile, pic: url};
+    this.profilesCommands.update({id: this.profileId, pic: url})
+      .subscribe(this.onSuccess, this.onError);
+
   }
 
   onDelete() {
@@ -72,6 +71,7 @@ export class ImgEditComponent implements OnInit, OnDestroy {
   }
 
   onSuccess = (res) => {
+    this.uploading = false;
     this.formRes.next({
       isPending: false,
       successMsg: 'Success'
@@ -79,6 +79,7 @@ export class ImgEditComponent implements OnInit, OnDestroy {
   };
 
   onError = (err) => {
+    this.uploading = false;
     this.formRes.next({
       isPending: false,
       errorMsg: 'Error'

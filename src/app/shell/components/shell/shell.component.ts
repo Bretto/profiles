@@ -15,9 +15,7 @@ import {ShellProjections} from '../../shell.projections';
 import {RouterState} from '../../../shared/utils';
 import * as _ from 'lodash';
 import {ProfilesPluginService} from '../../../profiles/plugins/profiles-plugin.service';
-import {Observable} from 'rxjs';
-import {BreakpointObserver, Breakpoints} from '@angular/cdk/layout';
-import {map} from 'rxjs/operators';
+import {BreakpointObserver} from '@angular/cdk/layout';
 import {UiProjection} from '../../../ui/ui.projections';
 import {UiCommands} from '../../../ui/ui.commands';
 

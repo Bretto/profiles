@@ -1,17 +1,21 @@
 <input #uploader class="file-input" style="display: none" type="file" (change)="startUpload($event.target.files)">
 
-
-<div fxLayout="row" fxLayoutAlign="space-between center"  *ngIf="snap">
+<div fxLayout="row" fxLayoutAlign="space-between center" *ngIf="snap">
   <progress class="progress is-info" [value]="percentage" max="100"></progress>
   <span> {{ snap.bytesTransferred | fileSize }} of {{ snap.totalBytes | fileSize }}</span>
   <fa-icon icon="times" (click)="onCancel()"></fa-icon>
 </div>
 
 
-<div fxLayout="row">
-  <span fxLayout="row" fxLayoutAlign=" center" class="uploader-wrap" (click)="onBrowseFiles()"
-        [class.disabled]="isActive">
+<div fxLayout="row" fxLayoutAlign=" center">
+  <span *ngIf="!uploading" fxLayout="row" fxLayoutAlign=" center" class="uploader-wrap" (click)="onBrowseFiles()">
     <fa-icon icon="upload"></fa-icon>
     <p>Upload image</p>
  </span>
+  <mat-progress-spinner
+    *ngIf="uploading"
+    color="accent"
+    diameter="40"
+    mode="indeterminate">
+  </mat-progress-spinner>
 </div>
