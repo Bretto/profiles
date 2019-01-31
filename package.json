@@ -47,6 +47,7 @@
     "ngrx-store-freeze": "^0.2.4",
     "ngrx-store-localstorage": "^7.0.0",
     "ngrx-store-logger": "^0.2.2",
+    "ngx-pinch-zoom": "^1.2.0",
     "reduce-reducers": "^0.4.3",
     "redux-actions": "^2.6.4",
     "rxjs": "~6.3.3",

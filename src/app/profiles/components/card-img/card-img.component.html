@@ -1,5 +1,7 @@
 <fa-icon *ngIf="imgLoaded" class="edit-btn" [icon]="['fas', 'pen-square']" (click)="onEdit($event)" auth-role></fa-icon>
-<img *ngIf="picUrl" mat-card-image [src]="picUrl" (load)="onImgLoaded()">
+<pinch-zoom #pincher *ngIf="picUrl" (events)="onZoom($event)" auto-zoom-out="true">
+  <img mat-card-image [src]="picUrl" (load)="onImgLoaded()">
+</pinch-zoom>
 <div class="spinner-wrap" *ngIf="!imgLoaded">
   <mat-spinner diameter="40" ></mat-spinner>
 </div>

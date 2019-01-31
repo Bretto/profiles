@@ -13,6 +13,7 @@ import {UiModule} from '../ui/ui.module';
 import {FileUploadComponent} from './components/file-upload/file-upload.component';
 import {FileSizePipe} from './file-size.pipe';
 import {PageWrapComponent} from './components/page-wrap/page-wrap.component';
+import {PinchZoomModule} from 'ngx-pinch-zoom';
 
 const modules = [
   ...materials,
@@ -21,7 +22,8 @@ const modules = [
   FontAwesome,
   ScrollingModule,
   RouterModule,
-  UiModule
+  UiModule,
+  PinchZoomModule,
 ];
 
 const exports = [
