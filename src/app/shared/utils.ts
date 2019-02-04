@@ -17,7 +17,10 @@ export interface RouterState {
   params: Params;
   data: any;
   queryParams: Params;
+  previousState: any;
 }
+
+let previousState;
 
 export class CustomRouterStateSerializer
   implements RouterStateSerializer<any> {
@@ -38,7 +41,18 @@ export class CustomRouterStateSerializer
     } = routerState;
     const {params, data} = route;
 
-    return {url, params, queryParams, path, data};
+    let state: any = {url, params, queryParams, path, data};
+    const currentState = state;
+
+    if (!previousState) {
+      previousState = currentState;
+      state = {...currentState, previousState};
+    } else {
+      state = {...currentState, previousState};
+      previousState = currentState;
+    }
+
+    return state;
   }
 }
 

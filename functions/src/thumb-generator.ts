@@ -42,6 +42,7 @@ export const generateThumbs = functions.storage
 
       // Resize source image
       await sharp(tmpFilePath)
+        .rotate()
         .resize(size, null)
         .toFile(thumbPath);
 

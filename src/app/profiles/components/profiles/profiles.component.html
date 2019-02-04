@@ -1,6 +1,8 @@
 <app-page-wrap>
-  <ng-container *ngIf="profiles$ | async as profiles; else loader">
+  <!--<ng-container *ngIf="profiles$ | async as profiles; else loader">-->
+  <ng-container *ngIf="profiles else loader">
     <app-card *ngFor="let profile of profiles; let i = index"
+              [attr.id]="profile.id"
               [profile]="profile" (select_)="onSelect($event)"
               (edit_)="onEdit($event)"
               (editImg_)="onEditImg($event)"

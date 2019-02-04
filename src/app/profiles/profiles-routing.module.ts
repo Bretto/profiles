@@ -6,11 +6,13 @@ import {ProfileComponent} from './components/profile/profile.component';
 import {ImgEditComponent} from './components/img-edit/img-edit.component';
 import {AuthGuard} from '../shared/guards/auth.guard';
 import {ConfirmLeaveGuard} from '../shared/guards/confirm-leave.guard';
+import {ProfilesResolver} from './profiles.resolver';
 
 const routes: Routes = [
   {
     path: '',
     component: ProfilesComponent,
+    resolve: { profiles: ProfilesResolver},
     data: {
       direction: 1,
       header: 'ProfilesHeaderComponent'

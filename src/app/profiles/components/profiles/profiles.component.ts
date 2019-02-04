@@ -1,10 +1,12 @@
-import {AfterViewChecked, AfterViewInit, Component, ElementRef, OnDestroy, OnInit, ViewChild} from '@angular/core';
+import {AfterViewInit, Component, ElementRef, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {ProfilesCommands} from '../../profiles.commands';
 import {ProfilesProjections} from '../../profiles.projections';
 import {ActivatedRoute, Router} from '@angular/router';
 import {AppService} from '../../../main/app.service';
 import {Observable, Subscription} from 'rxjs';
 import {Profile} from '../../profile.model';
+import {UiProjection} from '../../../ui/ui.projections';
+import {first} from 'rxjs/operators';
 
 
 @Component({
@@ -12,9 +14,10 @@ import {Profile} from '../../profile.model';
   templateUrl: './profiles.component.html',
   styleUrls: ['./profiles.component.scss']
 })
-export class ProfilesComponent implements OnInit, OnDestroy {
+export class ProfilesComponent implements OnInit, OnDestroy, AfterViewInit {
 
   profiles$: Observable<Profile[]>;
+  profiles: Profile[];
   subs: Subscription = new Subscription();
 
   @ViewChild('cards') cards: ElementRef;
@@ -23,21 +26,36 @@ export class ProfilesComponent implements OnInit, OnDestroy {
               private appService: AppService,
               private router: Router,
               private activatedRoute: ActivatedRoute,
+              private uiProj: UiProjection,
               private profilesProj: ProfilesProjections) {
 
     console.log('ProfilesComponent');
 
-    this.profiles$ = profilesProj.queryAll$();
+    //this.profiles$ = profilesProj.queryAll$();
   }
 
   ngOnInit() {
+    this.profiles = this.activatedRoute.snapshot.data.profiles || [];
 
-    this.profilesCommands.queryAll({});
+    // this.profilesCommands.queryAll({});
     // .subscribe(res => {
     //   // console.log('res', res);
     // }, err => {
     //
     // });
+  }
+
+  ngAfterViewInit() {
+
+    this.uiProj.getRouterState().pipe(first()).subscribe(state => {
+      if (state.previousState.params.id) {
+        const elm = document.getElementById(state.previousState.params.id);
+        const offsetTop = elm.offsetTop;
+        document.querySelector('app-page-wrap .page-wrap').scrollTop = offsetTop - 72;
+      }
+    });
+
+
   }
 
 
@@ -58,7 +76,7 @@ export class ProfilesComponent implements OnInit, OnDestroy {
   }
 
   onEditImg(profile) {
-    this.router.navigate([profile.id, 'edit', 'img'], {relativeTo: this.activatedRoute,  state: {profileId: profile.id}});
+    this.router.navigate([profile.id, 'edit', 'img'], {relativeTo: this.activatedRoute, state: {profileId: profile.id}});
   }
 
   onScrollIntoView(elm) {

@@ -12,7 +12,6 @@
 
   <mat-sidenav-content fxFlex="100" fxLayout="column">
 
-    <!--<app-top-toolbar fxLayout="row" (drawer)="drawer.toggle()" [ngClass]="{'hide': !(scrollUp$ | async) }"></app-top-toolbar>-->
     <app-sticky-header [(isVisible)]="isVisible">
       <mat-toolbar color="primary" class="mat-elevation-z4 top-toolbar">
         <ng-container #headerContainer></ng-container>
