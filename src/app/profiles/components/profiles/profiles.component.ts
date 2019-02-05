@@ -31,7 +31,7 @@ export class ProfilesComponent implements OnInit, OnDestroy, AfterViewInit {
 
     console.log('ProfilesComponent');
 
-    //this.profiles$ = profilesProj.queryAll$();
+    // this.profiles$ = profilesProj.queryAll$();
   }
 
   ngOnInit() {

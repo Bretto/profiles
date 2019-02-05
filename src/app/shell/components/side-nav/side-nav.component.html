@@ -12,6 +12,7 @@
   <!--<a mat-list-item routerLink="/stepper-module/form">Stepper</a>-->
   <!--<a mat-list-item routerLink="/test-form">Test Form</a>-->
   <a *ngIf="auth.user$ | async" mat-list-item (click)="auth.signOut()">Logout</a>
+  <a mat-list-item routerLink="/">Home</a>
 </mat-nav-list>
 
 

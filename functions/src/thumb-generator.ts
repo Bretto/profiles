@@ -68,7 +68,6 @@ export const generateThumbs = functions.storage
         });
     });
 
-
     // 4. Run the upload operations
     await Promise.all(uploadPromises).then(imgs => {
       const db = admin.firestore();
