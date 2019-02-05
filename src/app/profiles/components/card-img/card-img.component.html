@@ -1,4 +1,4 @@
-<fa-icon *ngIf="imgLoaded" class="edit-btn" [icon]="['fas', 'pen-square']" (click)="onEdit($event)" auth-role></fa-icon>
+<fa-icon class="edit-btn" [icon]="['fas', 'pen-square']" (click)="onEdit($event)" auth-role></fa-icon>
 <pinch-zoom #pincher *ngIf="picUrl" (events)="onZoom($event)" auto-zoom-out="true" [class.hide]="!imgLoaded">
   <img mat-card-image [src]="picUrl" (load)="onImgLoaded()">
 </pinch-zoom>

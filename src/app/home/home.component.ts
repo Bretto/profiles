@@ -47,12 +47,15 @@ export class HomeComponent implements OnInit {
     const profiles: Profile[] = Array(5)
       .fill(1)
       .map(_ => {
+
+        const av = image.avatar();
+
         return {
           id: random.uuid(),
           firstName: name.firstName(),
           lastName: name.lastName(),
           bio: lorem.sentence(),
-          pic: image.avatar(),
+          pic: {source: av, thumb: av},
           deleted: false,
         };
       });

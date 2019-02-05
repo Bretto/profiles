@@ -3,7 +3,7 @@ export interface Profile {
   firstName: string;
   lastName: string;
   bio: string;
-  pic: string;
+  pic: { source: string, thumb: string };
   deleted: boolean;
 }
 

@@ -42,8 +42,7 @@ export class CardImgComponent implements OnInit {
   }
 
   get picUrl() {
-    return this.profile.pic;//this.profile.pic ? this.profile.pic : 'assets/images/default.jpg';
+    return this.profile.pic.source;//this.profile.pic ? this.profile.pic : 'assets/images/default.jpg';
   }
-
 
 }

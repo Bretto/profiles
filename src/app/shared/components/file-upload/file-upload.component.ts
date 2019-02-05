@@ -12,6 +12,8 @@ import {UiProjection} from '../../../ui/ui.projections';
 })
 export class FileUploadComponent implements OnDestroy {
 
+  @Input() profileId: string;
+
   subs = new Subscription();
 
   @ViewChild('uploader') uploader;
@@ -37,7 +39,6 @@ export class FileUploadComponent implements OnDestroy {
   }
 
   user: User;
-  profileId: string;
 
   @Output() url: EventEmitter<string> = new EventEmitter();
 

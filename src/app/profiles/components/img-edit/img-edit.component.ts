@@ -1,4 +1,4 @@
-import {Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {ProfilesProjections} from '../../profiles.projections';
 import {ActivatedRoute, Router} from '@angular/router';
 import {FormGroup} from '@angular/forms';
@@ -23,7 +23,7 @@ export class ImgEditComponent implements OnInit, OnDestroy {
   formDataOrigin: any = {};
   uploading: boolean;
   formRes: Subject<FormResponse> = new Subject<FormResponse>();
-  @ViewChild('uploader') uploader;
+
 
   constructor(private profilesProj: ProfilesProjections,
               private profilesCommands: ProfilesCommands,
@@ -60,8 +60,14 @@ export class ImgEditComponent implements OnInit, OnDestroy {
   urlChange(url) {
 
     this.profile = {...this.profile, pic: url};
-    this.profilesCommands.update({id: this.profileId, pic: url})
-      .subscribe(this.onSuccess, this.onError);
+    // this.profilesCommands.update({id: this.profileId, pic: url})
+    //   .subscribe(this.onSuccess, this.onError);
+
+    this.uploading = false;
+    this.formRes.next({
+      isPending: false,
+      successMsg: 'Success'
+    });
 
   }
 
