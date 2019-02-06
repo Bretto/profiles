@@ -12,18 +12,14 @@ import {UiProjection} from '../../../ui/ui.projections';
 })
 export class FileUploadComponent implements OnDestroy {
 
-  @Input() profileId: string;
+  @Input() path: string;
 
   subs = new Subscription();
 
   @ViewChild('uploader') uploader;
-  // Main task
   task: AngularFireUploadTask;
   snap: any;
   percentage: number;
-
-  // Download URL
-  downloadURL: string;
 
   uploadingValue = false;
   @Output() uploadingChange = new EventEmitter();
@@ -38,36 +34,21 @@ export class FileUploadComponent implements OnDestroy {
     this.uploadingChange.emit(this.uploadingValue);
   }
 
-  user: User;
+  constructor(private storage: AngularFireStorage) {
 
-  @Output() url: EventEmitter<string> = new EventEmitter();
-
-  constructor(private storage: AngularFireStorage, private db: AngularFirestore, private uiProj: UiProjection) {
-
-    uiProj.getUser()
-      .pipe(first())
-      .subscribe(user => {
-        this.user = user;
-      });
   }
 
   startUpload(event: FileList) {
 
     this.uploading = true;
-    // The File object
     const file = event.item(0);
-
-    // Client-side validation example
     if (file.type.split('/')[0] !== 'image') {
       console.error('unsupported file type :( ');
       return;
     }
 
     // The storage path
-    const path = `${this.user.uid}/${this.profileId}/${new Date().getTime()}_${file.name}`;
-
-    const fileRef = this.storage.ref(path);
-    // The main task
+    const path =  `${this.path}/${new Date().getTime()}_${file.name}`;
     this.task = this.storage.upload(path, file);
 
     // Progress monitoring
@@ -80,20 +61,7 @@ export class FileUploadComponent implements OnDestroy {
 
     this.subs.add(this.task.snapshotChanges().subscribe(snap => {
       this.snap = snap;
-      // this.uploading = snap.state === 'running' && snap.bytesTransferred < snap.totalBytes;
     }));
-
-    // TODO fix this ugliness
-    this.subs.add(this.task.snapshotChanges().pipe(
-      finalize(() => {
-        this.subs.add(fileRef.getDownloadURL()
-          .subscribe(url => {
-            this.downloadURL = url;
-            this.url.emit(url);
-          }));
-      })
-    ).subscribe());
-
   }
 
   onCancel() {

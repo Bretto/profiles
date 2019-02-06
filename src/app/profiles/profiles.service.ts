@@ -24,7 +24,7 @@ export class ProfilesService {
 
   @ToEvent(ProfilesCommands.QUERY_BY_ID)
   queryById(id):  Observable<Profile> {
-    return this.db.doc(`profile/${id}`).valueChanges().pipe(first()) as  Observable<Profile>;
+    return this.db.doc(`profile/${id}`).valueChanges() as  Observable<Profile>;
   }
 
   @SnackBar()

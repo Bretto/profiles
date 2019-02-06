@@ -31,22 +31,16 @@ export class ProfilesComponent implements OnInit, OnDestroy, AfterViewInit {
 
     console.log('ProfilesComponent');
 
-    // this.profiles$ = profilesProj.queryAll$();
+    this.profiles$ = profilesProj.queryAll$();
   }
 
   ngOnInit() {
-    this.profiles = this.activatedRoute.snapshot.data.profiles || [];
 
-    // this.profilesCommands.queryAll({});
-    // .subscribe(res => {
-    //   // console.log('res', res);
-    // }, err => {
-    //
-    // });
   }
 
   ngAfterViewInit() {
 
+    // scroll back to last position
     this.uiProj.getRouterState().pipe(first()).subscribe(state => {
       if (state.previousState.params.id) {
         const elm = document.getElementById(state.previousState.params.id);
@@ -54,7 +48,6 @@ export class ProfilesComponent implements OnInit, OnDestroy, AfterViewInit {
         document.querySelector('app-page-wrap .page-wrap').scrollTop = offsetTop - 72;
       }
     });
-
 
   }
 
@@ -81,6 +74,10 @@ export class ProfilesComponent implements OnInit, OnDestroy, AfterViewInit {
 
   onScrollIntoView(elm) {
     // elm.scrollIntoView();
+  }
+
+  trackElement(index: number, element: Profile) {
+    return element ? element.id : null;
   }
 
 }

@@ -1,7 +1,7 @@
 import {Observable} from 'rxjs';
 import {Store} from '@ngrx/store';
 import {Injectable} from '@angular/core';
-import {filter, map, tap} from 'rxjs/operators';
+import {filter, first, map, tap} from 'rxjs/operators';
 import * as _ from 'lodash';
 
 @Injectable({providedIn: 'root'})
@@ -26,9 +26,17 @@ export class UiProjection {
     return this.store.select('router', 'state', 'url').pipe(filter(Boolean));
   }
 
-  getUser() {
+
+  getUser$() {
     return this.store.select('ui', 'user');
   }
+
+  getUser() {
+    let user = null;
+    this.store.select('ui', 'user').pipe(first()).subscribe(u => user = u);
+    return user;
+  }
+
 
   getRouterState() {
    return this.store.select('router', 'state');

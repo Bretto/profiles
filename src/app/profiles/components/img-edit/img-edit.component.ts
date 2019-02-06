@@ -1,4 +1,4 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
+import {Component, Input, OnDestroy, OnInit} from '@angular/core';
 import {ProfilesProjections} from '../../profiles.projections';
 import {ActivatedRoute, Router} from '@angular/router';
 import {FormGroup} from '@angular/forms';
@@ -7,6 +7,9 @@ import {Subject, Subscription} from 'rxjs';
 import {FormResponse} from '../../../shared/components/form-ui/form-ui.component';
 import {newProfile, Profile} from '../../profile.model';
 import * as _ from 'lodash';
+import {first} from 'rxjs/operators';
+import {AngularFirestore} from 'angularfire2/firestore';
+import {UiProjection} from '../../../ui/ui.projections';
 
 @Component({
   selector: 'app-img-edit',
@@ -19,14 +22,27 @@ export class ImgEditComponent implements OnInit, OnDestroy {
   subs: Subscription = new Subscription();
   profile: Profile;
   profileId: string;
-  form: FormGroup;
   formDataOrigin: any = {};
-  uploading: boolean;
+  uploadPath: string;
+
   formRes: Subject<FormResponse> = new Subject<FormResponse>();
 
+  _uploading: boolean;
+  get uploading(): boolean {
+    return this._uploading;
+  }
+
+  @Input() set uploading(value: boolean) {
+    if (!this._uploading && value) {
+      this.addUploadCompleteListener();
+    }
+    this._uploading = value;
+  }
 
   constructor(private profilesProj: ProfilesProjections,
+              private uiProj: UiProjection,
               private profilesCommands: ProfilesCommands,
+              public db: AngularFirestore,
               private router: Router,
               private route: ActivatedRoute) {
 
@@ -38,6 +54,8 @@ export class ImgEditComponent implements OnInit, OnDestroy {
     } else {
       this.profileId = route.snapshot.paramMap.get('id');
     }
+
+    this.uploadPath = `${uiProj.getUser().uid}/${this.profileId}`;
 
   }
 
@@ -57,23 +75,11 @@ export class ImgEditComponent implements OnInit, OnDestroy {
 
   }
 
-  urlChange(url) {
-
-    this.profile = {...this.profile, pic: url};
-    // this.profilesCommands.update({id: this.profileId, pic: url})
-    //   .subscribe(this.onSuccess, this.onError);
-
-    this.uploading = false;
-    this.formRes.next({
-      isPending: false,
-      successMsg: 'Success'
-    });
-
-  }
-
-  onDelete() {
-    // this.profilesCommands.delete(this.profileId)
-    //   .subscribe(this.onSuccess, this.onError);
+  addUploadCompleteListener() {
+    this.db.doc(`profile/${this.profile.id}`)
+      .valueChanges().pipe(
+      first()
+    ).subscribe(this.onSuccess, this.onError);
   }
 
   onSuccess = (res) => {
@@ -95,6 +101,7 @@ export class ImgEditComponent implements OnInit, OnDestroy {
   ngOnDestroy() {
     this.subs.unsubscribe();
   }
+
 
 }
 
