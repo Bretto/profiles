@@ -6,7 +6,7 @@ import {Subject, Subscription} from 'rxjs';
 import {FormResponse} from '../../../shared/components/form-ui/form-ui.component';
 import {newProfile, IProfile} from '../../profile.model';
 import * as _ from 'lodash';
-import {filter, first} from 'rxjs/operators';
+import {filter, first, tap} from 'rxjs/operators';
 import {AngularFirestore} from 'angularfire2/firestore';
 import {UiProjection} from '../../../ui/ui.projections';
 
@@ -33,6 +33,7 @@ export class ImgEditComponent implements OnInit, OnDestroy {
 
   @Input() set uploading(value: boolean) {
     if (!this._uploading && value) {
+      this.picSourceOrigin = this.profile.pic.source;
       this.addUploadCompleteListener();
     }
     this._uploading = value;
@@ -61,29 +62,31 @@ export class ImgEditComponent implements OnInit, OnDestroy {
     if (this.route.snapshot.paramMap.get('id')) {
       this.subs.add(
         this.profilesProj.queryById$(this.profileId)
-          .pipe(first())
           .subscribe((profile: IProfile) => {
-            this.picSourceOrigin = profile.pic.source;
             this.profile = profile;
           }));
       this.profilesCommands.queryById(this.profileId);
     } else {
       this.profile = newProfile({id: this.profileId});
-      this.picSourceOrigin = this.profile.pic.source;
     }
 
   }
 
   addUploadCompleteListener() {
+    console.log('addUploadCompleteListener');
     this.subs.add(
       this.db.doc(`profile/${this.profile.id}`)
         .valueChanges().pipe(
+        tap(x => console.log('xxx', x)),
         filter((p: IProfile) => p.pic.source !== this.picSourceOrigin),
         first()
       ).subscribe(this.onSuccess, this.onError));
   }
 
   onSuccess = (res) => {
+
+    console.log('onSuccess');
+
     this.uploading = false;
     this.formRes.next({
       isPending: false,
@@ -105,6 +108,8 @@ export class ImgEditComponent implements OnInit, OnDestroy {
 
 
 }
+
+
 
 
 

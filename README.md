@@ -7,3 +7,4 @@ TODO
 - delete needs to remove the pics form storage
 - load img only when scroll into view
 - security rules storage and db
+- fix the card component header and img size so they are all same size

@@ -1,9 +1,6 @@
 import {Component, EventEmitter, Input, OnDestroy, Output, ViewChild} from '@angular/core';
 import {AngularFireStorage, AngularFireUploadTask} from 'angularfire2/storage';
-import {AngularFirestore} from 'angularfire2/firestore';
-import {finalize, first} from 'rxjs/operators';
 import {Subscription} from 'rxjs';
-import {UiProjection} from '../../../ui/ui.projections';
 
 @Component({
   selector: 'app-file-upload',
