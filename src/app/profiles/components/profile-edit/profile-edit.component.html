@@ -5,7 +5,7 @@
 
           <div *ngIf="profile.pic" mat-card-avatar class="thumb"
                [style.background-image]="'url(' + profile.pic.thumb + ')'"></div>
-          <mat-card-title>{{fullName}}</mat-card-title>
+          <mat-card-title>{{profile.fullName()}}</mat-card-title>
           <mat-card-subtitle>Dog Breed</mat-card-subtitle>
         </mat-card-header>
 
@@ -31,8 +31,7 @@
         </mat-card-content>
 
         <mat-card-actions>
-          <app-form-ui [formRes]="formRes"
-                       (submit)="onSubmit()" (cancel)="onCancel()" (delete)="onDelete()"></app-form-ui>
+          <app-form-ui (submit)="onSubmit()" (cancel)="onCancel()" (delete)="onDelete()"></app-form-ui>
         </mat-card-actions>
       </mat-card>
     </ng-container>

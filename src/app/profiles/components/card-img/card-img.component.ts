@@ -1,5 +1,5 @@
 import {Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild} from '@angular/core';
-import {Profile} from '../../profile.model';
+import {IProfile} from '../../profile.model';
 import {el} from '@angular/platform-browser/testing/src/browser_util';
 
 @Component({
@@ -9,7 +9,7 @@ import {el} from '@angular/platform-browser/testing/src/browser_util';
 })
 export class CardImgComponent implements OnInit {
 
-  @Input() profile: Profile;
+  @Input() profile: IProfile;
   imgLoaded: boolean;
 
   @ViewChild('pincher') pincher: any;

@@ -7,7 +7,7 @@ import {Subject, Subscription} from 'rxjs';
 import {FormResponse} from '../../../shared/components/form-ui/form-ui.component';
 import {AppService} from '../../../main/app.service';
 import {getUID} from '../../../shared/utils';
-import {newProfile, Profile} from '../../profile.model';
+import {newProfile, IProfile} from '../../profile.model';
 import * as _ from 'lodash';
 
 
@@ -19,7 +19,7 @@ import * as _ from 'lodash';
 export class ProfileEditComponent implements OnInit, OnDestroy {
 
   subs: Subscription = new Subscription();
-  profile: Profile;
+  profile: IProfile;
   profileId: string;
   createMode: boolean;
   form: FormGroup;
@@ -113,11 +113,11 @@ export class ProfileEditComponent implements OnInit, OnDestroy {
   };
 
 
-  get fullName() {
-    const firstName = this.formDataOrigin.firstName ? this.formDataOrigin.firstName : this.form.get('firstName').value;
-    const lastName = this.formDataOrigin.lastName ? this.formDataOrigin.lastName : this.form.get('lastName').value;
-    return `${firstName}  ${lastName}`;
-  }
+  // get fullName() {
+  //   const firstName = this.formDataOrigin.firstName ? this.formDataOrigin.firstName : this.form.get('firstName').value;
+  //   const lastName = this.formDataOrigin.lastName ? this.formDataOrigin.lastName : this.form.get('lastName').value;
+  //   return `${firstName}  ${lastName}`;
+  // }
 
   get headerIsVisible() {
     if (this.appService) {

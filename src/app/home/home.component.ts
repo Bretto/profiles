@@ -6,7 +6,7 @@ import {image, lorem, name, random} from 'faker';
 import {AuthService} from '../shared/services/auth.service';
 import {ActivatedRoute, Router} from '@angular/router';
 import {AppService} from '../main/app.service';
-import {Profile} from '../profiles/profile.model';
+import {IProfile} from '../profiles/profile.model';
 
 
 Array.prototype['asyncReduce'] = async function (callback, initialVal) {
@@ -44,19 +44,24 @@ export class HomeComponent implements OnInit {
   }
 
   private async createProfiles() {
-    const profiles: Profile[] = Array(5)
+    const profiles: IProfile[] = Array(5)
       .fill(1)
       .map(_ => {
 
         const av = image.avatar();
+        const firstName = name.firstName();
+        const lastName = name.lastName();
 
         return {
           id: random.uuid(),
-          firstName: name.firstName(),
-          lastName: name.lastName(),
+          firstName,
+          lastName,
           bio: lorem.sentence(),
           pic: {source: av, thumb: av},
           deleted: false,
+          fullName() {
+            return `${firstName}  ${lastName}`;
+          }
         };
       });
 
@@ -66,7 +71,7 @@ export class HomeComponent implements OnInit {
     }, []);
   }
 
-  private createProfile = async (profile: Profile) => {
+  private createProfile = async (profile: IProfile) => {
     const doc = await this.db.collection('profile').doc(profile.id).set(profile);
     return profile;
   };

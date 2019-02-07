@@ -13,18 +13,18 @@ function boot() {
     .catch(err => console.error(err));
 }
 
-// boot();
+boot();
 
-const url = localStorage.getItem('url');
-if (url) {
-  if (location.pathname !== url) {
-    location.href = url;
-  } else {
-    boot();
-  }
-} else {
-  boot();
-}
+// const url = localStorage.getItem('url');
+// if (url) {
+//   if (location.pathname !== url) {
+//     location.href = url;
+//   } else {
+//     boot();
+//   }
+// } else {
+//   boot();
+// }
 
 
 

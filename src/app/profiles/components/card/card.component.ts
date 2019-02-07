@@ -1,6 +1,6 @@
 import {AfterViewInit, Component, ElementRef, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {AppService} from '../../../main/app.service';
-import {Profile} from '../../profile.model';
+import {IProfile} from '../../profile.model';
 
 @Component({
   selector: 'app-card',
@@ -9,10 +9,10 @@ import {Profile} from '../../profile.model';
 })
 export class CardComponent implements OnInit, AfterViewInit {
 
-  @Input() profile: Profile;
-  @Output() select_: EventEmitter<Profile> = new EventEmitter();
-  @Output() edit_: EventEmitter<Profile> = new EventEmitter();
-  @Output() editImg_: EventEmitter<Profile> = new EventEmitter();
+  @Input() profile: IProfile;
+  @Output() select_: EventEmitter<IProfile> = new EventEmitter();
+  @Output() edit_: EventEmitter<IProfile> = new EventEmitter();
+  @Output() editImg_: EventEmitter<IProfile> = new EventEmitter();
   @Output() scrollIntoView_: EventEmitter<any> = new EventEmitter();
   elm: any;
 
@@ -35,10 +35,6 @@ export class CardComponent implements OnInit, AfterViewInit {
     if (!this.profile.deleted) {
       this.select_.next(this.profile);
     }
-  }
-
-  get fullName() {
-    return `${this.profile.firstName}  ${this.profile.lastName}`;
   }
 
   onEdit(e) {

@@ -23,14 +23,18 @@ export class ProfileHeaderComponent implements OnInit {
 
   onBack() {
 
+
     this.uiProj.getRouterState()
       .pipe(first())
       .subscribe(state => {
         if (this.backUrl) {
           this.backUrl = this.backUrl.replace(':id', state.params.id);
-          this.router.navigate([this.backUrl], {relativeTo: this.activatedRoute});
+          this.router.navigate([this.backUrl], {
+            relativeTo: this.activatedRoute,
+            // fragment: state.params.id
+          });
         }
-    });
+      });
 
 
     // if (previousRoute) {

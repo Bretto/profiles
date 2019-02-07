@@ -5,7 +5,7 @@ import {FormBuilder} from '@angular/forms';
 import {ProfilesCommands} from '../../profiles.commands';
 import {Subscription} from 'rxjs';
 import {AppService} from '../../../main/app.service';
-import {Profile} from '../../profile.model';
+import {IProfile} from '../../profile.model';
 
 @Component({
   selector: 'app-profile',
@@ -15,7 +15,7 @@ import {Profile} from '../../profile.model';
 export class ProfileComponent implements OnInit, OnDestroy {
 
   subs: Subscription = new Subscription();
-  profile: Profile;
+  profile: IProfile;
   profileId: string;
 
   constructor(private profilesProj: ProfilesProjections,

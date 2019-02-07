@@ -1,13 +1,12 @@
 import {Component, Input, OnDestroy, OnInit} from '@angular/core';
 import {ProfilesProjections} from '../../profiles.projections';
 import {ActivatedRoute, Router} from '@angular/router';
-import {FormGroup} from '@angular/forms';
 import {ProfilesCommands} from '../../profiles.commands';
 import {Subject, Subscription} from 'rxjs';
 import {FormResponse} from '../../../shared/components/form-ui/form-ui.component';
-import {newProfile, Profile} from '../../profile.model';
+import {newProfile, IProfile} from '../../profile.model';
 import * as _ from 'lodash';
-import {first} from 'rxjs/operators';
+import {filter, first} from 'rxjs/operators';
 import {AngularFirestore} from 'angularfire2/firestore';
 import {UiProjection} from '../../../ui/ui.projections';
 
@@ -20,9 +19,9 @@ export class ImgEditComponent implements OnInit, OnDestroy {
 
 
   subs: Subscription = new Subscription();
-  profile: Profile;
+  profile: IProfile;
   profileId: string;
-  formDataOrigin: any = {};
+  picSourceOrigin: any = {};
   uploadPath: string;
 
   formRes: Subject<FormResponse> = new Subject<FormResponse>();
@@ -54,9 +53,7 @@ export class ImgEditComponent implements OnInit, OnDestroy {
     } else {
       this.profileId = route.snapshot.paramMap.get('id');
     }
-
     this.uploadPath = `${uiProj.getUser().uid}/${this.profileId}`;
-
   }
 
   ngOnInit() {
@@ -64,22 +61,26 @@ export class ImgEditComponent implements OnInit, OnDestroy {
     if (this.route.snapshot.paramMap.get('id')) {
       this.subs.add(
         this.profilesProj.queryById$(this.profileId)
-          .subscribe(profile => {
-            this.formDataOrigin = profile;
+          .pipe(first())
+          .subscribe((profile: IProfile) => {
+            this.picSourceOrigin = profile.pic.source;
             this.profile = profile;
           }));
       this.profilesCommands.queryById(this.profileId);
     } else {
       this.profile = newProfile({id: this.profileId});
+      this.picSourceOrigin = this.profile.pic.source;
     }
 
   }
 
   addUploadCompleteListener() {
-    this.db.doc(`profile/${this.profile.id}`)
-      .valueChanges().pipe(
-      first()
-    ).subscribe(this.onSuccess, this.onError);
+    this.subs.add(
+      this.db.doc(`profile/${this.profile.id}`)
+        .valueChanges().pipe(
+        filter((p: IProfile) => p.pic.source !== this.picSourceOrigin),
+        first()
+      ).subscribe(this.onSuccess, this.onError));
   }
 
   onSuccess = (res) => {

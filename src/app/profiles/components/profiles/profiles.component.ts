@@ -4,7 +4,7 @@ import {ProfilesProjections} from '../../profiles.projections';
 import {ActivatedRoute, Router} from '@angular/router';
 import {AppService} from '../../../main/app.service';
 import {Observable, Subscription} from 'rxjs';
-import {Profile} from '../../profile.model';
+import {IProfile} from '../../profile.model';
 import {UiProjection} from '../../../ui/ui.projections';
 import {first} from 'rxjs/operators';
 
@@ -16,11 +16,9 @@ import {first} from 'rxjs/operators';
 })
 export class ProfilesComponent implements OnInit, OnDestroy, AfterViewInit {
 
-  profiles$: Observable<Profile[]>;
-  profiles: Profile[];
+  profiles$: Observable<IProfile[]>;
+  profiles: IProfile[];
   subs: Subscription = new Subscription();
-
-  @ViewChild('cards') cards: ElementRef;
 
   constructor(private profilesCommands: ProfilesCommands,
               private appService: AppService,
@@ -46,6 +44,7 @@ export class ProfilesComponent implements OnInit, OnDestroy, AfterViewInit {
         const elm = document.getElementById(state.previousState.params.id);
         const offsetTop = elm.offsetTop;
         document.querySelector('app-page-wrap .page-wrap').scrollTop = offsetTop - 72;
+        // elm.scrollIntoView();
       }
     });
 
@@ -59,12 +58,12 @@ export class ProfilesComponent implements OnInit, OnDestroy, AfterViewInit {
     // this.cards.nativeElement.style.transform = `translate(0, -${window.pageYOffset}px)`;
   }
 
-  onSelect(profile: Profile) {
+  onSelect(profile: IProfile) {
     this.appService.selectedProfileId = profile.id;
     this.router.navigate([profile.id], {relativeTo: this.activatedRoute});
   }
 
-  onEdit(profile: Profile) {
+  onEdit(profile: IProfile) {
     this.router.navigate([profile.id, 'edit'], {relativeTo: this.activatedRoute});
   }
 
@@ -76,7 +75,7 @@ export class ProfilesComponent implements OnInit, OnDestroy, AfterViewInit {
     // elm.scrollIntoView();
   }
 
-  trackElement(index: number, element: Profile) {
+  trackElement(index: number, element: IProfile) {
     return element ? element.id : null;
   }
 

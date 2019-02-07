@@ -2,8 +2,9 @@ import {Injectable} from '@angular/core';
 import {Store} from '@ngrx/store';
 import {Observable} from 'rxjs';
 import {Obj$ToArray$} from '../shared/decorators';
-import {filter} from 'rxjs/operators';
-import {Profile} from './profile.model';
+import {filter, map} from 'rxjs/operators';
+import {newProfile, IProfile} from './profile.model';
+import * as _ from 'lodash';
 
 @Injectable({providedIn: 'root'})
 export class ProfilesProjections {
@@ -12,12 +13,12 @@ export class ProfilesProjections {
   }
 
   @Obj$ToArray$()
-  queryAll$(): Observable<Profile[]> {
+  queryAll$(): Observable<IProfile[]> {
     return this.store.select('profiles', 'entities')
       .pipe(filter(res => res && Object.keys(res).length > 0));
   }
 
-  queryById$(id): Observable<Profile> {
+  queryById$(id): Observable<IProfile> {
     return this.store.select('profiles', 'entities', id)
       .pipe(filter(Boolean));
   }

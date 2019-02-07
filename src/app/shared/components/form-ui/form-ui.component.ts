@@ -31,12 +31,12 @@ export class FormUiComponent implements OnInit {
 
   ngOnInit() {
 
-    this.formRes.subscribe((res: FormResponse) => {
-      const {isPending, errorMsg, successMsg} = res;
-      this.isPending = isPending;
-      this.errorMsg = errorMsg;
-      this.successMsg = successMsg;
-    });
+    // this.formRes.subscribe((res: FormResponse) => {
+    //   const {isPending, errorMsg, successMsg} = res;
+    //   this.isPending = isPending;
+    //   this.errorMsg = errorMsg;
+    //   this.successMsg = successMsg;
+    // });
   }
 
   onSubmit() {

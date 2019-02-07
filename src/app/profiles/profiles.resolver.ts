@@ -4,7 +4,7 @@ import {Observable, of} from 'rxjs';
 import {UiProjection} from '../ui/ui.projections';
 import {delay, first, switchMap, tap} from 'rxjs/operators';
 import {ProfilesProjections} from './profiles.projections';
-import {Profile} from './profile.model';
+import {IProfile} from './profile.model';
 import {ProfilesCommands} from './profiles.commands';
 
 @Injectable({
@@ -16,7 +16,7 @@ export class ProfilesResolver implements Resolve<any> {
 
   }
 
-  resolve(route: ActivatedRouteSnapshot, rstate: RouterStateSnapshot): Observable<Profile[] | boolean> {
+  resolve(route: ActivatedRouteSnapshot, rstate: RouterStateSnapshot): Observable<IProfile[] | boolean> {
     return this.profilesCommands.queryAll({})
       .pipe(
         delay(0), // leaves time to setup the store with the results for the projection
