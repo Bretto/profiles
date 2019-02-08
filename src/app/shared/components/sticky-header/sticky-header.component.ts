@@ -1,7 +1,8 @@
-import {distinctUntilChanged, filter, map, pairwise, share, startWith, tap, throttleTime} from 'rxjs/operators';
+import {auditTime, distinctUntilChanged, filter, map, pairwise, share, startWith, tap, throttleTime} from 'rxjs/operators';
 import {AfterViewInit, Component, EventEmitter, HostBinding, Input, NgZone, Output} from '@angular/core';
 import {animate, state, style, transition, trigger} from '@angular/animations';
 import {CdkScrollable, ScrollDispatcher} from '@angular/cdk/overlay';
+import {animationFrameScheduler} from 'rxjs';
 
 const VisibilityState = {
   Visible: 'visible',
@@ -25,6 +26,7 @@ const Direction = {
         top: 0;
         left: 0;
         right: 0;
+        display: flex;
       }
     `
   ],
@@ -84,6 +86,7 @@ export class StickyHeaderComponent implements AfterViewInit {
           }
         }),
         distinctUntilChanged(),
+        auditTime(0, animationFrameScheduler),
         startWith(Direction.Up),
         share()
       );
