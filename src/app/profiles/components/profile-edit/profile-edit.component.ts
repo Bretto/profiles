@@ -1,4 +1,4 @@
-import {ChangeDetectorRef, Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {ProfilesProjections} from '../../profiles.projections';
 import {ActivatedRoute, Router} from '@angular/router';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
@@ -21,7 +21,6 @@ export class ProfileEditComponent implements OnInit, OnDestroy {
   subs: Subscription = new Subscription();
   profile: IProfile;
   profileId: string;
-  createMode: boolean;
   form: FormGroup;
   formDataOrigin: any = {};
   formRes: Subject<FormResponse> = new Subject<FormResponse>();
@@ -40,26 +39,17 @@ export class ProfileEditComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.initForm();
 
-    if (this.activatedRoute.snapshot.paramMap.get('id')) {
+    this.profileId = this.activatedRoute.snapshot.paramMap.get('id');
+    this.subs.add(
+      this.profilesProj.queryById$(this.profileId)
+        .subscribe(profile => {
+          this.formDataOrigin = profile;
+          this.form.patchValue(profile);
+          this.profile = profile;
+        }));
 
-      this.profileId = this.activatedRoute.snapshot.paramMap.get('id');
-      this.subs.add(
-        this.profilesProj.queryById$(this.profileId)
-          .subscribe(profile => {
-            this.formDataOrigin = profile;
-            this.form.patchValue(profile);
-            this.profile = profile;
-          }));
+    this.profilesCommands.queryById(this.profileId);
 
-      this.profilesCommands.queryById(this.profileId);
-
-    } else {
-      this.createMode = true;
-      this.profileId = getUID('profile');
-      this.profile = newProfile({id: this.profileId});
-      this.formDataOrigin = this.profile;
-      this.form.patchValue(this.profile);
-    }
   }
 
   initForm() {
@@ -84,13 +74,10 @@ export class ProfileEditComponent implements OnInit, OnDestroy {
     this.formRes.next({isPending: true});
     const profile = {id: this.profileId, ...this.form.getRawValue()};
 
-    if (this.createMode) {
-      this.profilesCommands.create(profile)
-        .subscribe(this.onSuccess, this.onError);
-    } else {
-      this.profilesCommands.update(profile)
-        .subscribe(this.onSuccess, this.onError);
-    }
+
+    this.profilesCommands.update(profile)
+      .subscribe(this.onSuccess, this.onError);
+
   }
 
   resetForm() {
@@ -134,7 +121,7 @@ export class ProfileEditComponent implements OnInit, OnDestroy {
   }
 
   onEditImg(profile) {
-    this.router.navigate(['img'], {relativeTo: this.activatedRoute, state: {profileId: this.profileId}});
+    this.router.navigate(['img'], {relativeTo: this.activatedRoute});
   }
 
   formData() {

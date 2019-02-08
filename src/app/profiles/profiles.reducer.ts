@@ -72,7 +72,7 @@ const deleteComplete = (state: Profiles, event): Profiles => {
 
   const profileId = event.payload;
   const entities = {...state.entities};
-  debugger
+
   entities[profileId] = {...entities[profileId], deleted: true};
 
   return {

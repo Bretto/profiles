@@ -19,20 +19,12 @@ export class ProfilesService {
   @ToEvent(ProfilesCommands.QUERY_ALL)
   @Array$ToObj$('id')
   queryAll(data): Observable<IProfile[]> {
-    return this.db.collection('profile').valueChanges().pipe(
-      map(entities => {
-        return _.map(entities, (entity) => {
-          return newProfile(entity);
-        });
-      })
-    ) as Observable<IProfile[]>;
+    return this.db.collection('profile').valueChanges() as Observable<IProfile[]>;
   }
 
   @ToEvent(ProfilesCommands.QUERY_BY_ID)
   queryById(id):  Observable<IProfile> {
-    return this.db.doc(`profile/${id}`).valueChanges().pipe(
-      map(data => newProfile(data))
-    ) as  Observable<IProfile>;
+    return this.db.doc(`profile/${id}`).valueChanges() as  Observable<IProfile>;
   }
 
   @SnackBar()

@@ -19,27 +19,6 @@ const routes: Routes = [
     }
   },
   {
-    path: 'new',
-    component: ProfileEditComponent,
-    data: {
-      direction: 2,
-      header: 'ProfileHeaderComponent',
-      backUrl: '.'
-    },
-    canActivate: [AuthGuard],
-    canDeactivate: [ConfirmLeaveGuard]
-  },
-  {
-    path: 'new/img',
-    component: ImgEditComponent,
-    data: {
-      direction: 4,
-      header: 'ProfileHeaderComponent',
-      backUrl: 'new'
-    },
-    canActivate: [AuthGuard]
-  },
-  {
     path: ':id',
     component: ProfileComponent,
     data: {

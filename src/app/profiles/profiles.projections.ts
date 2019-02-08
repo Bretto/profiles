@@ -15,11 +15,20 @@ export class ProfilesProjections {
   @Obj$ToArray$()
   queryAll$(): Observable<IProfile[]> {
     return this.store.select('profiles', 'entities')
-      .pipe(filter(res => res && Object.keys(res).length > 0));
+      .pipe(
+        filter(res => res && Object.keys(res).length > 0),
+        map(entities => {
+          return _.map(entities, (entity) => {
+            return newProfile(entity);
+          });
+        })
+      );
   }
 
   queryById$(id): Observable<IProfile> {
     return this.store.select('profiles', 'entities', id)
-      .pipe(filter(Boolean));
+      .pipe(filter(Boolean), map(data => newProfile(data)));
   }
 }
+
+

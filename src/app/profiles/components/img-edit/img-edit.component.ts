@@ -2,8 +2,7 @@ import {Component, Input, OnDestroy, OnInit} from '@angular/core';
 import {ProfilesProjections} from '../../profiles.projections';
 import {ActivatedRoute, Router} from '@angular/router';
 import {ProfilesCommands} from '../../profiles.commands';
-import {Subject, Subscription} from 'rxjs';
-import {FormResponse} from '../../../shared/components/form-ui/form-ui.component';
+import {Subscription} from 'rxjs';
 import {newProfile, IProfile} from '../../profile.model';
 import * as _ from 'lodash';
 import {filter, first, tap} from 'rxjs/operators';
@@ -24,8 +23,6 @@ export class ImgEditComponent implements OnInit, OnDestroy {
   picSourceOrigin: any = {};
   uploadPath: string;
 
-  formRes: Subject<FormResponse> = new Subject<FormResponse>();
-
   _uploading: boolean;
   get uploading(): boolean {
     return this._uploading;
@@ -41,19 +38,15 @@ export class ImgEditComponent implements OnInit, OnDestroy {
 
   constructor(private profilesProj: ProfilesProjections,
               private uiProj: UiProjection,
+              private activatedRoute: ActivatedRoute,
               private profilesCommands: ProfilesCommands,
               public db: AngularFirestore,
               private router: Router,
               private route: ActivatedRoute) {
 
     console.log('ImgEditComponent');
-    const navigation = this.router.getCurrentNavigation();
 
-    if (_.get(navigation, 'extras.state.profileId')) {
-      this.profileId = _.get(navigation, 'extras.state.profileId');
-    } else {
-      this.profileId = route.snapshot.paramMap.get('id');
-    }
+    this.profileId = route.snapshot.paramMap.get('id');
     this.uploadPath = `${uiProj.getUser().uid}/${this.profileId}`;
   }
 
@@ -77,7 +70,6 @@ export class ImgEditComponent implements OnInit, OnDestroy {
     this.subs.add(
       this.db.doc(`profile/${this.profile.id}`)
         .valueChanges().pipe(
-        tap(x => console.log('xxx', x)),
         filter((p: IProfile) => p.pic.source !== this.picSourceOrigin),
         first()
       ).subscribe(this.onSuccess, this.onError));
@@ -85,21 +77,23 @@ export class ImgEditComponent implements OnInit, OnDestroy {
 
   onSuccess = (res) => {
 
-    console.log('onSuccess');
+    // const profile = {...this.profile, pic }
+    //
+    // if (this.createMode) {
+    //   this.profilesCommands.create(profile)
+    //     .subscribe(this.onSuccess, this.onError);
+    // } else {
+    //   this.profilesCommands.update(profile)
+    //     .subscribe(this.onSuccess, this.onError);
+    // }
 
     this.uploading = false;
-    this.formRes.next({
-      isPending: false,
-      successMsg: 'Success'
-    });
+
   };
 
   onError = (err) => {
     this.uploading = false;
-    this.formRes.next({
-      isPending: false,
-      errorMsg: 'Error'
-    });
+
   };
 
   ngOnDestroy() {
