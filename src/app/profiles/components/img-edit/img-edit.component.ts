@@ -88,12 +88,10 @@ export class ImgEditComponent implements OnInit, OnDestroy {
     // }
 
     this.uploading = false;
-
   };
 
   onError = (err) => {
     this.uploading = false;
-
   };
 
   ngOnDestroy() {
