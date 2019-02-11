@@ -3,6 +3,7 @@ import {Store} from '@ngrx/store';
 import {Injectable} from '@angular/core';
 import {filter, first, map, tap} from 'rxjs/operators';
 import * as _ from 'lodash';
+import {RouterState} from '../shared/utils';
 
 @Injectable({providedIn: 'root'})
 export class UiProjection {
@@ -38,7 +39,7 @@ export class UiProjection {
   }
 
 
-  getRouterState() {
+  getRouterState(): Observable<RouterState> {
    return this.store.select('router', 'state');
   }
 

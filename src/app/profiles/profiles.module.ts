@@ -11,6 +11,7 @@ import {EffectsModule} from '@ngrx/effects';
 import {ProfileComponent} from './components/profile/profile.component';
 import { ImgEditComponent } from './components/img-edit/img-edit.component';
 import { CardImgComponent } from './components/card-img/card-img.component';
+import {CardDetailComponent} from './components/card-detail/card-detail.component';
 
 @NgModule({
   imports: [
@@ -26,7 +27,8 @@ import { CardImgComponent } from './components/card-img/card-img.component';
     CardImgComponent,
     ProfileEditComponent,
     ImgEditComponent,
-    CardImgComponent
+    CardImgComponent,
+    CardDetailComponent
   ],
 })
 export class ProfilesModule {

@@ -16,6 +16,7 @@ export interface RouterState {
   url: string;
   params: Params;
   data: any;
+  path: string;
   queryParams: Params;
   previousState: any;
 }

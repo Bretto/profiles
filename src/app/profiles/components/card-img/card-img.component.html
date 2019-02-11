@@ -1,9 +1,16 @@
-<fa-icon class="edit-btn" [icon]="['fas', 'pen-square']" (click)="onEdit($event)" auth-role></fa-icon>
-<pinch-zoom #pincher *ngIf="picUrl" (events)="onZoom($event)" auto-zoom-out="true" [class.hide]="!imgLoaded">
-  <img mat-card-image [src]="picUrl" (load)="onImgLoaded()">
-</pinch-zoom>
-<div class="spinner-wrap" *ngIf="!imgLoaded">
-  <mat-spinner diameter="40" ></mat-spinner>
+<fa-icon class="edit-btn" [icon]="['fas', 'pen-square']" (click)="onEdit($event)" auth-role [class.hide]="hideEdit"></fa-icon>
+
+<!--<button (click)="onZoomIn()">zoom in</button>-->
+<!--<button (click)="onZoomOut()">zoom out</button>-->
+
+<div class="card-img-wrap">
+  <div class="spinner-wrap" *ngIf="!imgLoaded">
+    <mat-spinner diameter="40" ></mat-spinner>
+  </div>
+  <pinch-zoom #pincher *ngIf="picUrl" (events)="onZoom($event)" auto-zoom-out="true" [class.hide]="!imgLoaded">
+    <img mat-card-image [src]="picUrl" (load)="onImgLoaded()">
+  </pinch-zoom>
 </div>
+
 
 

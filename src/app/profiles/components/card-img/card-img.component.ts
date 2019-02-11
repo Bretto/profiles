@@ -1,6 +1,8 @@
 import {Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild} from '@angular/core';
 import {IProfile} from '../../profile.model';
 import {el} from '@angular/platform-browser/testing/src/browser_util';
+import {ActivatedRoute} from '@angular/router';
+import {UiProjection} from '../../../ui/ui.projections';
 
 @Component({
   selector: 'app-card-img',
@@ -11,11 +13,22 @@ export class CardImgComponent implements OnInit {
 
   @Input() profile: IProfile;
   imgLoaded: boolean;
+  hideEdit: boolean;
 
   @ViewChild('pincher') pincher: any;
   @Output() edit_: EventEmitter<any> = new EventEmitter();
 
-  constructor() {
+  elm: any;
+  parentElm: any;
+
+  constructor(private uiProj: UiProjection) {
+
+    uiProj.getRouterState().subscribe(state => {
+      if (state.path === '/profile/:id/edit/img') {
+        this.hideEdit = true;
+      }
+    });
+
   }
 
   ngOnInit() {
@@ -31,13 +44,19 @@ export class CardImgComponent implements OnInit {
 
   onZoom(e) {
 
-    const elm = this.pincher.elementRef.nativeElement;
+    if (!this.elm && !this.parentElm) {
+      this.elm = this.pincher.elementRef.nativeElement;
+      this.parentElm = this.elm.parentElement;
+    }
+
     if (e.type === 'pinch') {
-      elm.classList.add('fullscreen');
+      this.elm.classList.add('fullscreen');
+      document.body.appendChild(this.elm);
     }
 
     if (e.type === 'touchend') {
-      elm.classList.remove('fullscreen');
+      this.elm.classList.remove('fullscreen');
+      this.parentElm.appendChild(this.elm);
     }
   }
 
