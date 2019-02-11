@@ -1,7 +1,5 @@
-import {Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output, ViewChild} from '@angular/core';
 import {IProfile} from '../../profile.model';
-import {el} from '@angular/platform-browser/testing/src/browser_util';
-import {ActivatedRoute} from '@angular/router';
 import {UiProjection} from '../../../ui/ui.projections';
 
 @Component({
@@ -61,7 +59,7 @@ export class CardImgComponent implements OnInit {
   }
 
   get picUrl() {
-    return this.profile.pic.source;//this.profile.pic ? this.profile.pic : 'assets/images/default.jpg';
+    return this.profile.pic.source;
   }
 
 }

@@ -12,6 +12,7 @@ import {ProfileComponent} from './components/profile/profile.component';
 import { ImgEditComponent } from './components/img-edit/img-edit.component';
 import { CardImgComponent } from './components/card-img/card-img.component';
 import {CardDetailComponent} from './components/card-detail/card-detail.component';
+import { CardHeaderComponent } from './components/card-header/card-header.component';
 
 @NgModule({
   imports: [
@@ -28,7 +29,8 @@ import {CardDetailComponent} from './components/card-detail/card-detail.componen
     ProfileEditComponent,
     ImgEditComponent,
     CardImgComponent,
-    CardDetailComponent
+    CardDetailComponent,
+    CardHeaderComponent
   ],
 })
 export class ProfilesModule {

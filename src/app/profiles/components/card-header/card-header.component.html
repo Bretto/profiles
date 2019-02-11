@@ -1,0 +1,10 @@
+<mat-card-header fxFlex="100">
+  <div *ngIf="profile.pic" mat-card-avatar class="thumb" [style.background-image]="'url(' + profile.pic.thumb + ')'"></div>
+  <mat-card-title fxFlex="100">
+    <span class="title">{{profile.fullName()}}</span>
+  </mat-card-title>
+  <mat-card-subtitle fxFlex="100">
+    <span class="subtitle">Dog Breed</span>
+  </mat-card-subtitle>
+  <fa-icon class="edit-btn" [icon]="['fa', 'user-edit']" (click)="onEdit($event)" auth-role [class.hide]="hideEdit"></fa-icon>
+</mat-card-header>

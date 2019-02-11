@@ -1,12 +1,7 @@
 <app-page-wrap>
   <ng-container *ngIf="profile">
     <mat-card>
-      <mat-card-header>
-        <div *ngIf="profile.pic" mat-card-avatar class="thumb" [style.background-image]="'url(' + profile.pic.thumb + ')'"></div>
-        <mat-card-title>{{profile.fullName()}}</mat-card-title>
-        <mat-card-subtitle>Dog Breed</mat-card-subtitle>
-        <span fxFlex="100"></span>
-      </mat-card-header>
+      <app-card-header [profile]="profile"></app-card-header>
 
       <app-card-img [profile]="profile"></app-card-img>
 

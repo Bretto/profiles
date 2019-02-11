@@ -12,10 +12,8 @@
     <fa-icon icon="upload"></fa-icon>
     <p>Upload image</p>
  </span>
-  <mat-progress-spinner
-    *ngIf="uploading"
-    color="accent"
-    diameter="40"
-    mode="indeterminate">
-  </mat-progress-spinner>
+</div>
+
+<div class="spinner-wrap" *ngIf="uploading">
+  <mat-spinner diameter="40" ></mat-spinner>
 </div>

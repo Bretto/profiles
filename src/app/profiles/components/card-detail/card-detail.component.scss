@@ -8,6 +8,8 @@
 
 mat-card {
   position: relative;
+  flex-direction: column;
+  display: flex;
 
   &.deleted :after {
     content: '';
@@ -21,9 +23,7 @@ mat-card {
   }
 }
 
-.thumb {
-  background-size: cover;
-}
+
 
 mat-spinner {
 
@@ -33,9 +33,6 @@ mat-spinner {
   background: #eee;
 }
 
-.edit-btn {
-  font-size: 20px;
-}
 
 
 

@@ -1,0 +1,33 @@
+
+.thumb {
+  background-size: cover;
+}
+
+
+.edit-btn {
+  font-size: 20px;
+}
+
+.title, .subtitle {
+  display: block;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+  position: absolute;
+  width: 100%;
+}
+
+mat-card-title {
+  min-height: 24px;
+  position: relative;
+}
+
+mat-card-subtitle {
+  min-height: 17px;
+  position: relative;
+}
+
+
+.hide {
+  display: none !important;
+}

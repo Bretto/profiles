@@ -23,3 +23,21 @@ progress::-webkit-progress-value {
     margin-right: .5rem;
   }
 }
+
+
+.spinner-wrap {
+  background: #eee;
+  border: solid #ddd 1px;
+  border-left: none;
+  border-right: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 475px;
+  position: absolute;
+  top: 75px;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+
