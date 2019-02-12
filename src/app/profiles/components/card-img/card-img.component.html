@@ -4,11 +4,11 @@
 <!--<button (click)="onZoomOut()">zoom out</button>-->
 
 <div class="card-img-wrap">
-  <div class="spinner-wrap" *ngIf="!imgLoaded">
+  <div #preloader class="spinner-wrap" *ngIf="!imgLoaded">
     <mat-spinner diameter="40" ></mat-spinner>
   </div>
   <pinch-zoom #pincher *ngIf="picUrl" (events)="onZoom($event)" auto-zoom-out="true" [class.hide]="!imgLoaded">
-    <img mat-card-image [src]="picUrl" (load)="onImgLoaded()">
+    <img #img mat-card-image [attr.data-lazy]="picUrl" (load)="onImgLoaded()">
   </pinch-zoom>
 </div>
 

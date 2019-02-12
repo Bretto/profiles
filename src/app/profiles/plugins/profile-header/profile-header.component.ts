@@ -24,7 +24,7 @@ export class ProfileHeaderComponent implements OnInit {
   onBack() {
 
 
-    this.uiProj.getRouterState()
+    this.uiProj.getRouterState$()
       .pipe(first())
       .subscribe(state => {
         if (this.backUrl) {

@@ -106,12 +106,6 @@ export class ProfileEditComponent implements OnInit, OnDestroy {
   //   return `${firstName}  ${lastName}`;
   // }
 
-  get headerIsVisible() {
-    if (this.appService) {
-      return this.appService.headerIsVisible;
-    }
-  }
-
   ngOnDestroy() {
     this.subs.unsubscribe();
   }

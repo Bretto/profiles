@@ -2,6 +2,18 @@ import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {AppService} from '../../../main/app.service';
 import * as _ from 'lodash';
+import {UiProjection} from '../../../ui/ui.projections';
+import {UiCommands} from '../../../ui/ui.commands';
+
+
+export interface Nav {
+  name: string;
+  pageId: string;
+  navId: string;
+  next: Nav;
+  back: Nav;
+}
+
 
 @Component({
   selector: 'app-nav',
@@ -93,7 +105,7 @@ export class NavComponent implements OnInit {
   pageId;
 
 
-  constructor(private route: ActivatedRoute, private router: Router, public appService: AppService) {
+  constructor(private route: ActivatedRoute, private router: Router, private uiProj: UiProjection, private uiCmd: UiCommands) {
     console.log('NavComponent');
 
     this.nav1page1.next = this.nav2page1;
@@ -133,27 +145,31 @@ export class NavComponent implements OnInit {
     this.navId = this.route.snapshot.params['navId'];
     this.navs = this[`lev${this.navId}`];
     this.pageId = this.route.snapshot.parent.children[1].params['pageId'];
-    this.appService.currentNav = _.find(this.levs, {'pageId': this.pageId});
+    //this.appService.currentNav = _.find(this.levs, {'pageId': this.pageId});
+    this.uiCmd.currentNav(_.find(this.levs, {'pageId': this.pageId}));
 
   }
 
   onNav(nav) {
-    this.appService.animationDirection++;
+    this.uiCmd.animationDirection(this.uiProj.getAnimationDirection() + 1);
     this.router.navigate(['/nav/main', {outlets: {'page': [nav.next.pageId], 'nav': [nav.next.navId]}}]);
-    this.appService.currentNav = nav.next;
+    // this.appService.currentNav = nav.next;
+    this.uiCmd.currentNav(nav.next);
   }
 
   onBack() {
-    this.appService.animationDirection--;
-    const nav = this.appService.currentNav;
+    this.uiCmd.animationDirection(this.uiProj.getAnimationDirection() - 1);
+    const nav = this.uiProj.getCurrentNav();
     this.router.navigate(['/nav/main', {outlets: {'page': [nav.back.pageId], 'nav': [nav.back.navId]}}]);
-    this.appService.currentNav = nav.back;
+    // this.appService.currentNav = nav.back;
+    this.uiCmd.currentNav(nav.back);
 
   }
 
   get hasBack() {
-    if (this.appService.currentNav) {
-      return this.appService.currentNav.back;
+    if (this.uiProj.getCurrentNav()) {
+      //return this.appService.currentNav.back;
+      return this.uiProj.getCurrentNav().back;
     }
   }
 

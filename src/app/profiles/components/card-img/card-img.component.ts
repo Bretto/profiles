@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, OnInit, Output, ViewChild} from '@angular/core';
+import {AfterViewInit, Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild} from '@angular/core';
 import {IProfile} from '../../profile.model';
 import {UiProjection} from '../../../ui/ui.projections';
 
@@ -7,13 +7,15 @@ import {UiProjection} from '../../../ui/ui.projections';
   templateUrl: './card-img.component.html',
   styleUrls: ['./card-img.component.scss']
 })
-export class CardImgComponent implements OnInit {
+export class CardImgComponent implements OnInit, AfterViewInit {
 
   @Input() profile: IProfile;
   imgLoaded: boolean;
   hideEdit: boolean;
 
   @ViewChild('pincher') pincher: any;
+  @ViewChild('img') img: ElementRef;
+  @ViewChild('preloader') preloader: ElementRef;
   @Output() edit_: EventEmitter<any> = new EventEmitter();
 
   elm: any;
@@ -21,7 +23,7 @@ export class CardImgComponent implements OnInit {
 
   constructor(private uiProj: UiProjection) {
 
-    uiProj.getRouterState().subscribe(state => {
+    uiProj.getRouterState$().subscribe(state => {
       if (state.path === '/profile/:id/edit/img') {
         this.hideEdit = true;
       }
@@ -30,6 +32,23 @@ export class CardImgComponent implements OnInit {
   }
 
   ngOnInit() {
+  }
+
+  ngAfterViewInit() {
+
+    const io = new IntersectionObserver((entries: any, observer) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const img = this.img.nativeElement;
+          const src = img.getAttribute('data-lazy');
+          img.setAttribute('src', src);
+          img.classList.add('fade');
+          observer.disconnect();
+        }
+      });
+    });
+
+    io.observe(this.preloader.nativeElement);
   }
 
   onImgLoaded() {

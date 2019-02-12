@@ -15,7 +15,7 @@ export class CardHeaderComponent implements OnInit {
 
   constructor(private uiProj: UiProjection) {
 
-    uiProj.getRouterState().subscribe(state => {
+    uiProj.getRouterState$().subscribe(state => {
       if (state.path === '/profile/:id/edit' || state.path === '/profile/:id/edit/img') {
         this.hideEdit = true;
       }

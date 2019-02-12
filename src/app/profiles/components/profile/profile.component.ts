@@ -1,10 +1,8 @@
-import {ChangeDetectorRef, Component, OnDestroy, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {ProfilesProjections} from '../../profiles.projections';
 import {ActivatedRoute, Router} from '@angular/router';
-import {FormBuilder} from '@angular/forms';
 import {ProfilesCommands} from '../../profiles.commands';
 import {Subscription} from 'rxjs';
-import {AppService} from '../../../main/app.service';
 import {IProfile} from '../../profile.model';
 
 @Component({

@@ -11,7 +11,7 @@ export class AppComponent {
 
   constructor(private uiProj: UiProjection) {
 
-    this.uiProj.getUrl().subscribe(url => {
+    this.uiProj.getUrl$().subscribe(url => {
       localStorage.setItem('url', url);
     });
 

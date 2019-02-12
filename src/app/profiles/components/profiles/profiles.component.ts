@@ -1,12 +1,12 @@
-import {AfterViewInit, Component, ElementRef, OnDestroy, OnInit, ViewChild} from '@angular/core';
+import {AfterViewInit, Component, OnDestroy, OnInit} from '@angular/core';
 import {ProfilesCommands} from '../../profiles.commands';
 import {ProfilesProjections} from '../../profiles.projections';
 import {ActivatedRoute, Router} from '@angular/router';
-import {AppService} from '../../../main/app.service';
 import {Observable, Subscription} from 'rxjs';
 import {IProfile} from '../../profile.model';
 import {UiProjection} from '../../../ui/ui.projections';
 import {first} from 'rxjs/operators';
+import {RouterState} from '../../../shared/utils';
 
 
 @Component({
@@ -21,7 +21,6 @@ export class ProfilesComponent implements OnInit, OnDestroy, AfterViewInit {
   subs: Subscription = new Subscription();
 
   constructor(private profilesCommands: ProfilesCommands,
-              private appService: AppService,
               private router: Router,
               private activatedRoute: ActivatedRoute,
               private uiProj: UiProjection,
@@ -39,12 +38,11 @@ export class ProfilesComponent implements OnInit, OnDestroy, AfterViewInit {
   ngAfterViewInit() {
 
     // scroll back to last position
-    this.uiProj.getRouterState().pipe(first()).subscribe(state => {
+    this.uiProj.getRouterState$().pipe(first()).subscribe((state: RouterState) => {
       if (state.previousState.params.id) {
         const elm = document.getElementById(state.previousState.params.id);
         const offsetTop = elm.offsetTop;
         document.querySelector('app-page-wrap .page-wrap').scrollTop = offsetTop - 72;
-        // elm.scrollIntoView();
       }
     });
 
@@ -59,7 +57,6 @@ export class ProfilesComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   onSelect(profile: IProfile) {
-    this.appService.selectedProfileId = profile.id;
     this.router.navigate([profile.id], {relativeTo: this.activatedRoute});
   }
 

@@ -15,6 +15,8 @@ import {RouterState} from '../../../shared/utils';
 import * as _ from 'lodash';
 import {ProfilesPluginService} from '../../../profiles/plugins/profiles-plugin.service';
 import {ShellNavProjections} from '../../shell-nav.projections';
+import {UiCommands} from '../../../ui/ui.commands';
+import {UiProjection} from '../../../ui/ui.projections';
 
 @Component({
   selector: 'app-shell-nav',
@@ -51,17 +53,21 @@ export class ShellNavComponent implements OnInit, AfterViewInit {
   cnt = 0;
 
   get isVisible(): boolean {
-    return this.appService.headerIsVisible;
+    return this.uiProj.getHeaderIsVisible();
+    //this.appService.headerIsVisible;
   }
 
   set isVisible(value: boolean) {
-    this.appService.headerIsVisible = value;
+    //this.appService.headerIsVisible = value;
+    this.uiCommands.headerIsVisible(value);
   }
 
 
   constructor(private appService: AppService,
               private _injector: Injector,
               private route: ActivatedRoute,
+              private uiCommands: UiCommands,
+              private uiProj: UiProjection,
               private profilesPluginService: ProfilesPluginService,
               private shellProjections: ShellNavProjections) {
   }
@@ -77,7 +83,8 @@ export class ShellNavComponent implements OnInit, AfterViewInit {
           this.vcr.clear();
           this.vcr.createComponent(headerFactory);
         }
-        this.appService.headerIsVisible = true;
+        // this.appService.headerIsVisible = true;
+        this.uiCommands.headerIsVisible(true);
       });
   }
 
@@ -96,10 +103,13 @@ export class ShellNavComponent implements OnInit, AfterViewInit {
     // return outlet.activatedRoute.snapshot.parent.children[0].params['navId'];
 
 
-    return '' + this.appService.animationDirection;
+    //return '' + this.appService.animationDirection;
+    return '' + this.uiProj.getAnimationDirection();
   }
 
 }
+
+
 
 
 

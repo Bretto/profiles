@@ -13,11 +13,9 @@ export class CardComponent implements OnInit, AfterViewInit {
   @Output() select_: EventEmitter<IProfile> = new EventEmitter();
   @Output() edit_: EventEmitter<IProfile> = new EventEmitter();
   @Output() editImg_: EventEmitter<IProfile> = new EventEmitter();
-  @Output() scrollIntoView_: EventEmitter<any> = new EventEmitter();
   elm: any;
 
-  constructor(private elementRef: ElementRef,
-              private appService: AppService) {
+  constructor(private elementRef: ElementRef) {
   }
 
   ngOnInit() {
@@ -25,9 +23,7 @@ export class CardComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit() {
-    if (this.appService.selectedProfileId === this.profile.id) {
-      this.scrollIntoView_.next(this.elm);
-    }
+
   }
 
   onSelect(e) {

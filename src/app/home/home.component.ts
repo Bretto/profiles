@@ -1,11 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import {AngularFirestore} from 'angularfire2/firestore';
-import * as firebase from 'firebase';
-import QuerySnapshot = firebase.firestore.QuerySnapshot;
 import {image, lorem, name, random} from 'faker';
 import {AuthService} from '../shared/services/auth.service';
 import {ActivatedRoute, Router} from '@angular/router';
-import {AppService} from '../main/app.service';
 import {IProfile} from '../profiles/profile.model';
 
 
@@ -77,7 +74,7 @@ export class HomeComponent implements OnInit {
   };
 
   private async deleteAll(col) {
-    const res: QuerySnapshot = await this.db.collection(col).get().toPromise();
+    const res: any = await this.db.collection(col).get().toPromise();
     const ids = res.docs.map(x => x.id);
 
     for (const id of ids) {

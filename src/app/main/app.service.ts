@@ -5,11 +5,8 @@ import {Injectable} from '@angular/core';
 })
 export class AppService {
 
-  selectedProfileId: string;
-  headerIsVisible: boolean = true;
-  animationDirection: number = 0;
-  currentNav;
-
   constructor() {
   }
 }
+
+

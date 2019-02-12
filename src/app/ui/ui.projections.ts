@@ -4,11 +4,30 @@ import {Injectable} from '@angular/core';
 import {filter, first, map, tap} from 'rxjs/operators';
 import * as _ from 'lodash';
 import {RouterState} from '../shared/utils';
+import {Nav} from '../shell-nav/components/nav/nav.component';
 
 @Injectable({providedIn: 'root'})
 export class UiProjection {
   constructor(private store: Store<any>) {
     console.log('UiProjection');
+  }
+
+  getCurrentNav(): Nav {
+    let value;
+    this.store.select('ui', 'currentNav').pipe(first()).subscribe(v => value = v);
+    return value;
+  }
+
+  getAnimationDirection() {
+    let value;
+    this.store.select('ui', 'animationDirection').pipe(first()).subscribe(v => value = v);
+    return value;
+  }
+
+  getHeaderIsVisible() {
+    let value;
+    this.store.select('ui', 'headerIsVisible').pipe(first()).subscribe(v => value = v);
+    return value;
   }
 
   getOnline$(): Observable<any> {
@@ -23,7 +42,7 @@ export class UiProjection {
     return this.store.select('ui', 'openMenu');
   }
 
-  getUrl() {
+  getUrl$() {
     return this.store.select('router', 'state', 'url').pipe(filter(Boolean));
   }
 
@@ -39,7 +58,7 @@ export class UiProjection {
   }
 
 
-  getRouterState(): Observable<RouterState> {
+  getRouterState$(): Observable<RouterState> {
    return this.store.select('router', 'state');
   }
 

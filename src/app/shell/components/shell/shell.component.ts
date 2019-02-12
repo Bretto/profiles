@@ -55,11 +55,13 @@ export class ShellComponent implements OnInit, AfterViewInit {
   isOpen: boolean;
 
   get isVisible(): boolean {
-    return this.appService.headerIsVisible;
+    return this.uiProj.getHeaderIsVisible();
+    //this.appService.headerIsVisible;
   }
 
   set isVisible(value: boolean) {
-    this.appService.headerIsVisible = value;
+    //this.appService.headerIsVisible = value;
+    this.uiCommands.headerIsVisible(value);
   }
 
 
@@ -87,7 +89,8 @@ export class ShellComponent implements OnInit, AfterViewInit {
             headerRef.instance.backUrl = routerState.data.backUrl;
           }
         }
-        this.appService.headerIsVisible = true;
+        // this.appService.headerIsVisible = true;
+        this.uiCommands.headerIsVisible(true);
       });
 
     this.uiProj.getMenuOpen$().subscribe(x => this.isOpen = x);

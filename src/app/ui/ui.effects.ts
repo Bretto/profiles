@@ -21,6 +21,21 @@ export class UiEffects {
   }
 
   @Effect()
+  currentNav$ = this.actions$.pipe(
+    ofType(UiCommands.CURRENT_NAV),
+    setState('currentNav'));
+
+  @Effect()
+  animationDirection$ = this.actions$.pipe(
+    ofType(UiCommands.ANIMATION_DIRECTION),
+    setState('animationDirection'));
+
+  @Effect()
+  headerIsVisible$ = this.actions$.pipe(
+    ofType(UiCommands.HEADER_IS_VISIBLE),
+    setState('headerIsVisible'));
+
+  @Effect()
   openMenu$ = this.actions$.pipe(
     ofType(UiCommands.OPEN_MENU),
     setState('openMenu'));
