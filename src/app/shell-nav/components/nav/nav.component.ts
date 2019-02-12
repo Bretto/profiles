@@ -1,6 +1,5 @@
 import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
-import {AppService} from '../../../main/app.service';
 import * as _ from 'lodash';
 import {UiProjection} from '../../../ui/ui.projections';
 import {UiCommands} from '../../../ui/ui.commands';
@@ -145,32 +144,28 @@ export class NavComponent implements OnInit {
     this.navId = this.route.snapshot.params['navId'];
     this.navs = this[`lev${this.navId}`];
     this.pageId = this.route.snapshot.parent.children[1].params['pageId'];
-    //this.appService.currentNav = _.find(this.levs, {'pageId': this.pageId});
     this.uiCmd.currentNav(_.find(this.levs, {'pageId': this.pageId}));
 
   }
 
   onNav(nav) {
-    this.uiCmd.animationDirection(this.uiProj.getAnimationDirection() + 1);
+    this.uiCmd.animationDirection(this.uiProj.getState<number>(['ui', 'animationDirection']) + 1);
     this.router.navigate(['/nav/main', {outlets: {'page': [nav.next.pageId], 'nav': [nav.next.navId]}}]);
-    // this.appService.currentNav = nav.next;
     this.uiCmd.currentNav(nav.next);
   }
 
   onBack() {
-    this.uiCmd.animationDirection(this.uiProj.getAnimationDirection() - 1);
-    const nav = this.uiProj.getCurrentNav();
+    this.uiCmd.animationDirection(this.uiProj.getState<number>(['ui', 'animationDirection']) - 1);
+    const nav = this.uiProj.getState<Nav>(['ui', 'currentNav']);
     this.router.navigate(['/nav/main', {outlets: {'page': [nav.back.pageId], 'nav': [nav.back.navId]}}]);
-    // this.appService.currentNav = nav.back;
     this.uiCmd.currentNav(nav.back);
 
   }
 
   get hasBack() {
-    if (this.uiProj.getCurrentNav()) {
-      //return this.appService.currentNav.back;
-      return this.uiProj.getCurrentNav().back;
-    }
+     if (this.uiProj.getState<Nav>(['ui', 'currentNav'])) {
+       return this.uiProj.getState<Nav>(['ui', 'currentNav']).back;
+     }
   }
 
 }

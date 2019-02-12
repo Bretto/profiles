@@ -55,12 +55,10 @@ export class ShellComponent implements OnInit, AfterViewInit {
   isOpen: boolean;
 
   get isVisible(): boolean {
-    return this.uiProj.getHeaderIsVisible();
-    //this.appService.headerIsVisible;
+    return this.uiProj.getState<boolean>(['ui', 'headerIsVisible']);
   }
 
   set isVisible(value: boolean) {
-    //this.appService.headerIsVisible = value;
     this.uiCommands.headerIsVisible(value);
   }
 
@@ -93,8 +91,8 @@ export class ShellComponent implements OnInit, AfterViewInit {
         this.uiCommands.headerIsVisible(true);
       });
 
-    this.uiProj.getMenuOpen$().subscribe(x => this.isOpen = x);
-    this.uiProj.getBreakpoint$().subscribe(x => this.isHandset = x);
+    this.uiProj.getState$<boolean>(['ui', 'openMenu']).subscribe(x => this.isOpen = x);
+    this.uiProj.getState$<boolean>(['ui', 'handset']).subscribe(x => this.isHandset = x);
 
   }
 

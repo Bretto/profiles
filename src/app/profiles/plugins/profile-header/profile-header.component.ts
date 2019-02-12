@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {UiProjection} from '../../../ui/ui.projections';
 import {first} from 'rxjs/operators';
+import {RouterState} from '../../../shared/utils';
 
 @Component({
   selector: 'app-profile-header',
@@ -24,7 +25,7 @@ export class ProfileHeaderComponent implements OnInit {
   onBack() {
 
 
-    this.uiProj.getRouterState$()
+    this.uiProj.getState$<RouterState>(['router', 'state'])
       .pipe(first())
       .subscribe(state => {
         if (this.backUrl) {

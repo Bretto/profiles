@@ -53,12 +53,10 @@ export class ShellNavComponent implements OnInit, AfterViewInit {
   cnt = 0;
 
   get isVisible(): boolean {
-    return this.uiProj.getHeaderIsVisible();
-    //this.appService.headerIsVisible;
+    return this.uiProj.getState<boolean>(['ui', 'headerIsVisible']);
   }
 
   set isVisible(value: boolean) {
-    //this.appService.headerIsVisible = value;
     this.uiCommands.headerIsVisible(value);
   }
 
@@ -104,7 +102,7 @@ export class ShellNavComponent implements OnInit, AfterViewInit {
 
 
     //return '' + this.appService.animationDirection;
-    return '' + this.uiProj.getAnimationDirection();
+    return '' + this.uiProj.getState<number>(['ui', 'animationDirection']);
   }
 
 }

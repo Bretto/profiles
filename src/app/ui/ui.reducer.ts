@@ -23,20 +23,6 @@ const initState: UiState = {
   currentNav: null
 };
 
-
-// const setState = handleEvent<UiState, FSA>([
-//   UiCommands.OPEN_MENU,
-//   UiCommands.ONLINE_WATCHER,
-//   UiCommands.BREAKPOINT_WATCHER
-// ], (state, event) => {
-//   const value = event.payload.value;
-//   const propName = event.payload.propName;
-//   return {
-//     ...state,
-//     [propName]: value
-//   };
-// });
-
 const setState = (state, event) => {
   const value = event.payload.value;
   const propName = event.payload.propName;
@@ -45,14 +31,6 @@ const setState = (state, event) => {
     [propName]: value
   };
 };
-
-// export const getReducers = reduceReducers<UiState>(
-//   initState,
-//   [
-//     setState,
-//   ]
-// );
-
 
 export function getReducers(
   state = initState,

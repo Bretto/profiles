@@ -1,6 +1,7 @@
 import {AfterViewInit, Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild} from '@angular/core';
 import {IProfile} from '../../profile.model';
 import {UiProjection} from '../../../ui/ui.projections';
+import {RouterState} from '../../../shared/utils';
 
 @Component({
   selector: 'app-card-img',
@@ -23,7 +24,7 @@ export class CardImgComponent implements OnInit, AfterViewInit {
 
   constructor(private uiProj: UiProjection) {
 
-    uiProj.getRouterState$().subscribe(state => {
+    this.uiProj.getState$<RouterState>(['router', 'state']).subscribe(state => {
       if (state.path === '/profile/:id/edit/img') {
         this.hideEdit = true;
       }

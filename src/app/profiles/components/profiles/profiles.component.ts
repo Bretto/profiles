@@ -38,7 +38,8 @@ export class ProfilesComponent implements OnInit, OnDestroy, AfterViewInit {
   ngAfterViewInit() {
 
     // scroll back to last position
-    this.uiProj.getRouterState$().pipe(first()).subscribe((state: RouterState) => {
+    this.uiProj.getState$<RouterState>(['router', 'state'])
+      .pipe(first()).subscribe((state: RouterState) => {
       if (state.previousState.params.id) {
         const elm = document.getElementById(state.previousState.params.id);
         const offsetTop = elm.offsetTop;

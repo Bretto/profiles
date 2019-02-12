@@ -12,57 +12,15 @@ export class UiProjection {
     console.log('UiProjection');
   }
 
-  getCurrentNav(): Nav {
+  getState$<T>(path: string[]): Observable<T> {
+    return this.store.select(...path);
+  }
+
+  getState<T>(path: string[]): T {
     let value;
-    this.store.select('ui', 'currentNav').pipe(first()).subscribe(v => value = v);
+    this.store.select(...path).pipe(first()).subscribe(v => value = v);
     return value;
   }
-
-  getAnimationDirection() {
-    let value;
-    this.store.select('ui', 'animationDirection').pipe(first()).subscribe(v => value = v);
-    return value;
-  }
-
-  getHeaderIsVisible() {
-    let value;
-    this.store.select('ui', 'headerIsVisible').pipe(first()).subscribe(v => value = v);
-    return value;
-  }
-
-  getOnline$(): Observable<any> {
-    return this.store.select('ui', 'online');
-  }
-
-  getBreakpoint$(): Observable<any> {
-    return this.store.select('ui', 'handset');
-  }
-
-  getMenuOpen$(): Observable<any> {
-    return this.store.select('ui', 'openMenu');
-  }
-
-  getUrl$() {
-    return this.store.select('router', 'state', 'url').pipe(filter(Boolean));
-  }
-
-
-  getUser$() {
-    return this.store.select('ui', 'user');
-  }
-
-  getUser() {
-    let user = null;
-    this.store.select('ui', 'user').pipe(first()).subscribe(u => user = u);
-    return user;
-  }
-
-
-  getRouterState$(): Observable<RouterState> {
-   return this.store.select('router', 'state');
-  }
-
-
 
 
 }

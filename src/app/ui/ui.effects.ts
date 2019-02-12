@@ -55,24 +55,6 @@ export class UiEffects {
     ofType(UiCommands.AUTH_WATCHER),
     setStateFromService('user', this.watcher.authWatcher));
 
-  // map((action: any) => action.payload),
-  // switchMap((status) => this.watcher.onlineWatcher(status).pipe(
-  //   map(res => this.uiEvents.setOnline(res)))
-  // ));
-
-  // @Effect()
-  // breakpoint$ = this.actions$.pipe(
-  //   ofType(UiCommands.BREAKPOINT_WATCHER),
-  //   map((action: any) => action.payload),
-  //   switchMap((status) => this.watcher.breakpointWatcher(status).pipe(
-  //     map(res => this.uiEvents.setHandset(res)))
-  //   ));
-
-  // @Effect()
-  // navigation$ = this.actions$.pipe(
-  //   ofType(UiCommands.NAVIGATION_WATCHER),
-  //   this.crud.standard(this.categoryCommands, this.categoryService.delete)
-
 }
 
 

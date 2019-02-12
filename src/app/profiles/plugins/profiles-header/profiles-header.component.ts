@@ -13,7 +13,7 @@ import {ActivatedRoute, Router} from '@angular/router';
   styleUrls: ['./profiles-header.component.scss']
 })
 export class ProfilesHeaderComponent implements OnInit {
-  isHandset$: Observable<any> = this.uiProj.getBreakpoint$();
+  isHandset$: Observable<boolean> = this.uiProj.getState$<boolean>(['ui', 'handset']);
   profileId: string;
   profile: IProfile;
 
