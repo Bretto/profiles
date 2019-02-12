@@ -1,12 +1,10 @@
 import {Injectable} from '@angular/core';
 import {CommandsFactory} from '../shared/commands-factory';
 
-const name = 'ProfilesCommands';
-
 @Injectable({providedIn: 'root'})
 export class ProfilesCommands {
 
-  constructor( private factory: CommandsFactory) {
+  constructor(private factory: CommandsFactory) {
     console.log('ProfilesCommands');
   }
 
@@ -15,6 +13,8 @@ export class ProfilesCommands {
   static CREATE = `[${name}] CREATE`;
   static UPDATE = `[${name}] UPDATE`;
   static DELETE = `[${name}] DELETE`;
+
+  name = 'ProfilesCommands';
 
   queryAll = this.factory.createCommandWithRes<any, any>(ProfilesCommands.QUERY_ALL);
   queryById = this.factory.createCommandWithRes<any, any>(ProfilesCommands.QUERY_BY_ID);
