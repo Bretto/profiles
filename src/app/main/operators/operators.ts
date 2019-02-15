@@ -1,6 +1,6 @@
 import {catchError, map, switchMap} from 'rxjs/operators';
 import {Observable} from 'rxjs';
-import {Command} from '../main/services/command';
+import {Command} from '../services/command';
 
 type ServiceFn = (any) => Observable<any>;
 

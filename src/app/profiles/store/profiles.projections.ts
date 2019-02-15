@@ -3,8 +3,8 @@ import {Store} from '@ngrx/store';
 import {Observable} from 'rxjs';
 import {filter, map} from 'rxjs/operators';
 import * as _ from 'lodash';
-import {Obj$ToArray$} from '../../decorators/decorators';
 import {IProfile, newProfile} from '../profile.model';
+import {Obj$ToArray$} from '../../main/decorators/decorators';
 
 @Injectable({providedIn: 'root'})
 export class ProfilesProjections {

@@ -5,8 +5,8 @@ import {ProfileEditComponent} from './components/profile-edit/profile-edit.compo
 import {ProfileComponent} from './components/profile/profile.component';
 import {ImgEditComponent} from './components/img-edit/img-edit.component';
 import {ProfilesResolver} from './profiles.resolver';
-import {AuthGuard} from '../guards/auth.guard';
-import {ConfirmLeaveGuard} from '../guards/confirm-leave.guard';
+import {AuthGuard} from '../main/guards/auth.guard';
+import {ConfirmLeaveGuard} from '../main/guards/confirm-leave.guard';
 
 const routes: Routes = [
   {

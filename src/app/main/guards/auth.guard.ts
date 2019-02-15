@@ -6,7 +6,7 @@ import {
 import { Observable } from 'rxjs';
 
 import { tap, map, take } from 'rxjs/operators';
-import {AuthService} from '../user/auth.service';
+import {AuthService} from '../../user/auth.service';
 
 @Injectable({
   providedIn: 'root'
@@ -27,3 +27,4 @@ export class AuthGuard implements CanActivate {
     );
   }
 }
+
