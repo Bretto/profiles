@@ -1,7 +1,7 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {IProfile} from '../../profile.model';
-import {RouterState} from '../../../main/utils';
 import {UiProjection} from '../../../ui/store/ui.projections';
+import {RouterState} from '../../../main/app.model';
 
 @Component({
   selector: 'app-card-header',
@@ -31,5 +31,6 @@ export class CardHeaderComponent implements OnInit {
   }
 
 }
+
 
 

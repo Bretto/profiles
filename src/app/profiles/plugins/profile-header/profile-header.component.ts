@@ -1,8 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {first} from 'rxjs/operators';
-import {RouterState} from '../../../main/utils';
 import {UiProjection} from '../../../ui/store/ui.projections';
+import {RouterState} from '../../../main/app.model';
 
 @Component({
   selector: 'app-profile-header',

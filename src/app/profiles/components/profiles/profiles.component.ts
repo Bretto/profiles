@@ -3,10 +3,10 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {Observable, Subscription} from 'rxjs';
 import {IProfile} from '../../profile.model';
 import {first} from 'rxjs/operators';
-import {RouterState} from '../../../main/utils';
 import {ProfilesCommands} from '../../store/profiles.commands';
 import {UiProjection} from '../../../ui/store/ui.projections';
 import {ProfilesProjections} from '../../store/profiles.projections';
+import {RouterState} from '../../../main/app.model';
 
 
 @Component({

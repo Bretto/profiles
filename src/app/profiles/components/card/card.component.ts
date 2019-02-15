@@ -15,6 +15,7 @@ export class CardComponent implements OnInit, AfterViewInit {
   elm: any;
 
   constructor(private elementRef: ElementRef) {
+    console.log('CardComponent');
   }
 
   ngOnInit() {
@@ -41,7 +42,6 @@ export class CardComponent implements OnInit, AfterViewInit {
     e.stopImmediatePropagation();
     this.editImg_.emit(this.profile);
   }
-
 }
 
 

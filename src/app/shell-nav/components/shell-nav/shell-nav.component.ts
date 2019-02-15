@@ -12,11 +12,11 @@ import {group, query, transition, trigger} from '@angular/animations';
 import * as _ from 'lodash';
 import {ProfilesPluginService} from '../../../profiles/plugins/profiles-plugin.service';
 import {ShellNavProjections} from '../../shell-nav.projections';
-import {RouterState} from '../../../main/utils';
 import {translateX} from '../../../main/animations';
 import {UiCommands} from '../../../ui/store/ui.commands';
 import {UiProjection} from '../../../ui/store/ui.projections';
 import {DistinctUntilChanged} from '../../../main/decorators/decorators';
+import {RouterState} from '../../../main/app.model';
 
 @Component({
   selector: 'app-shell-nav',

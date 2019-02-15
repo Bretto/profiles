@@ -1,6 +1,5 @@
-import {AfterViewInit, Directive, ElementRef, EventEmitter, HostListener, Input, Output} from '@angular/core';
-import {FormGroup} from '@angular/forms';
-import {Observable, of} from 'rxjs';
+import {AfterViewInit, Directive, ElementRef, EventEmitter, HostListener, Output} from '@angular/core';
+import {of} from 'rxjs';
 import {UiProjection} from '../ui/store/ui.projections';
 
 
@@ -61,12 +60,13 @@ export class AuthRoleDirective {
 
   constructor(private el: ElementRef, private uiProj: UiProjection) {
 
-    this.uiProj.getState$<User>(['user', 'auth']).subscribe(user => {
-      if (user) {
-        el.nativeElement.style.visibility = 'initial';
-      } else {
-        el.nativeElement.style.visibility = 'hidden';
-      }
-    });
+    this.uiProj.getState$<User>(['user', 'auth'])
+      .subscribe(user => {
+        if (user) {
+          el.nativeElement.style.visibility = 'initial';
+        } else {
+          el.nativeElement.style.visibility = 'hidden';
+        }
+      });
   }
 }
