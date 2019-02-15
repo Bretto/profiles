@@ -1,9 +1,9 @@
 import {Component, OnInit} from '@angular/core';
 import {AngularFirestore} from 'angularfire2/firestore';
 import {image, lorem, name, random} from 'faker';
-import {AuthService} from '../shared/services/auth.service';
 import {ActivatedRoute, Router} from '@angular/router';
 import {IProfile} from '../profiles/profile.model';
+import {AuthService} from '../user/auth.service';
 
 
 Array.prototype['asyncReduce'] = async function (callback, initialVal) {

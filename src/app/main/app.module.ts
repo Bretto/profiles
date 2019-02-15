@@ -14,17 +14,19 @@ import {AppEffects} from './app.effects';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {HTTP_INTERCEPTORS, HttpClient, HttpClientModule} from '@angular/common/http';
 import {BrowserModule} from '@angular/platform-browser';
-import {CustomRouterStateSerializer} from '../shared/utils';
 import {ServiceWorkerModule} from '@angular/service-worker';
 import {AngularFireModule} from 'angularfire2';
 import {AngularFirestore, FirestoreSettingsToken} from 'angularfire2/firestore';
 import {AngularFireAuth} from 'angularfire2/auth';
 import {AngularFireStorageModule} from 'angularfire2/storage';
 import {environment} from '../../environments/environment';
-import {CustomReuseStrategy} from '../shared/custom-strategy';
 import {RouteReuseStrategy} from '@angular/router';
 import {firebaseConfig} from '../../environments/firebase-config';
 import {AppInterceptor} from './app.interceptor';
+import {UserModule} from '../user/user.module';
+import {CustomRouterStateSerializer} from './utils';
+import {CustomReuseStrategy} from './custom-strategy';
+import {UiModule} from '../ui/ui.module';
 
 @NgModule({
   declarations: [
@@ -38,6 +40,8 @@ import {AppInterceptor} from './app.interceptor';
     AppRoutingModule,
     HttpClientModule,
     SharedModule,
+    UserModule,
+    UiModule,
     StoreModule.forRoot(reducers, {metaReducers}),
     EffectsModule.forRoot([AppEffects]),
     MatProgressButtonsModule.forRoot(),
@@ -57,17 +61,17 @@ import {AppInterceptor} from './app.interceptor';
     },
     {provide: RouteReuseStrategy, useClass: CustomReuseStrategy},
     {provide: RouterStateSerializer, useClass: CustomRouterStateSerializer},
-    { provide: FirestoreSettingsToken, useValue: {} }
+    {provide: FirestoreSettingsToken, useValue: {}}
   ],
   bootstrap: [AppComponent]
 })
 export class AppModule {
-  constructor() {
-    // TODO why can't I intercept the remote calls of angularFire2
-    // console.log('http', http);
+  constructor(httpClient: HttpClient) {
+    // TODO why can't I intercept the remote calls of angularFire2 fuck !!!
+
     // const url = 'https://jsonplaceholder.typicode.com/posts/1';
-    // this.http.get(url, {observe: 'body'}).subscribe(x => {
-    //   console.log('x', x);
+    // httpClient.get(url, {observe: 'body'}).subscribe(x => {
+    //   console.log('XXX', x);
     // });
   }
 }

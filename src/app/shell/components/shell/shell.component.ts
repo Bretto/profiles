@@ -9,15 +9,16 @@ import {
 } from '@angular/core';
 import {ActivatedRoute, RouterOutlet} from '@angular/router';
 import {group, query, transition, trigger} from '@angular/animations';
-import {translateX} from '../../../shared/animations';
 import {AppService} from '../../../main/app.service';
 import {ShellProjections} from '../../shell.projections';
-import {RouterState} from '../../../shared/utils';
 import * as _ from 'lodash';
 import {ProfilesPluginService} from '../../../profiles/plugins/profiles-plugin.service';
 import {BreakpointObserver} from '@angular/cdk/layout';
 import {UiProjection} from '../../../ui/ui.projections';
 import {UiCommands} from '../../../ui/ui.commands';
+import {DistinctUntilChanged} from '../../../decorators/decorators';
+import {RouterState} from '../../../main/utils';
+import {translateX} from '../../../main/animations';
 
 @Component({
   selector: 'app-shell',
@@ -58,10 +59,10 @@ export class ShellComponent implements OnInit, AfterViewInit {
     return this.uiProj.getState<boolean>(['ui', 'headerIsVisible']);
   }
 
+  @DistinctUntilChanged()
   set isVisible(value: boolean) {
-    this.uiCommands.headerIsVisible(value);
+    this.uiCommands.setUi({headerIsVisible: value});
   }
-
 
   constructor(private appService: AppService,
               private uiCommands: UiCommands,
@@ -71,6 +72,8 @@ export class ShellComponent implements OnInit, AfterViewInit {
               private route: ActivatedRoute,
               private profilesPluginService: ProfilesPluginService,
               private shellProjections: ShellProjections) {
+
+    console.log('ShellComponent');
   }
 
   ngOnInit() {
@@ -87,8 +90,7 @@ export class ShellComponent implements OnInit, AfterViewInit {
             headerRef.instance.backUrl = routerState.data.backUrl;
           }
         }
-        // this.appService.headerIsVisible = true;
-        this.uiCommands.headerIsVisible(true);
+        this.uiCommands.setUi({headerIsVisible: true});
       });
 
     this.uiProj.getState$<boolean>(['ui', 'openMenu']).subscribe(x => this.isOpen = x);
@@ -123,8 +125,11 @@ export class ShellComponent implements OnInit, AfterViewInit {
     return !this.isHandset || this.isOpen;
   }
 
+
   openedChange(e) {
-    this.uiCommands.openMenu(e);
+    if (this.uiProj.getState(['ui', 'openMenu']) !== e) {
+      this.uiCommands.setUi({openMenu: e});
+    }
   }
 
 }

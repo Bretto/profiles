@@ -9,14 +9,15 @@ import {
 } from '@angular/core';
 import {ActivatedRoute, RouterOutlet} from '@angular/router';
 import {group, query, transition, trigger} from '@angular/animations';
-import {translateX} from '../../../shared/animations';
 import {AppService} from '../../../main/app.service';
-import {RouterState} from '../../../shared/utils';
 import * as _ from 'lodash';
 import {ProfilesPluginService} from '../../../profiles/plugins/profiles-plugin.service';
 import {ShellNavProjections} from '../../shell-nav.projections';
 import {UiCommands} from '../../../ui/ui.commands';
 import {UiProjection} from '../../../ui/ui.projections';
+import {DistinctUntilChanged} from '../../../decorators/decorators';
+import {RouterState} from '../../../main/utils';
+import {translateX} from '../../../main/animations';
 
 @Component({
   selector: 'app-shell-nav',
@@ -50,15 +51,17 @@ export class ShellNavComponent implements OnInit, AfterViewInit {
   @ViewChild('headerContainer', {read: ViewContainerRef})
   vcr: ViewContainerRef;
 
-  cnt = 0;
-
   get isVisible(): boolean {
     return this.uiProj.getState<boolean>(['ui', 'headerIsVisible']);
   }
 
+  @DistinctUntilChanged()
   set isVisible(value: boolean) {
-    this.uiCommands.headerIsVisible(value);
+    this.uiCommands.setUi({headerIsVisible: value});
   }
+
+
+
 
 
   constructor(private appService: AppService,
@@ -68,6 +71,8 @@ export class ShellNavComponent implements OnInit, AfterViewInit {
               private uiProj: UiProjection,
               private profilesPluginService: ProfilesPluginService,
               private shellProjections: ShellNavProjections) {
+
+    console.log('ShellNavComponent');
   }
 
   ngOnInit() {
@@ -81,8 +86,7 @@ export class ShellNavComponent implements OnInit, AfterViewInit {
           this.vcr.clear();
           this.vcr.createComponent(headerFactory);
         }
-        // this.appService.headerIsVisible = true;
-        this.uiCommands.headerIsVisible(true);
+        this.uiCommands.setUi({headerIsVisible: true});
       });
   }
 

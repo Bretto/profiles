@@ -1,5 +1,4 @@
 import {Injectable} from '@angular/core';
-import {Router} from '@angular/router';
 
 import {auth} from 'firebase/app';
 import {AngularFireAuth} from '@angular/fire/auth';
@@ -13,31 +12,22 @@ import {switchMap} from 'rxjs/operators';
 
 @Injectable({providedIn: 'root'})
 export class AuthService {
-  user$: Observable<any>;
+
+  user$: Observable<User | null> = this.afAuth.authState.pipe(
+    switchMap(user => {
+      if (user) {
+        return this.afs.doc<User>(`user/${user.uid}`).valueChanges();
+      } else {
+        return of(null);
+      }
+    })
+  );
 
   constructor(
     private afAuth: AngularFireAuth,
     private afs: AngularFirestore,
-    private router: Router
   ) {
 
-    auth().getRedirectResult().then(credential => {
-      if (credential && credential.user) {
-        this.updateUserData(credential.user);
-      }
-    }).catch(err => {
-      alert(err);
-    });
-
-    this.user$ = this.afAuth.authState.pipe(
-      switchMap(user => {
-        if (user) {
-          return this.afs.doc<User>(`user/${user.uid}`).valueChanges();
-        } else {
-          return of(null);
-        }
-      })
-    );
   }
 
 
@@ -47,8 +37,6 @@ export class AuthService {
       alert(err);
     });
     // return this.updateUserData(credential.user);
-
-
   }
 
   async signOut() {
@@ -56,7 +44,7 @@ export class AuthService {
     // return this.router.navigate(['/']);
   }
 
-  private updateUserData(user) {
+  updateUserData(user) {
     // Sets user data to firestore on login
     const userRef: AngularFirestoreDocument<User> = this.afs.doc(`user/${user.uid}`);
 
@@ -67,8 +55,7 @@ export class AuthService {
       photoURL: user.photoURL
     };
 
-    return userRef.set(data, {merge: true});
-
+    userRef.set(data, {merge: true});
   }
 
 }

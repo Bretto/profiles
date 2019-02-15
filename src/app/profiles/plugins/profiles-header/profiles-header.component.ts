@@ -4,8 +4,8 @@ import {Observable} from 'rxjs';
 import {UiProjection} from '../../../ui/ui.projections';
 import {ProfilesCommands} from '../../profiles.commands';
 import {IProfile, newProfile} from '../../profile.model';
-import {getUID} from '../../../shared/utils';
 import {ActivatedRoute, Router} from '@angular/router';
+import {getUID} from '../../../main/utils';
 
 @Component({
   selector: 'app-profiles-header',
@@ -36,7 +36,7 @@ export class ProfilesHeaderComponent implements OnInit {
   }
 
   onMenu() {
-    this.uiCommands.openMenu(true);
+    this.uiCommands.setUi({openMenu: true});
   }
 
   onSuccess = (res) => {

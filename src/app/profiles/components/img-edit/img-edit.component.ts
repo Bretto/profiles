@@ -47,7 +47,7 @@ export class ImgEditComponent implements OnInit, OnDestroy {
     console.log('ImgEditComponent');
 
     this.profileId = route.snapshot.paramMap.get('id');
-    this.uploadPath = `${uiProj.getState<User>(['ui', 'user']).uid}/${this.profileId}`;
+    this.uploadPath = `${uiProj.getState<User>(['user', 'auth']).uid}/${this.profileId}`;
   }
 
   ngOnInit() {

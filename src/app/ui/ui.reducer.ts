@@ -1,16 +1,15 @@
-import {FSA, toEvent} from '../shared/utils';
 import {UiCommands} from './ui.commands';
 import {Nav} from '../shell-nav/components/nav/nav.component';
+import {toEvent} from '../main/utils';
 
 
 export interface UiState {
-  animationDirection: number;
-  headerIsVisible: boolean;
-  online: boolean;
-  handset: boolean;
-  openMenu: boolean;
-  user: User;
-  currentNav: Nav;
+  animationDirection?: number;
+  headerIsVisible?: boolean;
+  online?: boolean;
+  handset?: boolean;
+  openMenu?: boolean;
+  currentNav?: Nav;
 }
 
 const initState: UiState = {
@@ -19,16 +18,14 @@ const initState: UiState = {
   online: null,
   handset: null,
   openMenu: null,
-  user: null,
   currentNav: null
 };
 
 const setState = (state, event) => {
-  const value = event.payload.value;
-  const propName = event.payload.propName;
+  const payload = event.payload;
   return {
     ...state,
-    [propName]: value
+    ...payload
   };
 };
 
@@ -36,14 +33,10 @@ export function getReducers(
   state = initState,
   event: any
 ): UiState {
+
   switch (event.type) {
-    case toEvent(UiCommands.CURRENT_NAV):
-    case toEvent(UiCommands.ANIMATION_DIRECTION):
-    case toEvent(UiCommands.HEADER_IS_VISIBLE):
-    case toEvent(UiCommands.ONLINE_WATCHER):
-    case toEvent(UiCommands.OPEN_MENU):
-    case toEvent(UiCommands.AUTH_WATCHER):
-    case toEvent(UiCommands.BREAKPOINT_WATCHER): {
+
+    case toEvent(UiCommands.SET_UI): {
       return setState(state, event);
     }
 
@@ -52,6 +45,7 @@ export function getReducers(
     }
   }
 }
+
 
 
 

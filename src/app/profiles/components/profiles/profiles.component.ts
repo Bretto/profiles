@@ -6,7 +6,7 @@ import {Observable, Subscription} from 'rxjs';
 import {IProfile} from '../../profile.model';
 import {UiProjection} from '../../../ui/ui.projections';
 import {first} from 'rxjs/operators';
-import {RouterState} from '../../../shared/utils';
+import {RouterState} from '../../../main/utils';
 
 
 @Component({

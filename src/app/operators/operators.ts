@@ -1,6 +1,6 @@
 import {catchError, map, switchMap} from 'rxjs/operators';
-import {Observable} from 'rxjs';
-import {Command} from './command';
+import {Observable, pipe} from 'rxjs';
+import {Command} from '../services/command';
 
 type ServiceFn = (any) => Observable<any>;
 
@@ -17,12 +17,12 @@ export const setStateFromServiceWithFeedback = (serviceFn: ServiceFn) => {
     ));
 };
 
-export  const setStateFromService = (propName: string, serviceFn: ServiceFn) => {
+export const setStateFromService = (propName: string, serviceFn: ServiceFn) => {
   return switchMap((cmd: Command<any, any>) => serviceFn(cmd.payload)
-    .pipe( map(res => ({type: cmd.type + '_COMPLETE', payload: {propName, value: res}}))));
+    .pipe(map(res => ({type: cmd.type + '_COMPLETE', payload: {propName, value: res}}))));
 };
 
-export  const setState = (propName: string) => {
-  return map((cmd: Command<any, any>) => ({type: cmd.type + '_COMPLETE', payload: {propName, value: cmd.payload}}));
-};
+export const toEvent = () => {
+  return map((cmd: Command<any, any>) => ({type: cmd.type + '_COMPLETE', payload: cmd.payload}));
+}
 

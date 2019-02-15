@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {UiCommands} from '../../../ui/ui.commands';
 import {Observable} from 'rxjs';
 import {UiProjection} from '../../../ui/ui.projections';
-import {AuthService} from '../../../shared/services/auth.service';
+import {AuthService} from '../../../user/auth.service';
 
 @Component({
   selector: 'app-side-nav',
@@ -18,7 +18,7 @@ export class SideNavComponent implements OnInit {
   }
 
   onClose() {
-    this.uiCommands.openMenu(false);
+    this.uiCommands.setUi({openMenu: false});
   }
 
   onGoogleLogin() {

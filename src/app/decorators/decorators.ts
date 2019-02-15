@@ -105,3 +105,57 @@ export const SnackBar = function () {
   };
 };
 
+
+export const DistinctUntilChanged = function () {
+  const cache = {};
+  return function (target: any, propertyKey: string, descriptor: TypedPropertyDescriptor<any>) {
+    const key: symbol = Symbol(propertyKey);
+    if (typeof descriptor.value === 'function') {
+      return distinctUntilChangedMethod(key, cache)(target, propertyKey, descriptor);
+    } else if (typeof descriptor.set === 'function') {
+      return distinctUntilChangedSet(key, cache)(target, propertyKey, descriptor);
+    } else {
+      throw new Error('@DistinctUntilChanged decorator can be applied to methods or getters, got ' + String(descriptor.value) + ' instead');
+    }
+  };
+};
+
+function getValue(args: any[]) {
+  if (args.length > 1) {
+    throw new Error('@DistinctUntilChanged only work with 1 arguments');
+  }
+  return JSON.stringify(args[0]);
+}
+
+const distinctUntilChangedMethod = function (key, cache) {
+
+  return function (target: any, propertyKey: string, descriptor: TypedPropertyDescriptor<any>) {
+    const method = descriptor.value;
+    descriptor.value = function () {
+      const val = getValue(Array.from(arguments));
+      if (cache[key] !== val) {
+        cache[key] = val;
+        return method.apply(this, arguments);
+      }
+    };
+    return descriptor;
+  };
+};
+
+const distinctUntilChangedSet = function (key, cache) {
+
+  return function (target: any, propertyKey: string, descriptor: TypedPropertyDescriptor<any>) {
+    const method = descriptor.set;
+    descriptor.set = function () {
+      const val = getValue(Array.from(arguments));
+      if (cache[key] !== val) {
+        cache[key] = val;
+        return method.apply(this, arguments);
+      }
+    };
+    return descriptor;
+  };
+};
+
+
+

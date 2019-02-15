@@ -1,10 +1,10 @@
 import {Injectable} from '@angular/core';
 import {Store} from '@ngrx/store';
 import {Observable} from 'rxjs';
-import {Obj$ToArray$} from '../shared/decorators';
 import {filter, map} from 'rxjs/operators';
 import {newProfile, IProfile} from './profile.model';
 import * as _ from 'lodash';
+import {Obj$ToArray$} from '../decorators/decorators';
 
 @Injectable({providedIn: 'root'})
 export class ProfilesProjections {

@@ -61,7 +61,7 @@ export class AuthRoleDirective {
 
   constructor(private el: ElementRef, private uiProj: UiProjection) {
 
-    this.uiProj.getState$<User>(['ui', 'user']).subscribe(user => {
+    this.uiProj.getState$<User>(['user', 'auth']).subscribe(user => {
       if (user) {
         el.nativeElement.style.visibility = 'initial';
       } else {

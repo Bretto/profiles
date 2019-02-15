@@ -144,21 +144,21 @@ export class NavComponent implements OnInit {
     this.navId = this.route.snapshot.params['navId'];
     this.navs = this[`lev${this.navId}`];
     this.pageId = this.route.snapshot.parent.children[1].params['pageId'];
-    this.uiCmd.currentNav(_.find(this.levs, {'pageId': this.pageId}));
+    this.uiCmd.setUi({currentNav: _.find(this.levs, {'pageId': this.pageId})});
 
   }
 
   onNav(nav) {
-    this.uiCmd.animationDirection(this.uiProj.getState<number>(['ui', 'animationDirection']) + 1);
+    this.uiCmd.setUi({animationDirection: this.uiProj.getState<number>(['ui', 'animationDirection']) + 1});
     this.router.navigate(['/nav/main', {outlets: {'page': [nav.next.pageId], 'nav': [nav.next.navId]}}]);
-    this.uiCmd.currentNav(nav.next);
+    this.uiCmd.setUi({currentNav: nav.next});
   }
 
   onBack() {
-    this.uiCmd.animationDirection(this.uiProj.getState<number>(['ui', 'animationDirection']) - 1);
+    this.uiCmd.setUi({animationDirection:this.uiProj.getState<number>(['ui', 'animationDirection']) - 1});
     const nav = this.uiProj.getState<Nav>(['ui', 'currentNav']);
     this.router.navigate(['/nav/main', {outlets: {'page': [nav.back.pageId], 'nav': [nav.back.navId]}}]);
-    this.uiCmd.currentNav(nav.back);
+    this.uiCmd.setUi({currentNav: nav.back});
 
   }
 

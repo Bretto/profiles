@@ -1,10 +1,7 @@
 import {Observable} from 'rxjs';
 import {Store} from '@ngrx/store';
 import {Injectable} from '@angular/core';
-import {filter, first, map, tap} from 'rxjs/operators';
-import * as _ from 'lodash';
-import {RouterState} from '../shared/utils';
-import {Nav} from '../shell-nav/components/nav/nav.component';
+import {first} from 'rxjs/operators';
 
 @Injectable({providedIn: 'root'})
 export class UiProjection {

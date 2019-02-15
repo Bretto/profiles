@@ -1,5 +1,4 @@
 import {Component} from '@angular/core';
-import {UiCommands} from '../ui/ui.commands';
 import {UiProjection} from '../ui/ui.projections';
 
 @Component({
@@ -25,7 +24,7 @@ export class AppComponent {
 
 // Checks if should display install popup notification:
     if (isIos() && !isInStandaloneMode()) {
-      //this.setState({ showInstallMessage: true });
+      //this.setStateFromValue({ showInstallMessage: true });
       // alert('showInstallMessage');
     }
 

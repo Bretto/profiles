@@ -1,7 +1,7 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {IProfile} from '../../profile.model';
 import {UiProjection} from '../../../ui/ui.projections';
-import {RouterState} from '../../../shared/utils';
+import {RouterState} from '../../../main/utils';
 
 @Component({
   selector: 'app-card-header',

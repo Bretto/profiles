@@ -1,8 +1,6 @@
 import {Action, Store} from '@ngrx/store';
 import {Command} from './command';
 import {Injectable} from '@angular/core';
-
-
 import {createAction} from 'redux-actions';
 import {Observable} from 'rxjs';
 
@@ -35,3 +33,4 @@ export class CommandsFactory {
     return action.result$;
   }
 }
+

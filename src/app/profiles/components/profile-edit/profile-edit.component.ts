@@ -6,8 +6,7 @@ import {ProfilesCommands} from '../../profiles.commands';
 import {Subject, Subscription} from 'rxjs';
 import {FormResponse} from '../../../shared/components/form-ui/form-ui.component';
 import {AppService} from '../../../main/app.service';
-import {getUID} from '../../../shared/utils';
-import {newProfile, IProfile} from '../../profile.model';
+import {IProfile} from '../../profile.model';
 import * as _ from 'lodash';
 
 
