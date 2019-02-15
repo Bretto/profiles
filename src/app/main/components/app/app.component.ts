@@ -1,5 +1,5 @@
 import {Component} from '@angular/core';
-import {UiProjection} from '../ui/ui.projections';
+import {UiProjection} from '../../../ui/store/ui.projections';
 
 @Component({
   selector: 'app-root',

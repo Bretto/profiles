@@ -1,11 +1,11 @@
 import {Injectable} from '@angular/core';
 import {from, Observable} from 'rxjs';
 import {map} from 'rxjs/operators';
-import {ProfilesCommands} from './profiles.commands';
 import {AngularFirestore} from 'angularfire2/firestore';
 import * as _ from 'lodash';
 import {IProfile} from './profile.model';
 import {Array$ToObj$, SnackBar, ToEvent} from '../decorators/decorators';
+import {ProfilesCommands} from './store/profiles.commands';
 
 @Injectable({
   providedIn: 'root'

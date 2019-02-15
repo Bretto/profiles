@@ -4,11 +4,11 @@ import {UserRoutingModule} from './user-routing.module';
 import {UserComponent} from './components/user/user.component';
 import {StoreModule} from '@ngrx/store';
 import {EffectsModule} from '@ngrx/effects';
-import {UserEffects} from './user.effects';
-import {getReducers} from './user.reducer';
 import {AuthService} from './auth.service';
-import {UserCommands} from './user.commands';
 import {auth} from 'firebase';
+import {getReducers} from './store/user.reducer';
+import {UserEffects} from './store/user.effects';
+import {UserCommands} from './store/user.commands';
 
 @NgModule({
   declarations: [UserComponent],

@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {Actions, Effect, ofType} from '@ngrx/effects';
 import {UiCommands} from './ui.commands';
-import {toEvent} from '../operators/operators';
+import {toEvent} from '../../operators/operators';
 
 @Injectable({providedIn: 'root'})
 export class UiEffects {

@@ -2,9 +2,9 @@ import {Injectable} from '@angular/core';
 import {Store} from '@ngrx/store';
 import {Observable} from 'rxjs';
 import {filter, map} from 'rxjs/operators';
-import {newProfile, IProfile} from './profile.model';
 import * as _ from 'lodash';
-import {Obj$ToArray$} from '../decorators/decorators';
+import {Obj$ToArray$} from '../../decorators/decorators';
+import {IProfile, newProfile} from '../profile.model';
 
 @Injectable({providedIn: 'root'})
 export class ProfilesProjections {

@@ -1,5 +1,5 @@
-import {toEvent} from '../main/utils';
 import {UserCommands} from './user.commands';
+import {toEvent} from '../../main/utils';
 
 
 export interface UserState {

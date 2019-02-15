@@ -1,5 +1,5 @@
 import {ProfilesCommands} from './profiles.commands';
-import {toEvent} from '../main/utils';
+import {toEvent} from '../../main/utils';
 
 
 export interface Profiles {

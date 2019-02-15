@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {UiState} from './ui.reducer';
-import {CommandsFactory} from '../services/commands-factory';
+import {CommandsFactory} from '../../main/services/commands-factory';
 
 @Injectable({providedIn: 'root'})
 export class UiCommands {

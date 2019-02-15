@@ -9,15 +9,14 @@ import {
 } from '@angular/core';
 import {ActivatedRoute, RouterOutlet} from '@angular/router';
 import {group, query, transition, trigger} from '@angular/animations';
-import {AppService} from '../../../main/app.service';
 import * as _ from 'lodash';
 import {ProfilesPluginService} from '../../../profiles/plugins/profiles-plugin.service';
 import {ShellNavProjections} from '../../shell-nav.projections';
-import {UiCommands} from '../../../ui/ui.commands';
-import {UiProjection} from '../../../ui/ui.projections';
 import {DistinctUntilChanged} from '../../../decorators/decorators';
 import {RouterState} from '../../../main/utils';
 import {translateX} from '../../../main/animations';
+import {UiCommands} from '../../../ui/store/ui.commands';
+import {UiProjection} from '../../../ui/store/ui.projections';
 
 @Component({
   selector: 'app-shell-nav',
@@ -64,8 +63,7 @@ export class ShellNavComponent implements OnInit, AfterViewInit {
 
 
 
-  constructor(private appService: AppService,
-              private _injector: Injector,
+  constructor(private _injector: Injector,
               private route: ActivatedRoute,
               private uiCommands: UiCommands,
               private uiProj: UiProjection,

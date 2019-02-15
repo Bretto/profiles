@@ -1,16 +1,11 @@
 import {NgModule} from '@angular/core';
-import {AppComponent} from './app.component';
 import {AppRoutingModule} from './app-routing.module';
-import {NotFoundPageComponent} from '../not-found-page/not-found-page.component';
-import {HomeComponent} from '../home/home.component';
 import {SharedModule} from '../shared/shared.module';
-import {reducers, metaReducers} from './app.store';
 import {StoreModule} from '@ngrx/store';
 import {EffectsModule} from '@ngrx/effects';
 import {RouterStateSerializer, StoreRouterConnectingModule} from '@ngrx/router-store';
 import {StoreDevtoolsModule} from '@ngrx/store-devtools';
 import {MatProgressButtonsModule} from 'mat-progress-buttons';
-import {AppEffects} from './app.effects';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {HTTP_INTERCEPTORS, HttpClient, HttpClientModule} from '@angular/common/http';
 import {BrowserModule} from '@angular/platform-browser';
@@ -27,6 +22,11 @@ import {UserModule} from '../user/user.module';
 import {CustomRouterStateSerializer} from './utils';
 import {CustomReuseStrategy} from './custom-strategy';
 import {UiModule} from '../ui/ui.module';
+import {AppComponent} from './components/app/app.component';
+import {NotFoundPageComponent} from './components/not-found-page/not-found-page.component';
+import {HomeComponent} from './components/home/home.component';
+import {AppEffects} from './store/app.effects';
+import {reducers, metaReducers} from './store/app.store';
 
 @NgModule({
   declarations: [

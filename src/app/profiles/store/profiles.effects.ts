@@ -1,9 +1,9 @@
 import {Injectable} from '@angular/core';
 import {Actions, Effect, ofType} from '@ngrx/effects';
 import {ProfilesCommands} from './profiles.commands';
-import {ProfilesService} from './profiles.service';
 import {MatSnackBar} from '@angular/material';
-import {setStateFromServiceWithFeedback} from '../operators/operators';
+import {ProfilesService} from '../profiles.service';
+import {setStateFromServiceWithFeedback} from '../../operators/operators';
 
 
 @Injectable({providedIn: 'root'})

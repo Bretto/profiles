@@ -9,16 +9,15 @@ import {
 } from '@angular/core';
 import {ActivatedRoute, RouterOutlet} from '@angular/router';
 import {group, query, transition, trigger} from '@angular/animations';
-import {AppService} from '../../../main/app.service';
 import {ShellProjections} from '../../shell.projections';
 import * as _ from 'lodash';
 import {ProfilesPluginService} from '../../../profiles/plugins/profiles-plugin.service';
 import {BreakpointObserver} from '@angular/cdk/layout';
-import {UiProjection} from '../../../ui/ui.projections';
-import {UiCommands} from '../../../ui/ui.commands';
 import {DistinctUntilChanged} from '../../../decorators/decorators';
 import {RouterState} from '../../../main/utils';
 import {translateX} from '../../../main/animations';
+import {UiCommands} from '../../../ui/store/ui.commands';
+import {UiProjection} from '../../../ui/store/ui.projections';
 
 @Component({
   selector: 'app-shell',
@@ -64,8 +63,7 @@ export class ShellComponent implements OnInit, AfterViewInit {
     this.uiCommands.setUi({headerIsVisible: value});
   }
 
-  constructor(private appService: AppService,
-              private uiCommands: UiCommands,
+  constructor(private uiCommands: UiCommands,
               private breakpointObserver: BreakpointObserver,
               private _injector: Injector,
               private uiProj: UiProjection,

@@ -1,12 +1,12 @@
 import {AfterViewInit, Component, OnDestroy, OnInit} from '@angular/core';
-import {ProfilesCommands} from '../../profiles.commands';
-import {ProfilesProjections} from '../../profiles.projections';
 import {ActivatedRoute, Router} from '@angular/router';
 import {Observable, Subscription} from 'rxjs';
 import {IProfile} from '../../profile.model';
-import {UiProjection} from '../../../ui/ui.projections';
 import {first} from 'rxjs/operators';
 import {RouterState} from '../../../main/utils';
+import {ProfilesCommands} from '../../store/profiles.commands';
+import {UiProjection} from '../../../ui/store/ui.projections';
+import {ProfilesProjections} from '../../store/profiles.projections';
 
 
 @Component({

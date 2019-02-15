@@ -1,13 +1,13 @@
 import {Component, Input, OnDestroy, OnInit} from '@angular/core';
-import {ProfilesProjections} from '../../profiles.projections';
 import {ActivatedRoute, Router} from '@angular/router';
-import {ProfilesCommands} from '../../profiles.commands';
 import {Subscription} from 'rxjs';
 import {newProfile, IProfile} from '../../profile.model';
 import * as _ from 'lodash';
 import {filter, first, tap} from 'rxjs/operators';
 import {AngularFirestore} from 'angularfire2/firestore';
-import {UiProjection} from '../../../ui/ui.projections';
+import {ProfilesProjections} from '../../store/profiles.projections';
+import {UiProjection} from '../../../ui/store/ui.projections';
+import {ProfilesCommands} from '../../store/profiles.commands';
 
 @Component({
   selector: 'app-img-edit',

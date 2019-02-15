@@ -1,11 +1,11 @@
 import {Component, OnInit} from '@angular/core';
-import {UiCommands} from '../../../ui/ui.commands';
 import {Observable} from 'rxjs';
-import {UiProjection} from '../../../ui/ui.projections';
-import {ProfilesCommands} from '../../profiles.commands';
 import {IProfile, newProfile} from '../../profile.model';
 import {ActivatedRoute, Router} from '@angular/router';
 import {getUID} from '../../../main/utils';
+import {UiCommands} from '../../../ui/store/ui.commands';
+import {UiProjection} from '../../../ui/store/ui.projections';
+import {ProfilesCommands} from '../../store/profiles.commands';
 
 @Component({
   selector: 'app-profiles-header',

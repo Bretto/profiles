@@ -1,7 +1,7 @@
 import {AfterViewInit, Directive, ElementRef, EventEmitter, HostListener, Input, Output} from '@angular/core';
 import {FormGroup} from '@angular/forms';
 import {Observable, of} from 'rxjs';
-import {UiProjection} from '../ui/ui.projections';
+import {UiProjection} from '../ui/store/ui.projections';
 
 
 @Directive({selector: '[OnLoad]'})

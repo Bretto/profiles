@@ -1,6 +1,6 @@
 import {UiCommands} from './ui.commands';
-import {Nav} from '../shell-nav/components/nav/nav.component';
-import {toEvent} from '../main/utils';
+import {Nav} from '../../shell-nav/components/nav/nav.component';
+import {toEvent} from '../../main/utils';
 
 
 export interface UiState {

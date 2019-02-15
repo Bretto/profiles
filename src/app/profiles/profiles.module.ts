@@ -5,14 +5,14 @@ import {ProfilesRoutingModule} from './profiles-routing.module';
 import {CardComponent} from './components/card/card.component';
 import {ProfileEditComponent} from './components/profile-edit/profile-edit.component';
 import {StoreModule} from '@ngrx/store';
-import {getReducers} from './profiles.reducer';
-import {ProfilesEffects} from './profiles.effects';
 import {EffectsModule} from '@ngrx/effects';
 import {ProfileComponent} from './components/profile/profile.component';
 import { ImgEditComponent } from './components/img-edit/img-edit.component';
 import { CardImgComponent } from './components/card-img/card-img.component';
 import {CardDetailComponent} from './components/card-detail/card-detail.component';
 import { CardHeaderComponent } from './components/card-header/card-header.component';
+import {getReducers} from './store/profiles.reducer';
+import {ProfilesEffects} from './store/profiles.effects';
 
 @NgModule({
   imports: [

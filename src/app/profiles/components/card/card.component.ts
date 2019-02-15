@@ -1,5 +1,4 @@
 import {AfterViewInit, Component, ElementRef, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {AppService} from '../../../main/app.service';
 import {IProfile} from '../../profile.model';
 
 @Component({

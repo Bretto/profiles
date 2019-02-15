@@ -1,11 +1,10 @@
 import {Injectable} from '@angular/core';
 import {ActivatedRouteSnapshot, Resolve, RouterStateSnapshot} from '@angular/router';
 import {Observable, of} from 'rxjs';
-import {UiProjection} from '../ui/ui.projections';
 import {delay, first, switchMap, tap} from 'rxjs/operators';
-import {ProfilesProjections} from './profiles.projections';
 import {IProfile} from './profile.model';
-import {ProfilesCommands} from './profiles.commands';
+import {ProfilesProjections} from './store/profiles.projections';
+import {ProfilesCommands} from './store/profiles.commands';
 
 @Injectable({
   providedIn: 'root'

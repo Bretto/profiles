@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import {UiCommands} from '../../../ui/ui.commands';
 import {Observable} from 'rxjs';
-import {UiProjection} from '../../../ui/ui.projections';
 import {AuthService} from '../../../user/auth.service';
+import {UiProjection} from '../../../ui/store/ui.projections';
+import {UiCommands} from '../../../ui/store/ui.commands';
 
 @Component({
   selector: 'app-side-nav',

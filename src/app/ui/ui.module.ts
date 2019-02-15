@@ -1,15 +1,15 @@
 import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
-import {getReducers} from './ui.reducer';
 import {EffectsModule} from '@ngrx/effects';
 import {StoreModule} from '@ngrx/store';
-import {UiEffects} from './ui.effects';
 import {BreakpointObserver, Breakpoints} from '@angular/cdk/layout';
 import {filter, map, startWith} from 'rxjs/operators';
 import {EMPTY, fromEvent, merge} from 'rxjs';
 import {NavigationEnd, NavigationStart, RouteConfigLoadStart, Router} from '@angular/router';
 import {AuthService} from '../user/auth.service';
-import {UiCommands} from './ui.commands';
+import {getReducers} from './store/ui.reducer';
+import {UiEffects} from './store/ui.effects';
+import {UiCommands} from './store/ui.commands';
 
 @NgModule({
   imports: [

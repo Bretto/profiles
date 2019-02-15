@@ -1,13 +1,12 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
-import {ProfilesProjections} from '../../profiles.projections';
 import {ActivatedRoute, Router} from '@angular/router';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {ProfilesCommands} from '../../profiles.commands';
 import {Subject, Subscription} from 'rxjs';
 import {FormResponse} from '../../../shared/components/form-ui/form-ui.component';
-import {AppService} from '../../../main/app.service';
 import {IProfile} from '../../profile.model';
 import * as _ from 'lodash';
+import {ProfilesProjections} from '../../store/profiles.projections';
+import {ProfilesCommands} from '../../store/profiles.commands';
 
 
 @Component({
@@ -26,7 +25,6 @@ export class ProfileEditComponent implements OnInit, OnDestroy {
 
   constructor(private profilesProj: ProfilesProjections,
               private profilesCommands: ProfilesCommands,
-              private appService: AppService,
               private activatedRoute: ActivatedRoute,
               private router: Router, private fb: FormBuilder) {
 

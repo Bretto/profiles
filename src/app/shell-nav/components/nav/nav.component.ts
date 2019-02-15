@@ -1,8 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import * as _ from 'lodash';
-import {UiProjection} from '../../../ui/ui.projections';
-import {UiCommands} from '../../../ui/ui.commands';
+import {UiProjection} from '../../../ui/store/ui.projections';
+import {UiCommands} from '../../../ui/store/ui.commands';
 
 
 export interface Nav {

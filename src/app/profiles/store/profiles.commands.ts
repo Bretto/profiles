@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {CommandsFactory} from '../services/commands-factory';
+import {CommandsFactory} from '../../main/services/commands-factory';
 
 @Injectable({providedIn: 'root'})
 export class ProfilesCommands {

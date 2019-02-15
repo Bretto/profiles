@@ -1,9 +1,9 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
-import {ProfilesProjections} from '../../profiles.projections';
 import {ActivatedRoute, Router} from '@angular/router';
-import {ProfilesCommands} from '../../profiles.commands';
 import {Subscription} from 'rxjs';
 import {IProfile} from '../../profile.model';
+import {ProfilesProjections} from '../../store/profiles.projections';
+import {ProfilesCommands} from '../../store/profiles.commands';
 
 @Component({
   selector: 'app-profile',
