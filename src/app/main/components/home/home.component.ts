@@ -4,19 +4,8 @@ import {image, lorem, name, random} from 'faker';
 import {ActivatedRoute, Router} from '@angular/router';
 import {AuthService} from '../../../user/auth.service';
 import {IProfile} from '../../../profiles/profile.model';
-
-
-Array.prototype['asyncReduce'] = async function (callback, initialVal) {
-  let accumulator = (initialVal === undefined) ? undefined : initialVal;
-  for (let i = 0; i < this.length; i++) {
-    if (accumulator !== undefined) {
-      accumulator = await callback.call(undefined, accumulator, this[i], i, this);
-    } else {
-      accumulator = this[i];
-    }
-  }
-  return accumulator;
-};
+import * as _ from 'lodash';
+import {DataGen} from '../../../fire/data-gen.service';
 
 
 @Component({
@@ -26,9 +15,9 @@ Array.prototype['asyncReduce'] = async function (callback, initialVal) {
 })
 export class HomeComponent implements OnInit {
 
-  constructor(public db: AngularFirestore,
-              private router: Router,
+  constructor(private router: Router,
               private activatedRoute: ActivatedRoute,
+              private dataGen: DataGen,
               public auth: AuthService) {
   }
 
@@ -36,51 +25,7 @@ export class HomeComponent implements OnInit {
   }
 
   async onResetDB() {
-    await this.deleteAll('profile');
-    await this.createProfiles();
-  }
-
-  private async createProfiles() {
-    const profiles: IProfile[] = Array(5)
-      .fill(1)
-      .map(_ => {
-
-        const av = image.avatar();
-        const firstName = name.firstName();
-        const lastName = name.lastName();
-
-        return {
-          id: random.uuid(),
-          firstName,
-          lastName,
-          bio: lorem.sentence(),
-          pic: {source: av, thumb: av},
-          deleted: false,
-          fullName() {
-            return `${firstName}  ${lastName}`;
-          }
-        };
-      });
-
-    return (profiles as any).asyncReduce(async (acc, curr) => {
-      acc.push(await this.createProfile(curr));
-      return acc;
-    }, []);
-  }
-
-  private createProfile = async (profile: IProfile) => {
-    const doc = await this.db.collection('profile').doc(profile.id).set(profile);
-    return profile;
-  };
-
-  private async deleteAll(col) {
-    const res: any = await this.db.collection(col).get().toPromise();
-    const ids = res.docs.map(x => x.id);
-
-    for (const id of ids) {
-      const doc = await this.db.doc(`${col}/${id}`);
-      await doc.delete();
-    }
+    this.dataGen.resetDB();
   }
 
   onGoogleLogin() {

@@ -10,13 +10,8 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {HTTP_INTERCEPTORS, HttpClient, HttpClientModule} from '@angular/common/http';
 import {BrowserModule} from '@angular/platform-browser';
 import {ServiceWorkerModule} from '@angular/service-worker';
-import {AngularFireModule} from 'angularfire2';
-import {AngularFirestore, FirestoreSettingsToken} from 'angularfire2/firestore';
-import {AngularFireAuth} from 'angularfire2/auth';
-import {AngularFireStorageModule} from 'angularfire2/storage';
 import {environment} from '../../environments/environment';
 import {RouteReuseStrategy} from '@angular/router';
-import {firebaseConfig} from '../../environments/firebase-config';
 import {AppInterceptor} from './app.interceptor';
 import {UserModule} from '../user/user.module';
 import {CustomRouterStateSerializer} from './utils';
@@ -27,6 +22,7 @@ import {NotFoundPageComponent} from './components/not-found-page/not-found-page.
 import {HomeComponent} from './components/home/home.component';
 import {AppEffects} from './store/app.effects';
 import {reducers, metaReducers} from './store/app.store';
+import {FireModule} from '../fire/fire.module';
 
 @NgModule({
   declarations: [
@@ -48,12 +44,9 @@ import {reducers, metaReducers} from './store/app.store';
     !environment.production ? StoreDevtoolsModule.instrument() : [],
     StoreRouterConnectingModule.forRoot({stateKey: 'router'}),
     // ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
-    AngularFireModule.initializeApp(firebaseConfig),
-    AngularFireStorageModule
+    FireModule
   ],
   providers: [
-    AngularFirestore,
-    AngularFireAuth,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: AppInterceptor,
@@ -61,7 +54,6 @@ import {reducers, metaReducers} from './store/app.store';
     },
     {provide: RouteReuseStrategy, useClass: CustomReuseStrategy},
     {provide: RouterStateSerializer, useClass: CustomRouterStateSerializer},
-    {provide: FirestoreSettingsToken, useValue: {}}
   ],
   bootstrap: [AppComponent]
 })
